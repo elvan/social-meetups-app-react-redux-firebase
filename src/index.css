@@ -1,3 +1,7 @@
 body {
   background-color: #eee;
 }
+
+a:active.dropdown-item {
+  background-color: #772953;
+}
