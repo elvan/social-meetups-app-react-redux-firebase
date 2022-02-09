@@ -2,29 +2,30 @@ import { Card, Col, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { FaClock, FaMapMarker } from 'react-icons/fa';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
-export const MeetupListItem = () => {
+export const MeetupListItem = ({ meetup }) => {
   return (
     <Card className='shadow mb-3 bg-white rounded'>
       <Card.Body className='row'>
         <Col xs={2}>
-          <Image src='https://via.placeholder.com/100' fluid roundedCircle />
+          <Image src={meetup.hostPhotoUrl} width={100} fluid roundedCircle />
         </Col>
         <Col xs={10}>
-          <Card.Title>Meetup Title</Card.Title>
+          <Card.Title>{meetup.title}</Card.Title>
           <Card.Text>
-            Hosted by <strong>John Doe</strong>
+            Hosted by <strong>{meetup.hostedBy}</strong>
           </Card.Text>
         </Col>
       </Card.Body>
       <ListGroup className='list-group-flush'>
         <ListGroupItem>
-          <FaClock /> Date
-          <FaMapMarker className='ml-3' /> Location
+          <FaClock size={18} /> {meetup.date}
+          <FaMapMarker size={18} className='ml-3' /> {meetup.venue},{' '}
+          {meetup.city}
         </ListGroupItem>
         <ListGroupItem>
-          <MeetupListAttendee />
-          <MeetupListAttendee />
-          <MeetupListAttendee />
+          {meetup.attendees.map((attendee) => (
+            <MeetupListAttendee key={attendee.id} attendee={attendee} />
+          ))}
         </ListGroupItem>
         <ListGroupItem>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum at modi

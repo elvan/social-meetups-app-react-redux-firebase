@@ -1,9 +1,10 @@
 import { Image } from 'react-bootstrap';
 
-export const MeetupListAttendee = () => {
+export const MeetupListAttendee = ({ attendee }) => {
   return (
     <Image
-      src='https://via.placeholder.com/50'
+      src={attendee.photoUrl}
+      width={50}
       fluid
       roundedCircle
       className='mr-1'

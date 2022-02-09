@@ -17,7 +17,7 @@ export const MeetupForm = () => {
 
         <Form.Group controlId='title'>
           <Form.Label>Description</Form.Label>
-          <Form.Control type='textarea' />
+          <Form.Control as='textarea' />
         </Form.Group>
 
         <Form.Group controlId='city'>

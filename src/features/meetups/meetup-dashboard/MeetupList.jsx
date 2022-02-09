@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { MeetupListItem } from './MeetupListItem';
 
-export const MeetupList = () => {
+export const MeetupList = ({ meetups }) => {
   return (
     <Fragment>
-      <MeetupListItem />
-      <MeetupListItem />
-      <MeetupListItem />
+      {meetups.map((meetup) => (
+        <MeetupListItem key={meetup.id} meetup={meetup} />
+      ))}
     </Fragment>
   );
 };
