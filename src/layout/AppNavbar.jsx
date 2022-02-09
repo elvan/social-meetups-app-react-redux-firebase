@@ -8,7 +8,7 @@ export const AppNavbar = ({ formOpen, setFormOpen }) => {
   return (
     <Navbar
       collapseOnSelect
-      className='mb-3'
+      className='mb-3 shadow'
       expand='md'
       bg='dark'
       variant='dark'
