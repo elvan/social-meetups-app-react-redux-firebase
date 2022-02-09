@@ -10,11 +10,11 @@ export const MeetupForm = ({
 }) => {
   const initialValues = selectedMeetup ?? {
     title: '',
+    date: '',
     category: '',
-    description: '',
     city: '',
     venue: '',
-    date: '',
+    description: '',
   };
 
   const [values, setValues] = useState(initialValues);
@@ -44,7 +44,7 @@ export const MeetupForm = ({
 
   return (
     <div className='shadow p-3 mb-3 bg-white rounded'>
-      <h4>Create New Meetup</h4>
+      {selectedMeetup ? <h4>Edit the Meetup</h4> : <h4>Create New Meetup</h4>}
       <Form onSubmit={handleFormSubmit}>
         <Form.Group controlId='title'>
           <Form.Label>Meetup Title</Form.Label>
@@ -56,22 +56,22 @@ export const MeetupForm = ({
           />
         </Form.Group>
 
+        <Form.Group controlId='date'>
+          <Form.Label>Date</Form.Label>
+          <Form.Control
+            type='date'
+            name='date'
+            value={values.date}
+            onChange={(event) => handleInputChange(event)}
+          />
+        </Form.Group>
+
         <Form.Group controlId='category'>
           <Form.Label>Category</Form.Label>
           <Form.Control
             type='text'
             name='category'
             value={values.category}
-            onChange={(event) => handleInputChange(event)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId='title'>
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as='textarea'
-            name='description'
-            value={values.description}
             onChange={(event) => handleInputChange(event)}
           />
         </Form.Group>
@@ -96,13 +96,14 @@ export const MeetupForm = ({
           />
         </Form.Group>
 
-        <Form.Group controlId='date'>
-          <Form.Label>Date</Form.Label>
+        <Form.Group controlId='title'>
+          <Form.Label>Description</Form.Label>
           <Form.Control
-            type='date'
-            name='date'
-            value={values.date}
+            as='textarea'
+            name='description'
+            value={values.description}
             onChange={(event) => handleInputChange(event)}
+            rows={5}
           />
         </Form.Group>
 

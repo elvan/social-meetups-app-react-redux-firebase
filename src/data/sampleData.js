@@ -5,7 +5,7 @@ export const sampleData = [
     date: '2022-03-21',
     category: 'culture',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
+      'Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.',
     city: 'NY, USA',
     venue: 'Empire State Building, 5th Avenue, New York, NY, USA',
     hostedBy: 'Aaron',
@@ -29,7 +29,7 @@ export const sampleData = [
     date: '2022-03-18',
     category: 'drinks',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
+      'Nulla porttitor accumsan tincidunt. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
     city: 'London, UK',
     venue: 'Punch & Judy, Henrietta Street, London, UK',
     hostedBy: 'Harry',

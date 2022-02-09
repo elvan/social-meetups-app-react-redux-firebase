@@ -24,6 +24,7 @@ export const MeetupDashboard = ({
       <Col md={4}>
         {formOpen && (
           <MeetupForm
+            key={selectedMeetup ? selectedMeetup.id : 'new'}
             setFormOpen={setFormOpen}
             setMeetups={setMeetups}
             handleCreateMeetup={handleCreateMeetup}
