@@ -2,8 +2,14 @@ body {
   background-color: #eee;
 }
 
-a:active.dropdown-item {
+a:hover.dropdown-item {
+  color: white;
   background-color: #772953;
+}
+
+a:active.dropdown-item {
+  color: white;
+  background-color: #6610f2;
 }
 
 .dropdown-menu {
