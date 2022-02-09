@@ -4,7 +4,7 @@ import { MeetupListAttendee } from './MeetupListAttendee';
 
 export const MeetupListItem = () => {
   return (
-    <Card style={{ width: '100%' }} className='shadow mb-3 bg-white rounded'>
+    <Card className='shadow mb-3 bg-white rounded'>
       <Card.Body className='row'>
         <Col xs={2}>
           <Image src='https://via.placeholder.com/100' fluid roundedCircle />
@@ -37,7 +37,7 @@ export const MeetupListItem = () => {
         <a href='/meetups/123' className='btn btn-success mr-2'>
           View Meetup
         </a>
-        <a href='/manage-meetup/123' className='btn btn-outline-primary'>
+        <a href='/manage-meetup/123' className='btn btn-outline-info'>
           Manage
         </a>
       </Card.Body>
