@@ -1,6 +1,10 @@
 import { Button, Form } from 'react-bootstrap';
 
-export const MeetupForm = () => {
+export const MeetupForm = ({ setFormOpen }) => {
+  const closeForm = () => {
+    setFormOpen(false);
+  };
+
   return (
     <div className='shadow p-3 mb-3 bg-white rounded'>
       <h4>Create New Meetup</h4>
@@ -38,7 +42,7 @@ export const MeetupForm = () => {
         <Button variant='success' type='submit' className='mr-2'>
           Submit
         </Button>
-        <Button variant='light' type='button'>
+        <Button variant='light' type='button' onClick={closeForm}>
           Cancel
         </Button>
       </Form>

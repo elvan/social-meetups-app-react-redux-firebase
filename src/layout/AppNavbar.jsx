@@ -1,6 +1,10 @@
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
-export const AppNavbar = () => {
+export const AppNavbar = ({ formOpen, setFormOpen }) => {
+  const toggleFormOpen = () => {
+    setFormOpen(!formOpen);
+  };
+
   return (
     <Navbar
       collapseOnSelect
@@ -15,7 +19,7 @@ export const AppNavbar = () => {
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
             <Nav.Link href='/meetups'>All Meetups</Nav.Link>
-            <Nav.Link href='/create-meetup'>Create Meetup</Nav.Link>
+            <Nav.Link onClick={toggleFormOpen}>Create Meetup</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href='/login'>Login</Nav.Link>
