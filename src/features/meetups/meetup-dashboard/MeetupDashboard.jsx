@@ -4,7 +4,12 @@ import { sampleData } from '../../../data/sampleData';
 import { MeetupForm } from '../meetup-form/MeetupForm';
 import { MeetupList } from './MeetupList';
 
-export const MeetupDashboard = ({ formOpen, setFormOpen }) => {
+export const MeetupDashboard = ({
+  formOpen,
+  setFormOpen,
+  selectMeetup,
+  selectedMeetup,
+}) => {
   const [meetups, setMeetups] = useState(sampleData);
 
   const handleCreateMeetup = (meetup) => {
@@ -14,7 +19,7 @@ export const MeetupDashboard = ({ formOpen, setFormOpen }) => {
   return (
     <Row>
       <Col md={8}>
-        <MeetupList meetups={meetups} />
+        <MeetupList meetups={meetups} selectMeetup={selectMeetup} />
       </Col>
       <Col md={4}>
         {formOpen && (
@@ -22,6 +27,7 @@ export const MeetupDashboard = ({ formOpen, setFormOpen }) => {
             setFormOpen={setFormOpen}
             setMeetups={setMeetups}
             handleCreateMeetup={handleCreateMeetup}
+            selectedMeetup={selectedMeetup}
           />
         )}
       </Col>

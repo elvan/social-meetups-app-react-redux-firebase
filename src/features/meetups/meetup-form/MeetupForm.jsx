@@ -2,8 +2,13 @@ import cuid from 'cuid';
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-export const MeetupForm = ({ setFormOpen, setMeetups, handleCreateMeetup }) => {
-  const initialValues = {
+export const MeetupForm = ({
+  setFormOpen,
+  setMeetups,
+  handleCreateMeetup,
+  selectedMeetup,
+}) => {
+  const initialValues = selectedMeetup ?? {
     title: '',
     category: '',
     description: '',

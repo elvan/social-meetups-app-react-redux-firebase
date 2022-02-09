@@ -1,8 +1,16 @@
-import { Card, Col, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Col,
+  Image,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from 'react-bootstrap';
 import { FaClock, FaMapMarker, FaTag } from 'react-icons/fa';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
-export const MeetupListItem = ({ meetup }) => {
+export const MeetupListItem = ({ meetup, selectMeetup }) => {
   return (
     <Card className='shadow mb-3 bg-white rounded'>
       <Card.Body className='row'>
@@ -18,10 +26,16 @@ export const MeetupListItem = ({ meetup }) => {
       </Card.Body>
       <ListGroup className='list-group-flush'>
         <ListGroupItem>
-          <FaClock size={16} className='mr-1' />
-          {meetup.date}
-          <FaTag size={16} className='ml-3 mr-1' />
-          {meetup.category}
+          <Row>
+            <Col>
+              <FaClock size={16} className='mr-1' />
+              {meetup.date}
+            </Col>
+            <Col>
+              <FaTag size={16} className='ml-3 mr-1' />
+              {meetup.category}
+            </Col>
+          </Row>
         </ListGroupItem>
         <ListGroupItem>
           <FaMapMarker size={16} className='mr-1' />
@@ -35,12 +49,15 @@ export const MeetupListItem = ({ meetup }) => {
         <ListGroupItem>{meetup.description}</ListGroupItem>
       </ListGroup>
       <Card.Body className='col-12'>
-        <a href={`/meetups/${meetup.id}`} className='btn btn-success mr-2'>
+        <Button
+          className='btn btn-info mr-2'
+          onClick={() => selectMeetup(meetup)}
+        >
           View Meetup
-        </a>
+        </Button>
         <a
           href={`/manage-meetup/${meetup.id}`}
-          className='btn btn-outline-info'
+          className='btn btn-outline-secondary'
         >
           Manage
         </a>
