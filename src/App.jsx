@@ -1,15 +1,11 @@
-import { Button, Container, Spinner } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import { MeetupDashboard } from './features/meetups/meetup-dashboard/MeetupDashboard';
 
 export const App = () => {
   return (
     <Container fluid='lg' className='vh-100'>
       <h1>SocialMeetups</h1>
-      <div>
-        <Button variant='dark' disabled>
-          <Spinner animation='border' as='span' className='mr-2' size='sm' />
-          Loading...
-        </Button>
-      </div>
+      <MeetupDashboard />
     </Container>
   );
 };
