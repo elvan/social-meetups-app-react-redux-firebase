@@ -25,10 +25,20 @@ export const MeetupDashboard = ({
     selectMeetup(null);
   };
 
+  const handleDeleteMeetup = (id) => {
+    setMeetups(meetups.filter((meetup) => meetup.id !== id));
+    selectMeetup(null);
+    setFormOpen(false);
+  };
+
   return (
     <Row>
       <Col md={8}>
-        <MeetupList meetups={meetups} selectMeetup={selectMeetup} />
+        <MeetupList
+          meetups={meetups}
+          selectMeetup={selectMeetup}
+          deleteMeetup={handleDeleteMeetup}
+        />
       </Col>
       <Col md={4}>
         {formOpen && (

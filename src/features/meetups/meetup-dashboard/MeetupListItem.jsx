@@ -10,7 +10,7 @@ import {
 import { FaClock, FaMapMarker, FaTag } from 'react-icons/fa';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
-export const MeetupListItem = ({ meetup, selectMeetup }) => {
+export const MeetupListItem = ({ meetup, selectMeetup, deleteMeetup }) => {
   return (
     <Card className='shadow mb-3 bg-white rounded'>
       <Card.Body className='row'>
@@ -55,12 +55,12 @@ export const MeetupListItem = ({ meetup, selectMeetup }) => {
         >
           View Meetup
         </Button>
-        <a
-          href={`/manage-meetup/${meetup.id}`}
-          className='btn btn-outline-secondary'
+        <Button
+          className='btn btn-danger mr-2'
+          onClick={() => deleteMeetup(meetup.id)}
         >
-          Manage
-        </a>
+          Delete
+        </Button>
       </Card.Body>
     </Card>
   );
