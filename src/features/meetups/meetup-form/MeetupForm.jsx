@@ -4,9 +4,9 @@ import { Button, Form } from 'react-bootstrap';
 
 export const MeetupForm = ({
   setFormOpen,
-  setMeetups,
-  handleCreateMeetup,
+  createMeetup,
   selectedMeetup,
+  updateMeetup,
 }) => {
   const initialValues = selectedMeetup ?? {
     title: '',
@@ -31,13 +31,20 @@ export const MeetupForm = ({
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    handleCreateMeetup({
-      ...values,
-      id: cuid(),
-      hostedBy: 'Cristiano',
-      hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
-      attendees: [],
-    });
+    if (selectedMeetup) {
+      updateMeetup({
+        ...selectedMeetup,
+        ...values,
+      });
+    } else {
+      createMeetup({
+        ...values,
+        id: cuid(),
+        hostedBy: 'Cristiano',
+        hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+        attendees: [],
+      });
+    }
 
     setFormOpen(false);
   };

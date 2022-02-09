@@ -16,6 +16,15 @@ export const MeetupDashboard = ({
     setMeetups([...meetups, meetup]);
   };
 
+  const handleUpdateMeetup = (updatedMeetup) => {
+    setMeetups(
+      meetups.map((meetup) =>
+        meetup.id === updatedMeetup.id ? updatedMeetup : meetup
+      )
+    );
+    selectMeetup(null);
+  };
+
   return (
     <Row>
       <Col md={8}>
@@ -26,9 +35,9 @@ export const MeetupDashboard = ({
           <MeetupForm
             key={selectedMeetup ? selectedMeetup.id : 'new'}
             setFormOpen={setFormOpen}
-            setMeetups={setMeetups}
-            handleCreateMeetup={handleCreateMeetup}
+            createMeetup={handleCreateMeetup}
             selectedMeetup={selectedMeetup}
+            updateMeetup={handleUpdateMeetup}
           />
         )}
       </Col>
