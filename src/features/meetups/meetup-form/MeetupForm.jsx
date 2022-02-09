@@ -1,7 +1,8 @@
+import cuid from 'cuid';
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-export const MeetupForm = ({ setFormOpen, setMeetups }) => {
+export const MeetupForm = ({ setFormOpen, setMeetups, handleCreateMeetup }) => {
   const initialValues = {
     title: '',
     category: '',
@@ -22,16 +23,24 @@ export const MeetupForm = ({ setFormOpen, setMeetups }) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    console.log(values);
+    handleCreateMeetup({
+      ...values,
+      id: cuid(),
+      hostedBy: 'Cristiano',
+      hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+      attendees: [],
+    });
+
+    setFormOpen(false);
   };
 
   return (
     <div className='shadow p-3 mb-3 bg-white rounded'>
       <h4>Create New Meetup</h4>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleFormSubmit}>
         <Form.Group controlId='title'>
           <Form.Label>Meetup Title</Form.Label>
           <Form.Control
