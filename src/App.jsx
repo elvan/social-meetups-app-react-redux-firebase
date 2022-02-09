@@ -4,7 +4,7 @@ import { MeetupDashboard } from './features/meetups/meetup-dashboard/MeetupDashb
 import { AppNavbar } from './layout/AppNavbar';
 
 export const App = () => {
-  const [formOpen, setFormOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(true);
 
   return (
     <div className='vh-100'>

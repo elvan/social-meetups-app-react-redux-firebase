@@ -12,7 +12,11 @@ export const MeetupDashboard = ({ formOpen, setFormOpen }) => {
       <Col md={8}>
         <MeetupList meetups={meetups} />
       </Col>
-      <Col md={4}>{formOpen && <MeetupForm setFormOpen={setFormOpen} />}</Col>
+      <Col md={4}>
+        {formOpen && (
+          <MeetupForm setFormOpen={setFormOpen} setMeetups={setMeetups} />
+        )}
+      </Col>
     </Row>
   );
 };
