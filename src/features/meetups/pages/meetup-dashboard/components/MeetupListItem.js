@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   Col,
   Image,
@@ -57,34 +58,30 @@ export const MeetupListItem = ({ meetup, deleteMeetup }) => {
             {meetup.venue}
           </div>
         </ListGroupItem>
-        <ListGroupItem className='bg-light py-2'>
+        <ListGroupItem className='py-2'>
           {meetup.attendees.map((attendee) => (
             <MeetupListAttendee key={attendee.id} attendee={attendee} />
           ))}
         </ListGroupItem>
         <ListGroupItem>{meetup.description}</ListGroupItem>
+        <ListGroupItem className='bg-light'>
+          <Link to={`/meetups/${meetup.id}`} className='btn btn-info mr-2'>
+            <div className='d-flex align-items-center'>
+              <FaUsers size={15} className='mr-2' />
+              View Meetup
+            </div>
+          </Link>
+          <Button
+            className='btn btn-danger mr-2'
+            onClick={() => deleteMeetup(meetup.id)}
+          >
+            <div className='d-flex align-items-center'>
+              <FaTrashAlt size={15} className='mr-2' />
+              Delete
+            </div>
+          </Button>
+        </ListGroupItem>
       </ListGroup>
-      <Card.Body style={{ padding: '12px 20px' }}>
-        <Card.Link
-          as={Link}
-          to={`/meetups/${meetup.id}`}
-          className='btn btn-info'
-        >
-          <div className='d-flex align-items-center'>
-            <FaUsers size={15} className='mr-2' />
-            View Meetup
-          </div>
-        </Card.Link>
-        <Card.Link
-          className='btn btn-danger mr-2'
-          onClick={() => deleteMeetup(meetup.id)}
-        >
-          <div className='d-flex align-items-center'>
-            <FaTrashAlt size={15} className='mr-2' />
-            Delete
-          </div>
-        </Card.Link>
-      </Card.Body>
     </Card>
   );
 };
