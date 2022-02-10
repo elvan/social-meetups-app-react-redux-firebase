@@ -15,7 +15,7 @@ export const MeetupDetailsChat = () => {
           <div className='media'>
             <img
               src='https://randomuser.me/api/portraits/men/9.jpg'
-              className='align-self-start mr-3'
+              className='align-self-start mr-3 rounded-circle'
               alt='a man'
               width={50}
             />
@@ -32,7 +32,7 @@ export const MeetupDetailsChat = () => {
           <div className='media'>
             <img
               src='https://randomuser.me/api/portraits/men/13.jpg'
-              className='align-self-start mr-3'
+              className='align-self-start mr-3 rounded-circle'
               alt='a man'
               width={50}
             />

@@ -16,7 +16,7 @@ export const MeetupDetailsSidebar = () => {
               src='https://randomuser.me/api/portraits/men/9.jpg'
               alt='a man'
               width={50}
-              className='mr-2'
+              className='mr-2 rounded-circle'
             />
             <h5 className='card-title'>Example User</h5>
           </li>
@@ -25,7 +25,7 @@ export const MeetupDetailsSidebar = () => {
               src='https://randomuser.me/api/portraits/men/10.jpg'
               alt='a man'
               width={50}
-              className='mr-2'
+              className='mr-2 rounded-circle'
             />
             <h5 className='card-title'>Example User</h5>
           </li>
@@ -34,7 +34,7 @@ export const MeetupDetailsSidebar = () => {
               src='https://randomuser.me/api/portraits/men/11.jpg'
               alt='a man'
               width={50}
-              className='mr-2'
+              className='mr-2 rounded-circle'
             />
             <h5 className='card-title'>Example User</h5>
           </li>
