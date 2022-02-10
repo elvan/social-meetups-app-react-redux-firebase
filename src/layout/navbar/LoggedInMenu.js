@@ -3,7 +3,7 @@ import { Image, NavDropdown } from 'react-bootstrap';
 import { FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-export const LoggedInMenu = ({ setAuthenticated }) => {
+export const LoggedInMenu = ({ handleLogout }) => {
   return (
     <NavDropdown
       alignRight={true}
@@ -30,7 +30,7 @@ export const LoggedInMenu = ({ setAuthenticated }) => {
         My Profile
       </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item onClick={() => setAuthenticated(false)}>
+      <NavDropdown.Item onClick={handleLogout}>
         <FaSignOutAlt className='mr-2' />
         Logout
       </NavDropdown.Item>

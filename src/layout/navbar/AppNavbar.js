@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
 
 export const AppNavbar = ({ formOpen, setFormOpen }) => {
   const [authenticated, setAuthenticated] = useState(true);
+
+  const history = useHistory();
+
+  const handleLogout = () => {
+    setAuthenticated(false);
+    history.push('/');
+  };
 
   return (
     <Navbar
@@ -32,9 +39,7 @@ export const AppNavbar = ({ formOpen, setFormOpen }) => {
             )}
           </Nav>
           <Nav>
-            {authenticated && (
-              <LoggedInMenu setAuthenticated={setAuthenticated} />
-            )}
+            {authenticated && <LoggedInMenu handleLogout={handleLogout} />}
             {!authenticated && (
               <LoggedOutMenu setAuthenticated={setAuthenticated} />
             )}
