@@ -19,7 +19,7 @@ export const AppNavbar = ({ formOpen, setFormOpen }) => {
       collapseOnSelect
       className='mb-3 shadow'
       expand='md'
-      bg='info'
+      bg='primary'
       variant='dark'
     >
       <Container fluid='lg'>
