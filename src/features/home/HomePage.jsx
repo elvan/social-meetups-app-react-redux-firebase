@@ -1,4 +1,5 @@
 import { Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
   return (
@@ -21,9 +22,9 @@ export const HomePage = () => {
             debitis ex distinctio, blanditiis dolore quam veniam qui! Aperiam
             distinctio sequi cupiditate excepturi consectetur.
           </p>
-          <a className='btn btn-dark btn-lg' href='/meetups' role='button'>
+          <Link className='btn btn-dark btn-lg' to='/meetups' role='button'>
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
       <div className='col-4'>
