@@ -1,13 +1,18 @@
 import cuid from 'cuid';
 import { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createMeetup, updateMeetup } from '../../store/meetupActions';
 
-export const MeetupFormPage = ({
-  createMeetup,
-  selectedMeetup,
-  updateMeetup,
-}) => {
+export const MeetupFormPage = ({ history, match }) => {
+  const selectedMeetup = useSelector((state) =>
+    // @ts-ignore
+    state.meetupState.meetups.find((meetup) => meetup.id === match.params.id)
+  );
+
+  const dispatch = useDispatch();
+
   const initialValues = selectedMeetup ?? {
     title: '',
     date: '',
@@ -32,18 +37,24 @@ export const MeetupFormPage = ({
     event.preventDefault();
 
     if (selectedMeetup) {
-      updateMeetup({
-        ...selectedMeetup,
-        ...values,
-      });
+      dispatch(
+        updateMeetup({
+          ...selectedMeetup,
+          ...values,
+        })
+      );
+      history.push(`/meetups/${selectedMeetup.id}`);
     } else {
-      createMeetup({
-        ...values,
-        id: cuid(),
-        hostedBy: 'Cristiano',
-        hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
-        attendees: [],
-      });
+      dispatch(
+        createMeetup({
+          ...values,
+          id: cuid(),
+          hostedBy: 'Cristiano',
+          hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+          attendees: [],
+        })
+      );
+      history.push('/meetups');
     }
   };
 
@@ -61,7 +72,7 @@ export const MeetupFormPage = ({
 
           <Form onSubmit={handleFormSubmit}>
             <Form.Group controlId='title'>
-              <Form.Label>Meetup Title</Form.Label>
+              <Form.Label>Title</Form.Label>
               <Form.Control
                 type='text'
                 name='title'
