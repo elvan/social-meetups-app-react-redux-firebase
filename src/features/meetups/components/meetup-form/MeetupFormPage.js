@@ -2,7 +2,7 @@ import cuid from 'cuid';
 import { useState } from 'react';
 import { Button, Form, Row } from 'react-bootstrap';
 
-export const MeetupForm = ({
+export const MeetupFormPage = ({
   setFormOpen,
   createMeetup,
   selectedMeetup,

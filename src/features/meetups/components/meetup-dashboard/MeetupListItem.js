@@ -8,6 +8,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import { FaClock, FaMapMarker, FaTag } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
 export const MeetupListItem = ({ meetup, selectMeetup, deleteMeetup }) => {
@@ -49,12 +50,9 @@ export const MeetupListItem = ({ meetup, selectMeetup, deleteMeetup }) => {
         <ListGroupItem>{meetup.description}</ListGroupItem>
       </ListGroup>
       <Card.Body className='col-12'>
-        <Button
-          className='btn btn-info mr-2'
-          onClick={() => selectMeetup(meetup)}
-        >
+        <Link to={`/meetups/${meetup.id}`} className='btn btn-info mr-2'>
           View Meetup
-        </Button>
+        </Link>
         <Button
           className='btn btn-danger mr-2'
           onClick={() => deleteMeetup(meetup.id)}

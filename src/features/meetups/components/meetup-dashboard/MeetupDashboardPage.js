@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { sampleData } from '../../../data/sampleData';
-import { MeetupForm } from '../meetup-form/MeetupForm';
+import { sampleData } from '../../data/sampleData';
+import { MeetupFormPage } from '../meetup-form/MeetupFormPage';
 import { MeetupList } from './MeetupList';
 
-export const MeetupDashboard = ({
+export const MeetupDashboardPage = ({
   formOpen,
   setFormOpen,
   selectMeetup,
@@ -42,7 +42,7 @@ export const MeetupDashboard = ({
       </Col>
       <Col md={4}>
         {formOpen && (
-          <MeetupForm
+          <MeetupFormPage
             key={selectedMeetup ? selectedMeetup.id : 'new'}
             setFormOpen={setFormOpen}
             createMeetup={handleCreateMeetup}

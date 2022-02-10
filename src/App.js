@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import { HomePage } from './features/home/HomePage';
-import { MeetupDashboard } from './features/meetups/meetup-dashboard/MeetupDashboard';
-import { MeetupDetails } from './features/meetups/meetup-details/MeetupDetails';
-import { MeetupForm } from './features/meetups/meetup-form/MeetupForm';
+import { MeetupDashboardPage } from './features/meetups/components/meetup-dashboard/MeetupDashboardPage';
+import { MeetupDetailsPage } from './features/meetups/components/meetup-details/MeetupDetailsPage';
+import { MeetupFormPage } from './features/meetups/components/meetup-form/MeetupFormPage';
 import { AppNavbar } from './layout/AppNavbar';
 
 export const App = () => {
@@ -27,9 +27,9 @@ export const App = () => {
       <Container fluid='lg'>
         <Switch>
           <Route path='/' component={HomePage} exact />
-          <Route path='/meetups' component={MeetupDashboard} />
-          <Route path='/meetups/:id' component={MeetupDetails} />
-          <Route path='/create-meetup' component={MeetupForm} />
+          <Route path='/meetups' component={MeetupDashboardPage} exact />
+          <Route path='/meetups/:id' component={MeetupDetailsPage} exact />
+          <Route path='/create-meetup' component={MeetupFormPage} exact />
         </Switch>
       </Container>
     </div>
