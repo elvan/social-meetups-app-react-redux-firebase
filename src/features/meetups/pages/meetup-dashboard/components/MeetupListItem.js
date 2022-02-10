@@ -14,10 +14,18 @@ import {
   FaTrashAlt,
   FaUsers,
 } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteMeetup } from '../../../store/meetupActions';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
-export const MeetupListItem = ({ meetup, deleteMeetup }) => {
+export const MeetupListItem = ({ meetup }) => {
+  const dispath = useDispatch();
+
+  function handleDelete() {
+    dispath(deleteMeetup(meetup.id));
+  }
+
   return (
     <Card className='shadow mb-3 bg-white rounded'>
       <Card.Body className='row py-3 px-4 clearfix'>
@@ -71,10 +79,7 @@ export const MeetupListItem = ({ meetup, deleteMeetup }) => {
               View Meetup
             </div>
           </Link>
-          <Button
-            className='btn btn-danger mr-2'
-            onClick={() => deleteMeetup(meetup.id)}
-          >
+          <Button className='btn btn-danger mr-2' onClick={handleDelete}>
             <div className='d-flex align-items-center'>
               <FaTrashAlt size={15} className='mr-2' />
               Delete
