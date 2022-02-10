@@ -1,6 +1,6 @@
 import cuid from 'cuid';
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row } from 'react-bootstrap';
 
 export const MeetupForm = ({
   setFormOpen,
@@ -50,81 +50,97 @@ export const MeetupForm = ({
   };
 
   return (
-    <div className='shadow p-3 mb-3 bg-white rounded'>
-      {selectedMeetup ? <h4>Edit the Meetup</h4> : <h4>Create New Meetup</h4>}
-      <Form onSubmit={handleFormSubmit}>
-        <Form.Group controlId='title'>
-          <Form.Label>Meetup Title</Form.Label>
-          <Form.Control
-            type='text'
-            name='title'
-            value={values.title}
-            onChange={(event) => handleInputChange(event)}
-          />
-        </Form.Group>
+    <Row>
+      <div className='col-8 mb-3'>
+        <div className='p-3 bg-white rounded shadow'>
+          {selectedMeetup ? (
+            <h4>Edit the Meetup</h4>
+          ) : (
+            <h4>Create New Meetup</h4>
+          )}
 
-        <Form.Group controlId='date'>
-          <Form.Label>Date</Form.Label>
-          <Form.Control
-            type='date'
-            name='date'
-            value={values.date}
-            onChange={(event) => handleInputChange(event)}
-          />
-        </Form.Group>
+          <hr />
 
-        <Form.Group controlId='category'>
-          <Form.Label>Category</Form.Label>
-          <Form.Control
-            type='text'
-            name='category'
-            value={values.category}
-            onChange={(event) => handleInputChange(event)}
-          />
-        </Form.Group>
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group controlId='title'>
+              <Form.Label>Meetup Title</Form.Label>
+              <Form.Control
+                type='text'
+                name='title'
+                value={values.title}
+                onChange={(event) => handleInputChange(event)}
+              />
+            </Form.Group>
 
-        <Form.Group controlId='city'>
-          <Form.Label>City</Form.Label>
-          <Form.Control
-            type='text'
-            name='city'
-            value={values.city}
-            onChange={(event) => handleInputChange(event)}
-          />
-        </Form.Group>
+            <Form.Group controlId='date'>
+              <Form.Label>Date</Form.Label>
+              <Form.Control
+                type='date'
+                name='date'
+                value={values.date}
+                onChange={(event) => handleInputChange(event)}
+              />
+            </Form.Group>
 
-        <Form.Group controlId='venue'>
-          <Form.Label>Venue</Form.Label>
-          <Form.Control
-            type='text'
-            name='venue'
-            value={values.venue}
-            onChange={(event) => handleInputChange(event)}
-          />
-        </Form.Group>
+            <Form.Group controlId='category'>
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                type='text'
+                name='category'
+                value={values.category}
+                onChange={(event) => handleInputChange(event)}
+              />
+            </Form.Group>
 
-        <Form.Group controlId='title'>
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as='textarea'
-            name='description'
-            value={values.description}
-            onChange={(event) => handleInputChange(event)}
-            rows={5}
-          />
-        </Form.Group>
+            <Form.Group controlId='city'>
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                type='text'
+                name='city'
+                value={values.city}
+                onChange={(event) => handleInputChange(event)}
+              />
+            </Form.Group>
 
-        <Button variant='success' type='submit' className='mr-2'>
-          Submit
-        </Button>
-        <Button
-          variant='light'
-          type='button'
-          onClick={() => setFormOpen(false)}
-        >
-          Cancel
-        </Button>
-      </Form>
-    </div>
+            <Form.Group controlId='venue'>
+              <Form.Label>Venue</Form.Label>
+              <Form.Control
+                type='text'
+                name='venue'
+                value={values.venue}
+                onChange={(event) => handleInputChange(event)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId='title'>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as='textarea'
+                name='description'
+                value={values.description}
+                onChange={(event) => handleInputChange(event)}
+                rows={5}
+              />
+            </Form.Group>
+
+            <Button variant='success' type='submit' className='mr-2'>
+              Submit
+            </Button>
+            <Button
+              variant='light'
+              type='button'
+              onClick={() => setFormOpen(false)}
+            >
+              Cancel
+            </Button>
+          </Form>
+        </div>
+      </div>
+      <div className='col-4  mb-3'>
+        <div className='p-3 bg-white rounded shadow'>
+          <h4>Sidebar</h4>
+        </div>
+      </div>
+    </Row>
   );
 };

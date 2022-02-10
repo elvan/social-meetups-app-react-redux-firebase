@@ -19,7 +19,7 @@ export const AppNavbar = ({ formOpen, setFormOpen }) => {
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
             <Nav.Link href='/meetups'>All Meetups</Nav.Link>
-            <Nav.Link onClick={toggleFormOpen}>Create Meetup</Nav.Link>
+            <Nav.Link href='/create-meetup'>Create Meetup</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href='/login'>Login</Nav.Link>
