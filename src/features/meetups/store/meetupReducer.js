@@ -31,6 +31,6 @@ export function meetupReducer(state = initialState, { type, payload }) {
       };
 
     default:
-      break;
+      return state;
   }
 }

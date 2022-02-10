@@ -3,7 +3,8 @@ import { decrement, increment } from '../store/testActions';
 
 export const SandboxPage = () => {
   // @ts-ignore
-  const data = useSelector((state) => state.data);
+  const data = useSelector((state) => state.testState.data);
+
   const dispatch = useDispatch();
 
   return (
