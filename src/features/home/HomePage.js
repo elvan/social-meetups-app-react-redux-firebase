@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export const HomePage = ({ history }) => {
@@ -41,6 +42,7 @@ export const HomePage = ({ history }) => {
                   </Form.Group>
 
                   <Button type='submit' block className='btn-lg shadow'>
+                    <FaSignInAlt size={18} className='mr-2' />
                     Login
                   </Button>
                 </Form>
@@ -59,6 +61,7 @@ export const HomePage = ({ history }) => {
                     to='/register'
                     role='button'
                   >
+                    <FaUserPlus size={18} className='mr-2' />
                     Create New Account
                   </Link>
                 </p>
