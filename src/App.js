@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch, useLocation } from 'react-router-dom';
+import { AppNavbar } from './components/navbar/AppNavbar';
 import { HomePage } from './features/home/HomePage';
 import { MeetupDashboardPage } from './features/meetups/pages/meetup-dashboard/MeetupDashboardPage';
 import { MeetupDetailsPage } from './features/meetups/pages/meetup-details/MeetupDetailsPage';
 import { MeetupFormPage } from './features/meetups/pages/meetup-form/MeetupFormPage';
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
-import { AppNavbar } from './layout/navbar/AppNavbar';
 
 export const App = () => {
   const { key } = useLocation();
