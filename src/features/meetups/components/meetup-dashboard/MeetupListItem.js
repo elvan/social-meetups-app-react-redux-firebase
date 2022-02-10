@@ -14,12 +14,16 @@ import { MeetupListAttendee } from './MeetupListAttendee';
 export const MeetupListItem = ({ meetup, selectMeetup, deleteMeetup }) => {
   return (
     <Card className='shadow mb-3 bg-white rounded'>
-      <Card.Body className='row'>
-        <Col xs={2}>
-          <Image src={meetup.hostPhotoUrl} width={100} fluid roundedCircle />
-        </Col>
-        <Col xs={10}>
-          <Card.Title>{meetup.title}</Card.Title>
+      <Card.Body className='row py-3 px-4 clearfix'>
+        <Image
+          className='float-left ml-2 mr-2'
+          src={meetup.hostPhotoUrl}
+          width={100}
+          fluid
+          roundedCircle
+        />
+        <Col>
+          <Card.Title className='mb-2'>{meetup.title}</Card.Title>
           <Card.Text>
             Hosted by <strong>{meetup.hostedBy}</strong>
           </Card.Text>
@@ -42,23 +46,27 @@ export const MeetupListItem = ({ meetup, selectMeetup, deleteMeetup }) => {
           <FaMapMarker size={16} className='mr-1' />
           {meetup.venue}
         </ListGroupItem>
-        <ListGroupItem className='bg-light'>
+        <ListGroupItem className='bg-light py-2'>
           {meetup.attendees.map((attendee) => (
             <MeetupListAttendee key={attendee.id} attendee={attendee} />
           ))}
         </ListGroupItem>
         <ListGroupItem>{meetup.description}</ListGroupItem>
       </ListGroup>
-      <Card.Body className='col-12'>
-        <Link to={`/meetups/${meetup.id}`} className='btn btn-info mr-2'>
-          View Meetup
-        </Link>
-        <Button
-          className='btn btn-danger mr-2'
-          onClick={() => deleteMeetup(meetup.id)}
-        >
-          Delete
-        </Button>
+      <Card.Body style={{ padding: '12px 20px' }}>
+        <Card.Link>
+          <Link to={`/meetups/${meetup.id}`} className='btn btn-info'>
+            View Meetup
+          </Link>
+        </Card.Link>
+        <Card.Link>
+          <Button
+            className='btn btn-danger mr-2'
+            onClick={() => deleteMeetup(meetup.id)}
+          >
+            Delete
+          </Button>
+        </Card.Link>
       </Card.Body>
     </Card>
   );

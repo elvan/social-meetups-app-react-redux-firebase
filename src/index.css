@@ -12,6 +12,10 @@ a:active.dropdown-item {
   background-color: #570933;
 }
 
-.dropdown-menu {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+.dropdown-toggle.nav-link {
+  padding: 0 8px;
+}
+
+div.dropdown-menu.show.dropdown-menu-right {
+  margin-top: 8px !important;
 }

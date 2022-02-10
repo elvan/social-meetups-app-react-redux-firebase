@@ -1,4 +1,6 @@
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Fragment } from 'react';
+import { Container, Image, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 
 export const AppNavbar = ({ formOpen, setFormOpen }) => {
@@ -35,19 +37,34 @@ export const AppNavbar = ({ formOpen, setFormOpen }) => {
             <Nav.Link as={NavLink} to='/register'>
               Register
             </Nav.Link>
+
             <NavDropdown
               alignRight={true}
-              title='user@example.com'
+              title={
+                <Fragment>
+                  <Image
+                    src='https://randomuser.me/api/portraits/men/9.jpg'
+                    width={40}
+                    fluid
+                    roundedCircle
+                    className='mr-2'
+                  />
+                  <span>Example User</span>
+                </Fragment>
+              }
               id='collasible-nav-dropdown'
             >
-              <NavDropdown.Item as={Link} to='/profile'>
-                Profile
+              <NavDropdown.Item as={Link} to='/create-meetup'>
+                <FaPlus className='mr-2' />
+                Create Meetup
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/settings'>
-                Settings
+                <FaUserAlt className='mr-2' />
+                My Profile
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to='/logout'>
+                <FaSignOutAlt className='mr-2' />
                 Logout
               </NavDropdown.Item>
             </NavDropdown>

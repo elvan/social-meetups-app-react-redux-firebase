@@ -5,24 +5,27 @@ export const HomePage = () => {
   return (
     <Row>
       <div className='col-8'>
-        <div className='jumbotron bg-white shadow rounded'>
+        <div className='p-4 bg-white shadow rounded'>
           <h1 className='display-4'>Welcome to SocialMeetups!</h1>
           <p className='lead'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
             odit voluptate esse enim? Iusto ea libero facere cumque praesentium
             vero, porro officia sit modi velit harum, officiis quis hic.
-            Consectetur?
           </p>
 
-          <hr className='my-4' />
+          <hr className='my-3' />
 
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad,
-            officiis quos! Exercitationem, deserunt. Officia impedit consectetur
-            debitis ex distinctio, blanditiis dolore quam veniam qui! Aperiam
-            distinctio sequi cupiditate excepturi consectetur.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis
+            corporis veniam eos omnis quaerat deserunt totam earum illo pariatur
+            excepturi neque, eveniet maxime incidunt culpa officiis labore autem
+            sunt.
           </p>
-          <Link className='btn btn-dark btn-lg' to='/meetups' role='button'>
+          <Link
+            className='btn btn-dark btn-lg shadow'
+            to='/meetups'
+            role='button'
+          >
             Get Started
           </Link>
         </div>
