@@ -1,8 +1,8 @@
 import { Col, Row } from 'react-bootstrap';
-import { MeetupDetailsChat } from './MeetupDetailsChat';
-import { MeetupDetailsHeader } from './MeetupDetailsHeader';
-import { MeetupDetailsInfo } from './MeetupDetailsInfo';
-import { MeetupDetailsSidebar } from './MeetupDetailsSidebar';
+import { MeetupDetailsChat } from './components/MeetupDetailsChat';
+import { MeetupDetailsHeader } from './components/MeetupDetailsHeader';
+import { MeetupDetailsInfo } from './components/MeetupDetailsInfo';
+import { MeetupDetailsSidebar } from './components/MeetupDetailsSidebar';
 
 export const MeetupDetailsPage = () => {
   return (

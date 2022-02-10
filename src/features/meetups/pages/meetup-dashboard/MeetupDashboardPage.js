@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { sampleData } from '../../data/sampleData';
-import { MeetupList } from './MeetupList';
+import { MeetupList } from './components/MeetupList';
 
 export const MeetupDashboardPage = ({ selectMeetup, selectedMeetup }) => {
   const [meetups, setMeetups] = useState(sampleData);
