@@ -3,20 +3,14 @@ import { FaFilter } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { MeetupList } from './components/MeetupList';
 
-export const MeetupDashboardPage = ({ selectMeetup, selectedMeetup }) => {
+export const MeetupDashboardPage = () => {
   // @ts-ignore
   const { meetups } = useSelector((state) => state.meetupState);
-
-  const handleDeleteMeetup = (id) => {};
 
   return (
     <Row>
       <Col md={8}>
-        <MeetupList
-          meetups={meetups}
-          selectMeetup={selectMeetup}
-          deleteMeetup={handleDeleteMeetup}
-        />
+        <MeetupList meetups={meetups} />
       </Col>
       <Col md={4}>
         <div className='bg-white shadow rounded'>
