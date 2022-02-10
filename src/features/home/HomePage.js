@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { FaSignInAlt, FaUserPlus, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export const HomePage = ({ history }) => {
@@ -8,10 +8,13 @@ export const HomePage = ({ history }) => {
     <Fragment>
       <div className='container-lg pt-5'>
         <Row className='mt-5'>
-          <Col xs={12} md={6} className='py-5 px-5 mb-3'>
-            <h1 className='display-4 mt-5'>
-              <span className='text-primary'>Social</span>
-              <span className='text-info'>Meetups</span>
+          <Col xs={12} md={6} className='py-5 px-3 mb-3'>
+            <h1 className='mt-5 font-weight-bolder'>
+              <div className='d-flex align-items-center'>
+                <FaUsers size={48} className='mr-2' />
+                <span className='text-primary'>Social</span>
+                <span className='text-info'>Meetups</span>
+              </div>
             </h1>
             <p className='lead'>
               Create or join a meetup to connect with people you know in your

@@ -8,8 +8,8 @@ import {
   Row,
 } from 'react-bootstrap';
 import {
-  FaClock,
-  FaMapMarker,
+  FaCalendar,
+  FaMapMarkerAlt,
   FaTag,
   FaTrashAlt,
   FaUsers,
@@ -40,7 +40,7 @@ export const MeetupListItem = ({ meetup, deleteMeetup }) => {
           <Row>
             <Col>
               <div className='d-flex align-items-center'>
-                <FaClock size={15} className='mr-2' />
+                <FaCalendar size={15} className='mr-2' />
                 {meetup.date}
               </div>
             </Col>
@@ -54,7 +54,7 @@ export const MeetupListItem = ({ meetup, deleteMeetup }) => {
         </ListGroupItem>
         <ListGroupItem>
           <div className='d-flex align-items-center'>
-            <FaMapMarker size={15} className='mr-2' />
+            <FaMapMarkerAlt size={15} className='mr-2' />
             {meetup.venue}
           </div>
         </ListGroupItem>

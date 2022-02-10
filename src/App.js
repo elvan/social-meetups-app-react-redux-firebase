@@ -26,7 +26,7 @@ export const App = () => {
                   exact
                 />
                 <Route
-                  path={['/create-meetup', '/update-meetup/:id']}
+                  path={['/create-meetup', '/manage-meetup/:id']}
                   component={MeetupFormPage}
                   exact
                 />

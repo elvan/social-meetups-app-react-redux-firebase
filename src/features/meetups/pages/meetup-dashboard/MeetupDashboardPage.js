@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { FaFilter } from 'react-icons/fa';
-import { sampleData } from '../../data/sampleData';
+import { useSelector } from 'react-redux';
 import { MeetupList } from './components/MeetupList';
 
 export const MeetupDashboardPage = ({ selectMeetup, selectedMeetup }) => {
-  const [meetups, setMeetups] = useState(sampleData);
+  // @ts-ignore
+  const { meetups } = useSelector((state) => state.meetupState);
 
-  const handleDeleteMeetup = (id) => {
-    setMeetups(meetups.filter((meetup) => meetup.id !== id));
-  };
+  const handleDeleteMeetup = (id) => {};
 
   return (
     <Row>
