@@ -13,9 +13,9 @@ a:active.dropdown-item {
 }
 
 .dropdown-toggle.nav-link {
-  padding: 0 8px;
+  padding: 0 0.5rem;
 }
 
 div.dropdown-menu.show.dropdown-menu-right {
-  margin-top: 8px !important;
+  margin-top: 0.5rem !important;
 }
