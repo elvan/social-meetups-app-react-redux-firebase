@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import { HomePage } from './features/home/HomePage';
@@ -8,14 +8,6 @@ import { MeetupFormPage } from './features/meetups/components/meetup-form/Meetup
 import { AppNavbar } from './layout/navbar/AppNavbar';
 
 export const App = () => {
-  const [formOpen, setFormOpen] = useState(false);
-  const [selectedMeetup, setSelectedMeetup] = useState(null);
-
-  const handleCreateFormOpen = () => {
-    setSelectedMeetup(null);
-    setFormOpen(true);
-  };
-
   return (
     <div className='d-flex flex-column vh-100'>
       <Route path='/' component={HomePage} exact />
@@ -23,7 +15,7 @@ export const App = () => {
         path={'/(.+)'}
         render={() => (
           <Fragment>
-            <AppNavbar formOpen={formOpen} setFormOpen={handleCreateFormOpen} />
+            <AppNavbar />
             <Container fluid='lg'>
               <Switch>
                 <Route path='/meetups' component={MeetupDashboardPage} exact />
@@ -32,7 +24,11 @@ export const App = () => {
                   component={MeetupDetailsPage}
                   exact
                 />
-                <Route path='/create-meetup' component={MeetupFormPage} exact />
+                <Route
+                  path={['/create-meetup', '/update-meetup/:id']}
+                  component={MeetupFormPage}
+                  exact
+                />
               </Switch>
             </Container>
           </Fragment>

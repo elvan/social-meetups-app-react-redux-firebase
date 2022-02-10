@@ -1,7 +1,7 @@
 export const MeetupDetailsChat = () => {
   return (
     <div className='bg-white shadow rounded'>
-      <div className='card '>
+      <div className='card mb-5'>
         <div className='card-header bg-info text-white text-center'>
           Chat About This Meetup
         </div>

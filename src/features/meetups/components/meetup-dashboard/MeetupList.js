@@ -8,7 +8,6 @@ export const MeetupList = ({ meetups, selectMeetup, deleteMeetup }) => {
         <MeetupListItem
           key={meetup.id}
           meetup={meetup}
-          selectMeetup={selectMeetup}
           deleteMeetup={deleteMeetup}
         />
       ))}

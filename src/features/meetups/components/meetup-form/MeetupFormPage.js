@@ -1,9 +1,9 @@
 import cuid from 'cuid';
 import { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const MeetupFormPage = ({
-  setFormOpen,
   createMeetup,
   selectedMeetup,
   updateMeetup,
@@ -45,8 +45,6 @@ export const MeetupFormPage = ({
         attendees: [],
       });
     }
-
-    setFormOpen(false);
   };
 
   return (
@@ -126,11 +124,7 @@ export const MeetupFormPage = ({
             <Button variant='success' type='submit' className='mr-2'>
               Submit
             </Button>
-            <Button
-              variant='light'
-              type='button'
-              onClick={() => setFormOpen(false)}
-            >
+            <Button as={Link} to='/meetups' variant='light' type='button'>
               Cancel
             </Button>
           </Form>

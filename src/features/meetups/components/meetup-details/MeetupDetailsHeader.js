@@ -1,3 +1,6 @@
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 export const MeetupDetailsHeader = () => {
   return (
     <div className='shadow rounded'>
@@ -18,15 +21,11 @@ export const MeetupDetailsHeader = () => {
         </div>
 
         <div className='card-body d-flex bg-white'>
-          <a href='#' className='btn btn-warning'>
-            Cancel My Place
-          </a>
-          <a href='#' className='btn btn-success'>
-            Join This Meetup
-          </a>
-          <a href='#' className='btn btn-info ml-auto'>
+          <Button className='btn btn-warning'>Cancel My Place</Button>
+          <Button className='btn btn-success'>Join This Meetup</Button>
+          <Link to={`/update-meetup/123`} className='btn btn-info ml-auto'>
             Manage Meetup
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,34 +1,13 @@
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { sampleData } from '../../data/sampleData';
-import { MeetupFormPage } from '../meetup-form/MeetupFormPage';
 import { MeetupList } from './MeetupList';
 
-export const MeetupDashboardPage = ({
-  formOpen,
-  setFormOpen,
-  selectMeetup,
-  selectedMeetup,
-}) => {
+export const MeetupDashboardPage = ({ selectMeetup, selectedMeetup }) => {
   const [meetups, setMeetups] = useState(sampleData);
-
-  const handleCreateMeetup = (meetup) => {
-    setMeetups([...meetups, meetup]);
-  };
-
-  const handleUpdateMeetup = (updatedMeetup) => {
-    setMeetups(
-      meetups.map((meetup) =>
-        meetup.id === updatedMeetup.id ? updatedMeetup : meetup
-      )
-    );
-    selectMeetup(null);
-  };
 
   const handleDeleteMeetup = (id) => {
     setMeetups(meetups.filter((meetup) => meetup.id !== id));
-    selectMeetup(null);
-    setFormOpen(false);
   };
 
   return (
@@ -41,15 +20,22 @@ export const MeetupDashboardPage = ({
         />
       </Col>
       <Col md={4}>
-        {formOpen && (
-          <MeetupFormPage
-            key={selectedMeetup ? selectedMeetup.id : 'new'}
-            setFormOpen={setFormOpen}
-            createMeetup={handleCreateMeetup}
-            selectedMeetup={selectedMeetup}
-            updateMeetup={handleUpdateMeetup}
-          />
-        )}
+        <div className='bg-white shadow rounded'>
+          <div className='card'>
+            <div className='card-header bg-info text-white text-center'>
+              Meetup Filters
+            </div>
+
+            <ul className='list-group list-group-flush'>
+              <li className='list-group-item d-flex align-items-center'>
+                All Meetups
+              </li>
+              <li className='list-group-item d-flex align-items-center'>
+                Meetups I am attending
+              </li>
+            </ul>
+          </div>
+        </div>
       </Col>
     </Row>
   );

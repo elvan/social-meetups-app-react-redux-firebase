@@ -4,14 +4,14 @@ import { Link, NavLink, useHistory } from 'react-router-dom';
 import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
 
-export const AppNavbar = ({ formOpen, setFormOpen }) => {
-  const [authenticated, setAuthenticated] = useState(false);
+export const AppNavbar = () => {
+  const [authenticated, setAuthenticated] = useState(true);
 
   const history = useHistory();
 
   const handleLogout = () => {
     setAuthenticated(false);
-    // history.push('/');
+    history.push('/');
   };
 
   return (
