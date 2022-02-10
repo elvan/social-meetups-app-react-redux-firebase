@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { DECREMENT_COUNTER, INCREMENT_COUNTER } from '../store/testConstants';
+import { decrement, increment } from '../store/testActions';
 
 export const SandboxPage = () => {
   // @ts-ignore
@@ -14,19 +14,19 @@ export const SandboxPage = () => {
       </p>
 
       <button
-        onClick={() => {
-          dispatch({ type: INCREMENT_COUNTER });
-        }}
         className='btn btn-success mr-2'
+        onClick={() => {
+          dispatch(increment(5));
+        }}
       >
         Increment Counter
       </button>
 
       <button
-        onClick={() => {
-          dispatch({ type: DECREMENT_COUNTER });
-        }}
         className='btn btn-danger'
+        onClick={() => {
+          dispatch(decrement(5));
+        }}
       >
         Decrement Counter
       </button>

@@ -4,19 +4,19 @@ const initialState = {
   data: 42,
 };
 
-export const testReducer = (state = initialState, action) => {
+export function testReducer(state = initialState, action) {
   switch (action.type) {
     case INCREMENT_COUNTER:
       return {
         ...state,
-        data: state.data + 1,
+        data: state.data + action.payload,
       };
     case DECREMENT_COUNTER:
       return {
         ...state,
-        data: state.data - 1,
+        data: state.data - action.payload,
       };
     default:
       return state;
   }
-};
+}
