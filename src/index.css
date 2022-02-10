@@ -2,16 +2,6 @@ body {
   background-color: #eee;
 }
 
-a:hover.dropdown-item {
-  color: white;
-  background-color: #772953;
-}
-
-a:active.dropdown-item {
-  color: white;
-  background-color: #570933;
-}
-
 .dropdown-toggle.nav-link {
   padding: 0 0.5rem;
 }

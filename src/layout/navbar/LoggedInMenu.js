@@ -11,7 +11,7 @@ export const LoggedInMenu = ({ handleLogout }) => {
         <Fragment>
           <Image
             src='https://randomuser.me/api/portraits/men/9.jpg'
-            width={40}
+            width={38.5}
             fluid
             roundedCircle
             className='mr-2'

@@ -5,13 +5,13 @@ import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
 
 export const AppNavbar = ({ formOpen, setFormOpen }) => {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const history = useHistory();
 
   const handleLogout = () => {
     setAuthenticated(false);
-    history.push('/');
+    // history.push('/');
   };
 
   return (
@@ -19,7 +19,7 @@ export const AppNavbar = ({ formOpen, setFormOpen }) => {
       collapseOnSelect
       className='mb-3 shadow'
       expand='md'
-      bg='dark'
+      bg='info'
       variant='dark'
     >
       <Container fluid='lg'>

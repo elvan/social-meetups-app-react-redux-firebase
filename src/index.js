@@ -1,4 +1,4 @@
-import 'bootswatch/dist/united/bootstrap.min.css';
+import 'bootswatch/dist/flatly/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
