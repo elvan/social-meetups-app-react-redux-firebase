@@ -1,6 +1,6 @@
 import cuid from 'cuid';
 import { useState } from 'react';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 
 export const MeetupFormPage = ({
   setFormOpen,
@@ -51,7 +51,7 @@ export const MeetupFormPage = ({
 
   return (
     <Row>
-      <div className='col-8 mb-3'>
+      <Col xs={12} md={8} className='mb-3'>
         <div className='p-3 bg-white rounded shadow'>
           {selectedMeetup ? (
             <h4>Edit the Meetup</h4>
@@ -135,10 +135,10 @@ export const MeetupFormPage = ({
             </Button>
           </Form>
         </div>
-      </div>
-      <div className='col-4  mb-3'>
+      </Col>
+      <Col xs={12} md={4} className='mb-3'>
         <h4>Sidebar</h4>
-      </div>
+      </Col>
     </Row>
   );
 };
