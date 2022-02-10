@@ -137,9 +137,7 @@ export const MeetupForm = ({
         </div>
       </div>
       <div className='col-4  mb-3'>
-        <div className='p-3 bg-white rounded shadow'>
-          <h4>Sidebar</h4>
-        </div>
+        <h4>Sidebar</h4>
       </div>
     </Row>
   );
