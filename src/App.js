@@ -5,6 +5,7 @@ import { HomePage } from './features/home/HomePage';
 import { MeetupDashboardPage } from './features/meetups/pages/meetup-dashboard/MeetupDashboardPage';
 import { MeetupDetailsPage } from './features/meetups/pages/meetup-details/MeetupDetailsPage';
 import { MeetupFormPage } from './features/meetups/pages/meetup-form/MeetupFormPage';
+import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 import { AppNavbar } from './layout/navbar/AppNavbar';
 
 export const App = () => {
@@ -29,6 +30,7 @@ export const App = () => {
                   component={MeetupFormPage}
                   exact
                 />
+                <Route path='/sandbox' component={SandboxPage} exact />
               </Switch>
             </Container>
           </Fragment>

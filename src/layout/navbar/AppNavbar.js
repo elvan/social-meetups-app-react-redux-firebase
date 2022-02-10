@@ -41,6 +41,9 @@ export const AppNavbar = () => {
                 Create Meetup
               </Nav.Link>
             )}
+            <Nav.Link as={NavLink} to='/sandbox'>
+              Sandbox
+            </Nav.Link>
           </Nav>
           <Nav>
             {authenticated && <LoggedInMenu handleLogout={handleLogout} />}
