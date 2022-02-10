@@ -22,17 +22,23 @@ export const LoggedInMenu = ({ handleLogout }) => {
       id='collasible-nav-dropdown'
     >
       <NavDropdown.Item as={Link} to='/create-meetup'>
-        <FaPlus className='mr-2' />
-        Create Meetup
+        <div className='d-flex align-items-center'>
+          <FaPlus className='mr-2' />
+          Create Meetup
+        </div>
       </NavDropdown.Item>
       <NavDropdown.Item as={Link} to='/settings'>
-        <FaUserAlt className='mr-2' />
-        My Profile
+        <div className='d-flex align-items-center'>
+          <FaUserAlt className='mr-2' />
+          My Profile
+        </div>
       </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={handleLogout}>
-        <FaSignOutAlt className='mr-2' />
-        Logout
+        <div className='d-flex align-items-center'>
+          <FaSignOutAlt className='mr-2' />
+          Logout
+        </div>
       </NavDropdown.Item>
     </NavDropdown>
   );

@@ -6,7 +6,13 @@ import {
   ListGroupItem,
   Row,
 } from 'react-bootstrap';
-import { FaClock, FaMapMarker, FaTag } from 'react-icons/fa';
+import {
+  FaClock,
+  FaMapMarker,
+  FaTag,
+  FaTrashAlt,
+  FaUsers,
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
@@ -32,18 +38,24 @@ export const MeetupListItem = ({ meetup, deleteMeetup }) => {
         <ListGroupItem>
           <Row>
             <Col>
-              <FaClock size={16} className='mr-1' />
-              {meetup.date}
+              <div className='d-flex align-items-center'>
+                <FaClock size={15} className='mr-2' />
+                {meetup.date}
+              </div>
             </Col>
             <Col>
-              <FaTag size={16} className='ml-3 mr-1' />
-              {meetup.category}
+              <div className='d-flex align-items-center'>
+                <FaTag size={15} className='ml-3 mr-2' />
+                {meetup.category}
+              </div>
             </Col>
           </Row>
         </ListGroupItem>
         <ListGroupItem>
-          <FaMapMarker size={16} className='mr-1' />
-          {meetup.venue}
+          <div className='d-flex align-items-center'>
+            <FaMapMarker size={15} className='mr-2' />
+            {meetup.venue}
+          </div>
         </ListGroupItem>
         <ListGroupItem className='bg-light py-2'>
           {meetup.attendees.map((attendee) => (
@@ -58,13 +70,19 @@ export const MeetupListItem = ({ meetup, deleteMeetup }) => {
           to={`/meetups/${meetup.id}`}
           className='btn btn-info'
         >
-          View Meetup
+          <div className='d-flex align-items-center'>
+            <FaUsers size={15} className='mr-2' />
+            View Meetup
+          </div>
         </Card.Link>
         <Card.Link
           className='btn btn-danger mr-2'
           onClick={() => deleteMeetup(meetup.id)}
         >
-          Delete
+          <div className='d-flex align-items-center'>
+            <FaTrashAlt size={15} className='mr-2' />
+            Delete
+          </div>
         </Card.Link>
       </Card.Body>
     </Card>

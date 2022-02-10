@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { FaFilter } from 'react-icons/fa';
 import { sampleData } from '../../data/sampleData';
 import { MeetupList } from './components/MeetupList';
 
@@ -22,8 +23,11 @@ export const MeetupDashboardPage = ({ selectMeetup, selectedMeetup }) => {
       <Col md={4}>
         <div className='bg-white shadow rounded'>
           <div className='card'>
-            <div className='card-header bg-info text-white text-center'>
-              Meetup Filters
+            <div className='card-header bg-info text-white'>
+              <div className='d-flex justify-content-center align-items-center'>
+                <FaFilter size={15} className='mr-2' />
+                Meetup Filters
+              </div>
             </div>
 
             <ul className='list-group list-group-flush'>

@@ -1,9 +1,14 @@
+import { FaEnvelope, FaShareSquare } from 'react-icons/fa';
+
 export const MeetupDetailsChat = () => {
   return (
     <div className='bg-white shadow rounded'>
       <div className='card mb-5'>
-        <div className='card-header bg-info text-white text-center'>
-          Chat About This Meetup
+        <div className='card-header bg-info text-white'>
+          <div className='d-flex justify-content-center align-items-center'>
+            <FaEnvelope size={15} className='mr-2' />
+            Chat About This Meetup
+          </div>
         </div>
 
         <div className='card-body'>
@@ -45,7 +50,7 @@ export const MeetupDetailsChat = () => {
         <div className='card-body'>
           <div className='form-group'>
             <label htmlFor='exampleFormControlTextarea1'>
-              <strong>Leave a Comment</strong>
+              <strong>Leave a Message</strong>
             </label>
             <textarea
               className='form-control'
@@ -54,7 +59,12 @@ export const MeetupDetailsChat = () => {
             ></textarea>
           </div>
 
-          <button className='btn btn-info btn-block'>Send Message</button>
+          <button className='btn btn-info btn-block'>
+            <div className='d-flex justify-content-center align-items-center'>
+              <FaShareSquare size={15} className='mr-2' />
+              Send Message
+            </div>
+          </button>
         </div>
       </div>
     </div>

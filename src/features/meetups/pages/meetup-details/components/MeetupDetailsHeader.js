@@ -1,4 +1,5 @@
 import { Button } from 'react-bootstrap';
+import { FaUserCheck, FaUsersCog, FaUserTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export const MeetupDetailsHeader = () => {
@@ -21,10 +22,23 @@ export const MeetupDetailsHeader = () => {
         </div>
 
         <div className='card-body d-flex bg-white'>
-          <Button className='btn btn-warning'>Cancel My Place</Button>
-          <Button className='btn btn-success'>Join This Meetup</Button>
+          <Button className='btn btn-danger'>
+            <div className='d-flex align-items-center'>
+              <FaUserTimes size={15} className='mr-2' />
+              Cancel My Place
+            </div>
+          </Button>
+          <Button className='btn btn-success'>
+            <div className='d-flex align-items-center'>
+              <FaUserCheck size={15} className='mr-2' />
+              Join This Meetup
+            </div>
+          </Button>
           <Link to={`/update-meetup/123`} className='btn btn-info ml-auto'>
-            Manage Meetup
+            <div className='d-flex align-items-center'>
+              <FaUsersCog size={15} className='mr-2' />
+              Manage Meetup
+            </div>
           </Link>
         </div>
       </div>

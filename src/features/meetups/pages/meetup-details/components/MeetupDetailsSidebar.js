@@ -1,9 +1,13 @@
+import { FaUsers } from 'react-icons/fa';
+
 export const MeetupDetailsSidebar = () => {
   return (
     <div className='bg-white shadow rounded'>
       <div className='card'>
-        <div className='card-header bg-info text-white text-center'>
-          3 People Going
+        <div className='card-header bg-info text-white'>
+          <div className='d-flex justify-content-center align-items-center'>
+            <FaUsers size={15} className='mr-2' />3 People Going
+          </div>
         </div>
 
         <ul className='list-group list-group-flush'>
