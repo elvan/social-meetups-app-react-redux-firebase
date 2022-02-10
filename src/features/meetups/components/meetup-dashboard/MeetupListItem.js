@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   Col,
   Image,
@@ -54,18 +53,18 @@ export const MeetupListItem = ({ meetup, selectMeetup, deleteMeetup }) => {
         <ListGroupItem>{meetup.description}</ListGroupItem>
       </ListGroup>
       <Card.Body style={{ padding: '12px 20px' }}>
-        <Card.Link>
-          <Link to={`/meetups/${meetup.id}`} className='btn btn-info'>
-            View Meetup
-          </Link>
+        <Card.Link
+          as={Link}
+          to={`/meetups/${meetup.id}`}
+          className='btn btn-info'
+        >
+          View Meetup
         </Card.Link>
-        <Card.Link>
-          <Button
-            className='btn btn-danger mr-2'
-            onClick={() => deleteMeetup(meetup.id)}
-          >
-            Delete
-          </Button>
+        <Card.Link
+          className='btn btn-danger mr-2'
+          onClick={() => deleteMeetup(meetup.id)}
+        >
+          Delete
         </Card.Link>
       </Card.Body>
     </Card>
