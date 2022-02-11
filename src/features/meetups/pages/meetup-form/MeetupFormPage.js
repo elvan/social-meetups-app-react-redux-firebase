@@ -1,10 +1,20 @@
 import cuid from 'cuid';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { Button, Col, FormGroup, FormLabel, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 import { createMeetup, updateMeetup } from '../../store/meetupActions';
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  date: Yup.date().required('Date is required'),
+  category: Yup.string().required('Category is required'),
+  venue: Yup.string().required('Venue is required'),
+  city: Yup.string().required('City is required'),
+  description: Yup.string().required('Description is required'),
+});
 
 export const MeetupFormPage = ({ history, match }) => {
   const selectedMeetup = useSelector((state) =>
@@ -64,12 +74,18 @@ export const MeetupFormPage = ({ history, match }) => {
 
           <Formik
             initialValues={initialValues}
+            validationSchema={validationSchema}
             onSubmit={(values) => console.log(values)}
           >
             <Form>
               <FormGroup controlId='title'>
                 <FormLabel>Title</FormLabel>
                 <Field className='form-control' id='title' name='title' />
+                <ErrorMessage
+                  component='div'
+                  name='title'
+                  className='invalid-feedback d-block'
+                />
               </FormGroup>
 
               <FormGroup controlId='date'>
@@ -80,21 +96,41 @@ export const MeetupFormPage = ({ history, match }) => {
                   name='date'
                   type='date'
                 />
+                <ErrorMessage
+                  component='div'
+                  name='date'
+                  className='invalid-feedback d-block'
+                />
               </FormGroup>
 
               <FormGroup controlId='category'>
                 <FormLabel>Category</FormLabel>
                 <Field className='form-control' id='category' name='category' />
-              </FormGroup>
-
-              <FormGroup controlId='city'>
-                <FormLabel>City</FormLabel>
-                <Field className='form-control' id='city' name='city' />
+                <ErrorMessage
+                  component='div'
+                  name='category'
+                  className='invalid-feedback d-block'
+                />
               </FormGroup>
 
               <FormGroup controlId='venue'>
                 <FormLabel>Venue</FormLabel>
                 <Field className='form-control' id='venue' name='venue' />
+                <ErrorMessage
+                  component='div'
+                  name='venue'
+                  className='invalid-feedback d-block'
+                />
+              </FormGroup>
+
+              <FormGroup controlId='city'>
+                <FormLabel>City</FormLabel>
+                <Field className='form-control' id='city' name='city' />
+                <ErrorMessage
+                  component='div'
+                  name='city'
+                  className='invalid-feedback d-block'
+                />
               </FormGroup>
 
               <FormGroup controlId='description'>
@@ -105,6 +141,11 @@ export const MeetupFormPage = ({ history, match }) => {
                   id='description'
                   name='description'
                   rows={5}
+                />
+                <ErrorMessage
+                  component='div'
+                  name='description'
+                  className='invalid-feedback d-block'
                 />
               </FormGroup>
 
