@@ -1,0 +1,8 @@
+.react-datepicker-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.react-datepicker__triangle {
+  left: 116px !important;
+}

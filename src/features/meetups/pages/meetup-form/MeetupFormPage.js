@@ -4,6 +4,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { MyDateInput } from '../../../../components/form/MyDateInput';
 import { MySelectInput } from '../../../../components/form/MySelectInput';
 import { MyTextArea } from '../../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../../components/form/MyTextInput';
@@ -71,7 +72,7 @@ export const MeetupFormPage = ({ history, match }) => {
               <fieldset>
                 <legend className='text-info'>Meetup Details</legend>
                 <MyTextInput name='title' label='Title' />
-                <MyTextInput name='date' type='date' label='Date' />
+                <MyDateInput name='date' label='Date' />
                 <MySelectInput
                   name='category'
                   label='Category'
