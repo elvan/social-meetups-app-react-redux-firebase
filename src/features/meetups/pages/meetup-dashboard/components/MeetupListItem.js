@@ -27,8 +27,8 @@ export const MeetupListItem = ({ meetup }) => {
   }
 
   return (
-    <Card className='shadow mb-3 bg-white rounded'>
-      <Card.Body className='row py-3 px-4 clearfix'>
+    <Card className='mb-3 rounded bg-white shadow'>
+      <Card.Body className='row clearfix py-3 px-4'>
         <Image
           className='float-left ml-2 mr-2'
           src={meetup.hostPhotoUrl}
@@ -66,11 +66,20 @@ export const MeetupListItem = ({ meetup }) => {
             {meetup.venue}
           </div>
         </ListGroupItem>
-        <ListGroupItem className='py-2'>
-          {meetup.attendees.map((attendee) => (
-            <MeetupListAttendee key={attendee.id} attendee={attendee} />
-          ))}
-        </ListGroupItem>
+        {meetup.attendees.length > 0 ? (
+          <ListGroupItem className='bg-light py-2'>
+            {meetup.attendees.map((attendee) => (
+              <MeetupListAttendee key={attendee.id} attendee={attendee} />
+            ))}
+          </ListGroupItem>
+        ) : (
+          <ListGroupItem className='bg-light py-2'>
+            <div className='d-flex align-items-center'>
+              <FaUsers size={15} className='mr-2' />
+              No attendees yet
+            </div>
+          </ListGroupItem>
+        )}
         <ListGroupItem>{meetup.description}</ListGroupItem>
         <ListGroupItem className='bg-light'>
           <Link to={`/meetups/${meetup.id}`} className='btn btn-info mr-2'>
