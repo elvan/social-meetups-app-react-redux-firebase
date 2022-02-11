@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { FaSignInAlt, FaUserPlus, FaUsers } from 'react-icons/fa';
+import { Card, Col, Row } from 'react-bootstrap';
+import { FaUserPlus, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { LoginForm } from '../auth/LoginForm';
 
 export const HomePage = ({ history }) => {
   return (
@@ -29,31 +30,7 @@ export const HomePage = ({ history }) => {
           <Col xs={12} md={6}>
             <Card className='rounded bg-white shadow'>
               <Card.Body>
-                <Form className='mb-4'>
-                  <Form.Group controlId='email'>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type='email' placeholder='Enter email' />
-                    <Form.Text className='text-danger'>
-                      Email is required
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Form.Group controlId='password'>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type='password'
-                      placeholder='Enter password'
-                    />
-                    <Form.Text className='text-danger'>
-                      Password is required
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Button type='submit' block className='shadow'>
-                    <FaSignInAlt size={18} className='mr-2' />
-                    Login
-                  </Button>
-                </Form>
+                <LoginForm />
 
                 <p className='text-center'>
                   <Link to='/forgot-password' className='text-primary'>
