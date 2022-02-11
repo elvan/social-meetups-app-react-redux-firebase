@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch, useLocation } from 'react-router-dom';
+import { ModalManager } from './components/modals/ModalManager';
 import { AppNavbar } from './components/navbar/AppNavbar';
 import { HomePage } from './features/home/HomePage';
 import { MeetupDashboardPage } from './features/meetups/pages/meetup-dashboard/MeetupDashboardPage';
@@ -13,6 +14,7 @@ export const App = () => {
 
   return (
     <div className='d-flex flex-column vh-100'>
+      <ModalManager />
       <Route path='/' component={HomePage} exact />
       <Route
         path={'/(.+)'}

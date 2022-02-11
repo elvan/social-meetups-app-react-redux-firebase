@@ -1,8 +1,8 @@
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { closeModal } from './modalActions';
+import { closeModal } from './store/modalActions';
 
-export const ModalWrapper = ({ children, size = 'lg', header }) => {
+export const ModalWrapper = ({ children, size, header }) => {
   const dispatch = useDispatch();
 
   return (
