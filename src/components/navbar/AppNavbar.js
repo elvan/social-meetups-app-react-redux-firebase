@@ -1,19 +1,13 @@
-import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { FaUsers } from 'react-icons/fa';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
 import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
 
 export const AppNavbar = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-
-  const history = useHistory();
-
-  const handleLogout = () => {
-    setAuthenticated(false);
-    history.push('/');
-  };
+  // @ts-ignore
+  const { authenticated } = useSelector((state) => state.authState);
 
   return (
     <Navbar
@@ -45,12 +39,7 @@ export const AppNavbar = () => {
               Sandbox
             </Nav.Link>
           </Nav>
-          <Nav>
-            {authenticated && <LoggedInMenu handleLogout={handleLogout} />}
-            {!authenticated && (
-              <LoggedOutMenu setAuthenticated={setAuthenticated} />
-            )}
-          </Nav>
+          <Nav>{authenticated ? <LoggedInMenu /> : <LoggedOutMenu />}</Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

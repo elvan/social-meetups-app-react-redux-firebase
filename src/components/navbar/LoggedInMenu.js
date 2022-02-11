@@ -1,22 +1,36 @@
 import { Fragment } from 'react';
 import { Image, NavDropdown } from 'react-bootstrap';
 import { FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { logoutUser } from '../../features/auth/store/authActions';
 
-export const LoggedInMenu = ({ handleLogout }) => {
+export const LoggedInMenu = () => {
+  // @ts-ignore
+  const { currentUser } = useSelector((state) => state.authState);
+
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    history.push('/');
+  };
+
   return (
     <NavDropdown
       alignRight={true}
       title={
         <Fragment>
           <Image
-            src='https://randomuser.me/api/portraits/men/9.jpg'
+            src={currentUser.photoUrl}
             width={38.5}
             fluid
             roundedCircle
             className='mr-2'
           />
-          <span>Example User</span>
+          <span>{currentUser.email}</span>
         </Fragment>
       }
       id='collasible-nav-dropdown'
