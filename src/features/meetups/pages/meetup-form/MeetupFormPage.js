@@ -5,6 +5,7 @@ import { Button, Col, FormGroup, FormLabel, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { MyTextInput } from '../../../../components/form/MyTextInput';
 import { createMeetup, updateMeetup } from '../../store/meetupActions';
 
 const validationSchema = Yup.object().shape({
@@ -78,60 +79,15 @@ export const MeetupFormPage = ({ history, match }) => {
             onSubmit={(values) => console.log(values)}
           >
             <Form>
-              <FormGroup controlId='title'>
-                <FormLabel>Title</FormLabel>
-                <Field className='form-control' id='title' name='title' />
-                <ErrorMessage
-                  component='div'
-                  name='title'
-                  className='invalid-feedback d-block'
-                />
-              </FormGroup>
+              <MyTextInput name='title' label='Title' />
 
-              <FormGroup controlId='date'>
-                <FormLabel>Date</FormLabel>
-                <Field
-                  className='form-control'
-                  id='date'
-                  name='date'
-                  type='date'
-                />
-                <ErrorMessage
-                  component='div'
-                  name='date'
-                  className='invalid-feedback d-block'
-                />
-              </FormGroup>
+              <MyTextInput name='date' type='date' label='Date' />
 
-              <FormGroup controlId='category'>
-                <FormLabel>Category</FormLabel>
-                <Field className='form-control' id='category' name='category' />
-                <ErrorMessage
-                  component='div'
-                  name='category'
-                  className='invalid-feedback d-block'
-                />
-              </FormGroup>
+              <MyTextInput name='category' label='Category' />
 
-              <FormGroup controlId='venue'>
-                <FormLabel>Venue</FormLabel>
-                <Field className='form-control' id='venue' name='venue' />
-                <ErrorMessage
-                  component='div'
-                  name='venue'
-                  className='invalid-feedback d-block'
-                />
-              </FormGroup>
+              <MyTextInput name='venue' label='Venue' />
 
-              <FormGroup controlId='city'>
-                <FormLabel>City</FormLabel>
-                <Field className='form-control' id='city' name='city' />
-                <ErrorMessage
-                  component='div'
-                  name='city'
-                  className='invalid-feedback d-block'
-                />
-              </FormGroup>
+              <MyTextInput name='city' label='City' />
 
               <FormGroup controlId='description'>
                 <FormLabel>Description</FormLabel>
