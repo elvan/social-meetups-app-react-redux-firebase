@@ -1,9 +1,10 @@
 import cuid from 'cuid';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { Button, Col, FormGroup, FormLabel, Row } from 'react-bootstrap';
+import { Form, Formik } from 'formik';
+import { Button, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { MyTextArea } from '../../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../../components/form/MyTextInput';
 import { createMeetup, updateMeetup } from '../../store/meetupActions';
 
@@ -12,8 +13,8 @@ const validationSchema = Yup.object().shape({
   date: Yup.date().required('You must provide a date'),
   category: Yup.string().required('You must provide a category'),
   description: Yup.string().required('You must provide a description'),
-  venue: Yup.string().required('You must provide a venue'),
   city: Yup.string().required('You must provide a city'),
+  venue: Yup.string().required('You must provide a venue'),
 });
 
 export const MeetupFormPage = ({ history, match }) => {
@@ -70,22 +71,7 @@ export const MeetupFormPage = ({ history, match }) => {
                 <MyTextInput name='title' label='Title' />
                 <MyTextInput name='date' type='date' label='Date' />
                 <MyTextInput name='category' label='Category' />
-
-                <FormGroup controlId='description'>
-                  <FormLabel>Description</FormLabel>
-                  <Field
-                    as='textarea'
-                    className='form-control'
-                    id='description'
-                    name='description'
-                    rows={5}
-                  />
-                  <ErrorMessage
-                    component='div'
-                    name='description'
-                    className='invalid-feedback d-block'
-                  />
-                </FormGroup>
+                <MyTextArea name='description' label='Description' />
               </fieldset>
 
               <fieldset>
