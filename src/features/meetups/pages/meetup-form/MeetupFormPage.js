@@ -1,4 +1,5 @@
 import cuid from 'cuid';
+import { Formik } from 'formik';
 import { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,7 +62,7 @@ export const MeetupFormPage = ({ history, match }) => {
   return (
     <Row>
       <Col xs={12} md={8} className='mb-3'>
-        <div className='p-3 bg-white rounded shadow'>
+        <div className='rounded bg-white p-3 shadow'>
           {selectedMeetup ? (
             <h4>Edit the Meetup</h4>
           ) : (
@@ -70,75 +71,82 @@ export const MeetupFormPage = ({ history, match }) => {
 
           <hr />
 
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Group controlId='title'>
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type='text'
-                name='title'
-                value={values.title}
-                onChange={(event) => handleInputChange(event)}
-              />
-            </Form.Group>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values) => console.log(values)}
+          >
+            {({ handleChange, handleSubmit, values }) => (
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId='title'>
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='title'
+                    value={values.title}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group controlId='date'>
-              <Form.Label>Date</Form.Label>
-              <Form.Control
-                type='date'
-                name='date'
-                value={values.date}
-                onChange={(event) => handleInputChange(event)}
-              />
-            </Form.Group>
+                <Form.Group controlId='date'>
+                  <Form.Label>Date</Form.Label>
+                  <Form.Control
+                    type='date'
+                    name='date'
+                    value={values.date}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group controlId='category'>
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type='text'
-                name='category'
-                value={values.category}
-                onChange={(event) => handleInputChange(event)}
-              />
-            </Form.Group>
+                <Form.Group controlId='category'>
+                  <Form.Label>Category</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='category'
+                    value={values.category}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group controlId='city'>
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type='text'
-                name='city'
-                value={values.city}
-                onChange={(event) => handleInputChange(event)}
-              />
-            </Form.Group>
+                <Form.Group controlId='city'>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='city'
+                    value={values.city}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group controlId='venue'>
-              <Form.Label>Venue</Form.Label>
-              <Form.Control
-                type='text'
-                name='venue'
-                value={values.venue}
-                onChange={(event) => handleInputChange(event)}
-              />
-            </Form.Group>
+                <Form.Group controlId='venue'>
+                  <Form.Label>Venue</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='venue'
+                    value={values.venue}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group controlId='title'>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as='textarea'
-                name='description'
-                value={values.description}
-                onChange={(event) => handleInputChange(event)}
-                rows={5}
-              />
-            </Form.Group>
+                <Form.Group controlId='title'>
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as='textarea'
+                    name='description'
+                    value={values.description}
+                    onChange={handleChange}
+                    rows={5}
+                  />
+                </Form.Group>
 
-            <Button variant='success' type='submit' className='mr-2'>
-              Submit
-            </Button>
-            <Button as={Link} to='/meetups' variant='light' type='button'>
-              Cancel
-            </Button>
-          </Form>
+                <Button variant='success' type='submit' className='mr-2'>
+                  Submit
+                </Button>
+                <Button as={Link} to='/meetups' variant='light' type='button'>
+                  Cancel
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </div>
       </Col>
       <Col xs={12} md={4} className='mb-3'>
