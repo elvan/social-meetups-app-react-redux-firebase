@@ -1,4 +1,4 @@
-import { FaEnvelope, FaShareSquare } from 'react-icons/fa';
+import { FaComment, FaComments } from 'react-icons/fa';
 
 export const MeetupDetailsChat = () => {
   return (
@@ -6,7 +6,7 @@ export const MeetupDetailsChat = () => {
       <div className='card mb-5'>
         <div className='card-header bg-info text-white'>
           <div className='d-flex justify-content-center align-items-center'>
-            <FaEnvelope size={15} className='mr-2' />
+            <FaComments size={15} className='mr-2' />
             Chat About This Meetup
           </div>
         </div>
@@ -61,7 +61,7 @@ export const MeetupDetailsChat = () => {
 
           <button className='btn btn-info btn-block'>
             <div className='d-flex justify-content-center align-items-center'>
-              <FaShareSquare size={15} className='mr-2' />
+              <FaComment size={15} className='mr-2' />
               Send Message
             </div>
           </button>
