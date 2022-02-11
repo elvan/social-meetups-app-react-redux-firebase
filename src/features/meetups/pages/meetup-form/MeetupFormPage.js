@@ -1,6 +1,7 @@
 import cuid from 'cuid';
 import { Form, Formik } from 'formik';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Row, Spinner } from 'react-bootstrap';
+import { FaChevronCircleLeft, FaSave } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -68,33 +69,56 @@ export const MeetupFormPage = ({ history, match }) => {
               }
             }}
           >
-            <Form>
-              <fieldset>
-                <legend className='text-info'>Meetup Details</legend>
-                <MyTextInput name='title' label='Title' />
-                <MyDateInput name='date' label='Date' />
-                <MySelectInput
-                  name='category'
-                  label='Category'
-                  options={categoryOptions}
-                />
-                <MyTextArea name='description' label='Description' />
-              </fieldset>
+            {({ dirty, isSubmitting, isValid }) => (
+              <Form>
+                <fieldset>
+                  <legend className='text-info'>Meetup Details</legend>
+                  <MyTextInput name='title' label='Title' />
+                  <MyDateInput name='date' label='Date' />
+                  <MySelectInput
+                    name='category'
+                    label='Category'
+                    options={categoryOptions}
+                  />
+                  <MyTextArea name='description' label='Description' />
+                </fieldset>
 
-              <fieldset>
-                <legend className='text-info'>Location Details</legend>
-                <MyTextInput name='city' label='City' />
-                <MyTextInput name='venue' label='Venue' />
-              </fieldset>
+                <fieldset>
+                  <legend className='text-info'>Location Details</legend>
+                  <MyTextInput name='city' label='City' />
+                  <MyTextInput name='venue' label='Venue' />
+                </fieldset>
 
-              <Button variant='success' type='submit' className='mr-2'>
-                Submit
-              </Button>
+                <Button
+                  disabled={!dirty || !isValid || isSubmitting}
+                  variant='success'
+                  type='submit'
+                  className='mr-2'
+                >
+                  <div className='d-flex align-items-center'>
+                    {isSubmitting ? (
+                      <Spinner animation='border' className='mr-2' />
+                    ) : (
+                      <FaSave className='mr-2' />
+                    )}
+                    Submit
+                  </div>
+                </Button>
 
-              <Button as={Link} to='/meetups' variant='light' type='button'>
-                Cancel
-              </Button>
-            </Form>
+                <Button
+                  disabled={isSubmitting}
+                  as={Link}
+                  to='/meetups'
+                  variant='light'
+                  type='button'
+                >
+                  <div className='d-flex align-items-center'>
+                    <FaChevronCircleLeft className='mr-2' />
+                    Cancel
+                  </div>
+                </Button>
+              </Form>
+            )}
           </Formik>
         </div>
       </Col>
