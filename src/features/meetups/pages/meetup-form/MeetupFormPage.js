@@ -1,6 +1,5 @@
 import cuid from 'cuid';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useState } from 'react';
 import { Button, Col, FormGroup, FormLabel, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -9,12 +8,12 @@ import { MyTextInput } from '../../../../components/form/MyTextInput';
 import { createMeetup, updateMeetup } from '../../store/meetupActions';
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required('Title is required'),
-  date: Yup.date().required('Date is required'),
-  category: Yup.string().required('Category is required'),
-  venue: Yup.string().required('Venue is required'),
-  city: Yup.string().required('City is required'),
-  description: Yup.string().required('Description is required'),
+  title: Yup.string().required('You must provide a title'),
+  date: Yup.date().required('You must provide a date'),
+  category: Yup.string().required('You must provide a category'),
+  description: Yup.string().required('You must provide a description'),
+  venue: Yup.string().required('You must provide a venue'),
+  city: Yup.string().required('You must provide a city'),
 });
 
 export const MeetupFormPage = ({ history, match }) => {
@@ -34,76 +33,66 @@ export const MeetupFormPage = ({ history, match }) => {
     description: '',
   };
 
-  const [values, setValues] = useState(initialValues);
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-
-    if (selectedMeetup) {
-      dispatch(
-        updateMeetup({
-          ...selectedMeetup,
-          ...values,
-        })
-      );
-      history.push(`/meetups/${selectedMeetup.id}`);
-    } else {
-      dispatch(
-        createMeetup({
-          ...values,
-          id: cuid(),
-          hostedBy: 'Cristiano',
-          hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
-          attendees: [],
-        })
-      );
-      history.push('/meetups');
-    }
-  };
-
   return (
     <Row>
       <Col xs={12} md={8} className='mb-3'>
         <div className='rounded bg-white p-3 shadow'>
-          {selectedMeetup ? (
-            <h4>Edit the Meetup</h4>
-          ) : (
-            <h4>Create New Meetup</h4>
-          )}
-
-          <hr />
-
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+              if (selectedMeetup) {
+                dispatch(
+                  updateMeetup({
+                    ...selectedMeetup,
+                    ...values,
+                  })
+                );
+                history.push(`/meetups/${selectedMeetup.id}`);
+              } else {
+                dispatch(
+                  createMeetup({
+                    ...values,
+                    id: cuid(),
+                    hostedBy: 'Cristiano',
+                    hostPhotoUrl:
+                      'https://randomuser.me/api/portraits/men/1.jpg',
+                    attendees: [],
+                  })
+                );
+                history.push('/meetups');
+              }
+            }}
           >
             <Form>
-              <MyTextInput name='title' label='Title' />
+              <fieldset>
+                <legend className='text-info'>Meetup Details</legend>
+                <MyTextInput name='title' label='Title' />
+                <MyTextInput name='date' type='date' label='Date' />
+                <MyTextInput name='category' label='Category' />
 
-              <MyTextInput name='date' type='date' label='Date' />
+                <FormGroup controlId='description'>
+                  <FormLabel>Description</FormLabel>
+                  <Field
+                    as='textarea'
+                    className='form-control'
+                    id='description'
+                    name='description'
+                    rows={5}
+                  />
+                  <ErrorMessage
+                    component='div'
+                    name='description'
+                    className='invalid-feedback d-block'
+                  />
+                </FormGroup>
+              </fieldset>
 
-              <MyTextInput name='category' label='Category' />
-
-              <MyTextInput name='venue' label='Venue' />
-
-              <MyTextInput name='city' label='City' />
-
-              <FormGroup controlId='description'>
-                <FormLabel>Description</FormLabel>
-                <Field
-                  as='textarea'
-                  className='form-control'
-                  id='description'
-                  name='description'
-                  rows={5}
-                />
-                <ErrorMessage
-                  component='div'
-                  name='description'
-                  className='invalid-feedback d-block'
-                />
-              </FormGroup>
+              <fieldset>
+                <legend className='text-info'>Location Details</legend>
+                <MyTextInput name='city' label='City' />
+                <MyTextInput name='venue' label='Venue' />
+              </fieldset>
 
               <Button variant='success' type='submit' className='mr-2'>
                 Submit
