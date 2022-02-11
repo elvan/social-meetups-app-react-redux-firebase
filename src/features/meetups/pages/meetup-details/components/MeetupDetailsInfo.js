@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import {
   FaCalendar,
   FaInfo,
@@ -22,7 +23,7 @@ export const MeetupDetailsInfo = ({ meetup }) => {
               <div className='col-6'>
                 <div className='d-flex align-items-center'>
                   <FaCalendar size={15} className='mr-2' />
-                  {meetup.date}
+                  {format(meetup.date, 'MMMM d, yyyy h:mm a')}
                 </div>
               </div>
               <div className='col-6'>

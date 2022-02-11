@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { Button } from 'react-bootstrap';
 import { FaUserCheck, FaUsersCog, FaUserTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,9 @@ export const MeetupDetailsHeader = ({ meetup }) => {
           />
           <div className='top-left'>
             <h4 className='card-title'>{meetup.title}</h4>
-            <p className='card-text'>{meetup.date}</p>
+            <p className='card-text'>
+              {format(meetup.date, 'MMMM d, yyyy h:mm a')}
+            </p>
             <p className='card-text'>Hosted by {meetup.hostedBy}</p>
           </div>
         </div>

@@ -2,7 +2,7 @@ export const sampleData = [
   {
     id: '1',
     title: 'Quisque velit nisi, pretium ut lacinia in, elementum id enim.',
-    date: '2022-03-21',
+    date: new Date('2022-03-21'),
     category: 'culture',
     description:
       'Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.',
@@ -26,7 +26,7 @@ export const sampleData = [
   {
     id: '2',
     title: 'Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
-    date: '2022-03-18',
+    date: new Date('2022-03-18'),
     category: 'drinks',
     description:
       'Nulla porttitor accumsan tincidunt. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
