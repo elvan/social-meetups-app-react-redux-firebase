@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../../components/modals/store/modalActions';
+import { TestPlaceInput } from '../components/TestPlaceInput';
 import { decrement, increment } from '../store/testActions';
 
 export const SandboxPage = () => {
@@ -37,7 +38,7 @@ export const SandboxPage = () => {
         </button>
       </div>
 
-      <div>
+      <div className='mb-3'>
         <h3>Test Modal</h3>
 
         <button
@@ -53,6 +54,10 @@ export const SandboxPage = () => {
         >
           Open Test Modal
         </button>
+      </div>
+
+      <div className='mb-3'>
+        <TestPlaceInput />
       </div>
     </div>
   );
