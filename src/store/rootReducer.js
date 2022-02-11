@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
+import { modalReducer } from '../components/modals/modalReducer';
 import { meetupReducer } from '../features/meetups/store/meetupReducer';
 import { testReducer } from '../features/sandbox/store/testReducer';
 
 export const rootReducer = combineReducers({
-  testState: testReducer,
   meetupState: meetupReducer,
+  modalState: modalReducer,
+  testState: testReducer,
 });
