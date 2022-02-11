@@ -4,8 +4,10 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { MySelectInput } from '../../../../components/form/MySelectInput';
 import { MyTextArea } from '../../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../../components/form/MyTextInput';
+import { categoryOptions } from '../../data/categoryOptions';
 import { createMeetup, updateMeetup } from '../../store/meetupActions';
 
 const validationSchema = Yup.object().shape({
@@ -70,7 +72,11 @@ export const MeetupFormPage = ({ history, match }) => {
                 <legend className='text-info'>Meetup Details</legend>
                 <MyTextInput name='title' label='Title' />
                 <MyTextInput name='date' type='date' label='Date' />
-                <MyTextInput name='category' label='Category' />
+                <MySelectInput
+                  name='category'
+                  label='Category'
+                  options={categoryOptions}
+                />
                 <MyTextArea name='description' label='Description' />
               </fieldset>
 
