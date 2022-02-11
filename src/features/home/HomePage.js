@@ -8,8 +8,8 @@ export const HomePage = ({ history }) => {
     <Fragment>
       <div className='container-lg pt-5'>
         <Row className='mt-5'>
-          <Col xs={12} md={6} className='py-5 px-3 mb-3'>
-            <h1 className='mt-5 font-weight-bolder'>
+          <Col xs={12} md={6} className='mb-3 py-5 px-3'>
+            <h1 className='font-weight-bolder mt-5'>
               <div className='d-flex align-items-center'>
                 <FaUsers size={48} className='mr-2' />
                 <span className='text-primary'>Social</span>
@@ -20,9 +20,14 @@ export const HomePage = ({ history }) => {
               Create or join a meetup to connect with people you know in your
               area.
             </p>
+            <div>
+              <Link to='/meetups' className='btn btn-info btn-lg'>
+                See All Meetups
+              </Link>
+            </div>
           </Col>
           <Col xs={12} md={6}>
-            <Card className='bg-white rounded shadow'>
+            <Card className='rounded bg-white shadow'>
               <Card.Body>
                 <Form className='mb-4'>
                   <Form.Group controlId='email'>
@@ -44,7 +49,7 @@ export const HomePage = ({ history }) => {
                     </Form.Text>
                   </Form.Group>
 
-                  <Button type='submit' block className='btn-lg shadow'>
+                  <Button type='submit' block className='shadow'>
                     <FaSignInAlt size={18} className='mr-2' />
                     Login
                   </Button>
@@ -60,7 +65,7 @@ export const HomePage = ({ history }) => {
 
                 <p className='text-center'>
                   <Link
-                    className='btn btn-success btn-lg shadow'
+                    className='btn btn-success shadow'
                     to='/register'
                     role='button'
                   >
@@ -73,7 +78,7 @@ export const HomePage = ({ history }) => {
           </Col>
         </Row>
       </div>
-      <footer className='footer bg-white text-dark mt-auto py-3'>
+      <footer className='footer text-dark mt-auto bg-white py-3'>
         <div className='container-lg'>
           <span>&copy; SocialMeetups {new Date().getFullYear()}</span>
           <span className='float-right'>
