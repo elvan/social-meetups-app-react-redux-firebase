@@ -2,7 +2,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Loading } from '../../../../components/loading/Loading';
-import { useFirestoreCollection } from '../../../../hooks/useFirestoreCollection';
+import { useCollection } from '../../../../hooks/useCollection';
 import { getMeetupsCollection } from '../../services/meetupFirestore';
 import { listenToMeetups } from '../../store/meetupActions';
 import { MeetupFilters } from './components/MeetupFilters';
@@ -14,7 +14,7 @@ export const MeetupDashboardPage = () => {
 
   const dispatch = useDispatch();
 
-  useFirestoreCollection({
+  useCollection({
     collection: getMeetupsCollection,
     listen: (documents) => dispatch(listenToMeetups(documents)),
   });

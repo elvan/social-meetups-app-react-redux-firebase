@@ -7,7 +7,7 @@ import {
 } from '../features/meetups/store/meetupActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useFirestoreCollection({ collection, listen }) {
+export function useCollection({ collection, listen }) {
   const dispatch = useDispatch();
 
   useEffect(() => {

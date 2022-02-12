@@ -1,15 +1,34 @@
 import { Col, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Loading } from '../../../../components/loading/Loading';
+import { useDocument } from '../../../../hooks/useDocument';
+import { getMeetupDocument } from '../../services/meetupFirestore';
+import { listenToMeetups } from '../../store/meetupActions';
 import { MeetupDetailsChat } from './components/MeetupDetailsChat';
 import { MeetupDetailsHeader } from './components/MeetupDetailsHeader';
 import { MeetupDetailsInfo } from './components/MeetupDetailsInfo';
 import { MeetupDetailsSidebar } from './components/MeetupDetailsSidebar';
 
 export const MeetupDetailsPage = ({ match }) => {
-  const meetup = useSelector((state) =>
-    // @ts-ignore
-    state.meetupState.meetups.find((meetup) => meetup.id === match.params.id)
-  );
+  const meetupId = match.params.id;
+  const dispatch = useDispatch();
+
+  // @ts-ignore
+  const { loading } = useSelector((state) => state.asyncState);
+
+  // @ts-ignore
+  const { meetups } = useSelector((state) => state.meetupState);
+  const meetup = meetups.find((meetup) => meetup.id === meetupId);
+
+  useDocument({
+    document: () => getMeetupDocument(meetupId),
+    listen: (meetup) => dispatch(listenToMeetups([meetup])),
+    deps: [meetupId],
+  });
+
+  if (loading || !meetup) {
+    return <Loading />;
+  }
 
   return (
     <Row>
