@@ -2,6 +2,8 @@ import GoogleMapReact from 'google-map-react';
 import React from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
+const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY || '';
+
 const AnyReactComponent = ({ lat, lng }) => (
   <div>
     <FaMapMarkerAlt size={36} className='text-primary' />
@@ -13,7 +15,7 @@ export const TestMap = ({ location }) => {
     // Important! Always set the container height explicitly
     <div style={{ height: '50vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyChJuJrM3x5uilgJP5IByqncHnKnxfNJDI' }}
+        bootstrapURLKeys={{ key: MAPS_API_KEY }}
         center={location.center}
         zoom={location.zoom}
       >
