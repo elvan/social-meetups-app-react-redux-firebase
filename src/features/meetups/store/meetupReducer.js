@@ -1,30 +1,49 @@
 import {
-  CREATE_MEETUP,
-  DELETE_MEETUP,
-  FETCH_MEETUPS,
-  UPDATE_MEETUP,
+  MEETUP_ASYNC_ERROR,
+  MEETUP_ASYNC_FINISH,
+  MEETUP_ASYNC_START,
+  MEETUP_CREATE,
+  MEETUP_DELETE,
+  MEETUP_LIST,
+  MEETUP_UPDATE,
 } from './meetupConstants';
 
 const initialState = {
   /** @type {any[]} */
   meetups: [],
+  pending: false,
+  error: null,
 };
 
 export function meetupReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case FETCH_MEETUPS:
+    case MEETUP_ASYNC_START:
+      return {
+        ...state,
+        pending: true,
+      };
+    case MEETUP_ASYNC_FINISH:
+      return {
+        ...state,
+        pending: false,
+      };
+    case MEETUP_ASYNC_ERROR:
+      return {
+        ...state,
+        pending: false,
+        error: payload,
+      };
+    case MEETUP_LIST:
       return {
         ...state,
         meetups: payload,
       };
-
-    case CREATE_MEETUP:
+    case MEETUP_CREATE:
       return {
         ...state,
         meetups: [...state.meetups, payload],
       };
-
-    case UPDATE_MEETUP:
+    case MEETUP_UPDATE:
       return {
         ...state,
         meetups: state.meetups.map((meetup) => {
@@ -34,13 +53,11 @@ export function meetupReducer(state = initialState, { type, payload }) {
           return meetup;
         }),
       };
-
-    case DELETE_MEETUP:
+    case MEETUP_DELETE:
       return {
         ...state,
         meetups: state.meetups.filter((meetup) => meetup.id !== payload),
       };
-
     default:
       return state;
   }

@@ -1,7 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { LoadingComponent } from '../../../../components/loading/LoadingComponent';
 import { useFirestoreCollection } from '../../../../hooks/useFirestoreCollection';
 import { getMeetupsCollection } from '../../services/meetupFirestore';
 import { listenToMeetups } from '../../store/meetupActions';
@@ -10,13 +9,13 @@ import { MeetupList } from './components/MeetupList';
 
 export const MeetupDashboardPage = () => {
   // @ts-ignore
-  const { meetups } = useSelector((state) => state.meetupState);
+  const { pending, error, meetups } = useSelector((state) => state.meetupState);
 
   const dispatch = useDispatch();
 
-  const { pending, error } = useFirestoreCollection({
+  useFirestoreCollection({
     collection: getMeetupsCollection,
-    data: (meetups) => dispatch(listenToMeetups(meetups)),
+    documents: (documents) => dispatch(listenToMeetups(documents)),
   });
 
   if (error) {
@@ -26,12 +25,7 @@ export const MeetupDashboardPage = () => {
   return (
     <Row>
       <Col md={8}>
-        {pending && (
-          <>
-            <LoadingComponent />
-            <LoadingComponent />
-          </>
-        )}
+        {pending && <p>Loading...</p>}
         {!pending && meetups.length > 0 && <MeetupList meetups={meetups} />}
         {!pending && meetups.length === 0 && <p>No meetups found</p>}
       </Col>

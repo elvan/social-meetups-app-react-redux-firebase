@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  meetupAsyncError,
+  meetupAsyncFinish,
+  meetupAsyncStart,
+} from '../features/meetups/store/meetupActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useFirestoreCollection({ collection, data }) {
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState(null);
+export function useFirestoreCollection({ collection, documents }) {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setPending(true);
+    dispatch(meetupAsyncStart());
     const unsubscribe = collection().onSnapshot(
       (snapshot) => {
-        data(snapshot.docs.map(dataFromSnapshot));
-        setPending(false);
+        documents(snapshot.docs.map(dataFromSnapshot));
+        dispatch(meetupAsyncFinish());
       },
       (error) => {
-        setError(error);
+        dispatch(meetupAsyncError(error));
       }
     );
 
@@ -21,9 +26,4 @@ export function useFirestoreCollection({ collection, data }) {
       unsubscribe();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return {
-    pending,
-    error,
-  };
 }

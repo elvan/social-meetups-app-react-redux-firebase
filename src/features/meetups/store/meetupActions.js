@@ -5,11 +5,33 @@ import {
 } from '../../../common/async/asyncActions';
 import { fetchSampleData } from '../data/fetchSampleData';
 import {
-  CREATE_MEETUP,
-  DELETE_MEETUP,
-  FETCH_MEETUPS,
-  UPDATE_MEETUP,
+  MEETUP_ASYNC_ERROR,
+  MEETUP_ASYNC_FINISH,
+  MEETUP_ASYNC_START,
+  MEETUP_CREATE,
+  MEETUP_DELETE,
+  MEETUP_LIST,
+  MEETUP_UPDATE,
 } from './meetupConstants';
+
+export const meetupAsyncStart = () => {
+  return {
+    type: MEETUP_ASYNC_START,
+  };
+};
+
+export const meetupAsyncFinish = () => {
+  return {
+    type: MEETUP_ASYNC_FINISH,
+  };
+};
+
+export const meetupAsyncError = (error) => {
+  return {
+    type: MEETUP_ASYNC_ERROR,
+    payload: error,
+  };
+};
 
 export function fetchMeetups() {
   return async function (dispatch) {
@@ -18,7 +40,7 @@ export function fetchMeetups() {
     try {
       const meetups = await fetchSampleData();
       dispatch({
-        type: FETCH_MEETUPS,
+        type: MEETUP_LIST,
         payload: meetups,
       });
     } catch (error) {
@@ -31,28 +53,28 @@ export function fetchMeetups() {
 
 export function listenToMeetups(meetups) {
   return {
-    type: FETCH_MEETUPS,
+    type: MEETUP_LIST,
     payload: meetups,
   };
 }
 
 export function createMeetup(meetup) {
   return {
-    type: CREATE_MEETUP,
+    type: MEETUP_CREATE,
     payload: meetup,
   };
 }
 
 export function updateMeetup(meetup) {
   return {
-    type: UPDATE_MEETUP,
+    type: MEETUP_UPDATE,
     payload: meetup,
   };
 }
 
 export function deleteMeetup(id) {
   return {
-    type: DELETE_MEETUP,
+    type: MEETUP_DELETE,
     payload: id,
   };
 }
