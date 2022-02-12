@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { useState } from 'react';
 import {
   FaCalendar,
   FaInfo,
@@ -6,8 +7,11 @@ import {
   FaMapMarkerAlt,
   FaTag,
 } from 'react-icons/fa';
+import { MeetupDetailsMap } from './MeetupDetailsMap';
 
 export const MeetupDetailsInfo = ({ meetup }) => {
+  const [openMap, toggleOpenMap] = useState(false);
+
   return (
     <div className='shadow rounded'>
       <div className='card mb-3'>
@@ -41,14 +45,18 @@ export const MeetupDetailsInfo = ({ meetup }) => {
             </div>
           </li>
           <li className='list-group-item'>
-            <button className='btn btn-info'>
+            <button
+              className='btn btn-info'
+              onClick={() => toggleOpenMap((showMap) => !showMap)}
+            >
               <div className='d-flex align-items-center'>
                 <FaMapMarkedAlt size={15} className='mr-2' />
-                Show Map
+                {openMap ? 'Hide Map' : 'Show Map'}
               </div>
             </button>
           </li>
         </ul>
+        {openMap && <MeetupDetailsMap latLng={meetup.venue.latLng} />}
       </div>
     </div>
   );
