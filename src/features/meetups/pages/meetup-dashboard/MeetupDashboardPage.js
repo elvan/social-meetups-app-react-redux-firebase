@@ -1,6 +1,7 @@
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Loading } from '../../../../components/loading/Loading';
 import { useFirestoreCollection } from '../../../../hooks/useFirestoreCollection';
 import { getMeetupsCollection } from '../../services/meetupFirestore';
 import { listenToMeetups } from '../../store/meetupActions';
@@ -25,7 +26,7 @@ export const MeetupDashboardPage = () => {
   return (
     <Row>
       <Col md={8}>
-        {pending && <p>Loading...</p>}
+        {pending && <Loading />}
         {!pending && meetups.length > 0 && <MeetupList meetups={meetups} />}
         {!pending && meetups.length === 0 && <p>No meetups found</p>}
       </Col>
