@@ -1,12 +1,23 @@
-import { sampleData } from '../data/sampleData';
-import { CREATE_MEETUP, DELETE_MEETUP, UPDATE_MEETUP } from './meetupConstants';
+import {
+  CREATE_MEETUP,
+  DELETE_MEETUP,
+  FETCH_MEETUPS,
+  UPDATE_MEETUP,
+} from './meetupConstants';
 
 const initialState = {
-  meetups: sampleData,
+  /** @type {any[]} */
+  meetups: [],
 };
 
 export function meetupReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case FETCH_MEETUPS:
+      return {
+        ...state,
+        meetups: payload,
+      };
+
     case CREATE_MEETUP:
       return {
         ...state,

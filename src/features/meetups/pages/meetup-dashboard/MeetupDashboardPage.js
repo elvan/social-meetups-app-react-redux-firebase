@@ -10,7 +10,11 @@ export const MeetupDashboardPage = () => {
   return (
     <Row>
       <Col md={8}>
-        <MeetupList meetups={meetups} />
+        {meetups && meetups.length > 0 ? (
+          <MeetupList meetups={meetups} />
+        ) : (
+          <p>No meetups found</p>
+        )}
       </Col>
       <Col md={4}>
         <div className='bg-white shadow rounded'>
