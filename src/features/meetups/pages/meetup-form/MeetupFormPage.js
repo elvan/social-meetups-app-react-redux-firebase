@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { MyDateInput } from '../../../../components/form/MyDateInput';
+import { MyPlaceInput } from '../../../../components/form/MyPlaceInput';
 import { MySelectInput } from '../../../../components/form/MySelectInput';
 import { MyTextArea } from '../../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../../components/form/MyTextInput';
@@ -17,8 +18,12 @@ const validationSchema = Yup.object().shape({
   date: Yup.date().required('You must provide a date'),
   category: Yup.string().required('You must provide a category'),
   description: Yup.string().required('You must provide a description'),
-  city: Yup.string().required('You must provide a city'),
-  venue: Yup.string().required('You must provide a venue'),
+  city: Yup.object().shape({
+    address: Yup.string().required('You must provide a city'),
+  }),
+  venue: Yup.object().shape({
+    address: Yup.string().required('You must provide a city'),
+  }),
 });
 
 export const MeetupFormPage = ({ history, match }) => {
@@ -33,9 +38,9 @@ export const MeetupFormPage = ({ history, match }) => {
     title: '',
     date: '',
     category: '',
-    city: '',
-    venue: '',
     description: '',
+    city: { address: '', latLng: null },
+    venue: { address: '', latLng: null },
   };
 
   return (
@@ -85,8 +90,8 @@ export const MeetupFormPage = ({ history, match }) => {
 
                 <fieldset>
                   <legend className='text-info'>Location Details</legend>
-                  <MyTextInput name='city' label='City' />
-                  <MyTextInput name='venue' label='Venue' />
+                  <MyPlaceInput name='city' label='City' />
+                  <MyPlaceInput name='venue' label='Venue' />
                 </fieldset>
 
                 <Button
