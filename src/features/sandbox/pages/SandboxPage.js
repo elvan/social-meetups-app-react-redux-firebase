@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { openModal } from '../../../components/modals/store/modalActions';
 import { TestMap } from '../components/TestMap';
 import { TestPlaceInput } from '../components/TestPlaceInput';
@@ -62,7 +63,7 @@ export const SandboxPage = () => {
             ) : (
               <>
                 <FaPlusCircle size={15} className='mr-2' />
-                Increment Counter
+                Increment
               </>
             )}
           </div>
@@ -85,12 +86,14 @@ export const SandboxPage = () => {
             ) : (
               <>
                 <FaMinusCircle size={15} className='mr-2' />
-                Decrement Counter
+                Decrement
               </>
             )}
           </div>
         </button>
+      </div>
 
+      <div className='mb-3'>
         <button
           className='btn btn-primary mr-2'
           onClick={() => {
@@ -103,6 +106,15 @@ export const SandboxPage = () => {
           }}
         >
           Open Test Modal
+        </button>
+
+        <button
+          className='btn btn-info mr-2'
+          onClick={() => {
+            toast.info('Info Toast');
+          }}
+        >
+          Open Info Toast
         </button>
       </div>
 

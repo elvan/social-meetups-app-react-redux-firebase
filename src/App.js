@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { ModalManager } from './components/modals/ModalManager';
 import { AppNavbar } from './components/navbar/AppNavbar';
 import { HomePage } from './features/home/HomePage';
@@ -15,6 +16,18 @@ export const App = () => {
   return (
     <div className='d-flex flex-column vh-100'>
       <ModalManager />
+      <ToastContainer
+        position='bottom-right'
+        theme='colored'
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        rtl={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Route path='/' component={HomePage} exact />
       <Route
         path={'/(.+)'}
