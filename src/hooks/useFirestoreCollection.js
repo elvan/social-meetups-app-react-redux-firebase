@@ -7,14 +7,14 @@ import {
 } from '../features/meetups/store/meetupActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useFirestoreCollection({ collection, documents }) {
+export function useFirestoreCollection({ collection, listen }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(meetupAsyncStart());
     const unsubscribe = collection().onSnapshot(
       (snapshot) => {
-        documents(snapshot.docs.map(dataFromSnapshot));
+        listen(snapshot.docs.map(dataFromSnapshot));
         dispatch(meetupAsyncFinish());
       },
       (error) => {

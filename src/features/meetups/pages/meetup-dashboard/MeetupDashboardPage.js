@@ -16,7 +16,7 @@ export const MeetupDashboardPage = () => {
 
   useFirestoreCollection({
     collection: getMeetupsCollection,
-    documents: (documents) => dispatch(listenToMeetups(documents)),
+    listen: (documents) => dispatch(listenToMeetups(documents)),
   });
 
   if (error) {
