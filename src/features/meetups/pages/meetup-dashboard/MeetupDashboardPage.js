@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoadingComponent } from '../../../../components/loading/LoadingComponent';
+import { dataFromSnapshot } from '../../../../firebase/dataFromSnapshot';
 import { fetchMeetupsFromFirestore } from '../../services/meetupFirestore';
+import { listenToMeetups } from '../../store/meetupActions';
 import { MeetupFilters } from './components/MeetupFilters';
 import { MeetupList } from './components/MeetupList';
 
@@ -13,10 +15,18 @@ export const MeetupDashboardPage = () => {
   // @ts-ignore
   const { loading } = useSelector((state) => state.asyncState);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const unsubscribe = fetchMeetupsFromFirestore({
-      next: (snapshots) => {
-        console.log(snapshots.docs.map((doc) => doc.data()));
+      next: (collSnapshot) => {
+        dispatch(
+          listenToMeetups(
+            collSnapshot.docs.map((docSnapshot) =>
+              dataFromSnapshot(docSnapshot)
+            )
+          )
+        );
       },
       error: (error) => {
         console.log(error);
@@ -26,7 +36,7 @@ export const MeetupDashboardPage = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Row>

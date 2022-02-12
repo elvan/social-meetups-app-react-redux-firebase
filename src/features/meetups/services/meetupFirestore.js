@@ -1,5 +1,5 @@
-import { projectFirestore } from '../../../firebase/projectFirebase';
+import { appFirestore } from '../../../firebase/appFirebase';
 
 export function fetchMeetupsFromFirestore(observer) {
-  return projectFirestore.collection('meetups').onSnapshot(observer);
+  return appFirestore.collection('meetups').onSnapshot(observer);
 }

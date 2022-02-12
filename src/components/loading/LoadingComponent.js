@@ -3,14 +3,14 @@ import ContentShimmer from 'react-content-shimmer';
 
 export const LoadingComponent = () => {
   return (
-    <Card className='mb-3 rounded bg-white shadow'>
+    <Card className='mb-3 bg-white rounded shadow'>
       <Card.Body className='row clearfix py-3 px-4'>
         <ContentShimmer size={{ height: 100, width: 100 }} rounded='50%' />
         <Col>
           <Card.Title className='mb-2'>
             <ContentShimmer rounded={'4px'} size={{ height: 24, width: 300 }} />
           </Card.Title>
-          <Card.Text>
+          <Card.Text as='div'>
             <ContentShimmer rounded={'4px'} size={{ height: 15, width: 150 }} />
           </Card.Text>
         </Col>

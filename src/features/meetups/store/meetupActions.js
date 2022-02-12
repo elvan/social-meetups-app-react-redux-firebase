@@ -29,6 +29,13 @@ export function fetchMeetups() {
   };
 }
 
+export function listenToMeetups(meetups) {
+  return {
+    type: FETCH_MEETUPS,
+    payload: meetups,
+  };
+}
+
 export function createMeetup(meetup) {
   return {
     type: CREATE_MEETUP,
