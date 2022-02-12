@@ -22,9 +22,11 @@ export const SandboxPage = () => {
   // @ts-ignore
   const { data } = useSelector((state) => state.testState);
 
-  const dispatch = useDispatch();
+  const [target, setTarget] = useState('');
 
   const [location, setLocation] = useState(defaultProps);
+
+  const dispatch = useDispatch();
 
   const handleSetLocation = (latLng) => {
     setLocation({
@@ -45,13 +47,14 @@ export const SandboxPage = () => {
 
         <button
           className='btn btn-success mr-2'
-          disabled={loading}
+          disabled={loading && target === 'increment'}
           onClick={() => {
             dispatch(increment(5));
+            setTarget('increment');
           }}
         >
           <div className='d-flex align-items-center justify-content-center'>
-            {loading ? (
+            {loading && target === 'increment' ? (
               <>
                 <Spinner animation='border' size='sm' className='mr-2' />
                 Incrementing...
@@ -67,13 +70,14 @@ export const SandboxPage = () => {
 
         <button
           className='btn btn-danger mr-2'
-          disabled={loading}
+          disabled={loading && target === 'decrement'}
           onClick={() => {
             dispatch(decrement(5));
+            setTarget('decrement');
           }}
         >
           <div className='d-flex align-items-center justify-content-center'>
-            {loading ? (
+            {loading && target === 'decrement' ? (
               <>
                 <Spinner animation='border' size='sm' className='mr-2' />
                 Decrementing...
