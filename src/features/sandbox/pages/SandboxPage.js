@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
+import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../../components/modals/store/modalActions';
 import { TestMap } from '../components/TestMap';
@@ -15,7 +17,10 @@ const defaultProps = {
 
 export const SandboxPage = () => {
   // @ts-ignore
-  const data = useSelector((state) => state.testState.data);
+  const { loading } = useSelector((state) => state.asyncState);
+
+  // @ts-ignore
+  const { data } = useSelector((state) => state.testState);
 
   const dispatch = useDispatch();
 
@@ -40,20 +45,46 @@ export const SandboxPage = () => {
 
         <button
           className='btn btn-success mr-2'
+          disabled={loading}
           onClick={() => {
             dispatch(increment(5));
           }}
         >
-          Increment Counter
+          <div className='d-flex align-items-center justify-content-center'>
+            {loading ? (
+              <>
+                <Spinner animation='border' size='sm' className='mr-2' />
+                Incrementing...
+              </>
+            ) : (
+              <>
+                <FaPlusCircle size={15} className='mr-2' />
+                Increment Counter
+              </>
+            )}
+          </div>
         </button>
 
         <button
           className='btn btn-danger mr-2'
+          disabled={loading}
           onClick={() => {
             dispatch(decrement(5));
           }}
         >
-          Decrement Counter
+          <div className='d-flex align-items-center justify-content-center'>
+            {loading ? (
+              <>
+                <Spinner animation='border' size='sm' className='mr-2' />
+                Decrementing...
+              </>
+            ) : (
+              <>
+                <FaMinusCircle size={15} className='mr-2' />
+                Decrement Counter
+              </>
+            )}
+          </div>
         </button>
 
         <button

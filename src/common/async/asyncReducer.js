@@ -29,6 +29,6 @@ export const asyncReducer = (state = initialState, { type, payload }) => {
         error: payload,
       };
     default:
-      break;
+      return state;
   }
 };
