@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../../components/modals/store/modalActions';
+import { TestMap } from '../components/TestMap';
 import { TestPlaceInput } from '../components/TestPlaceInput';
 import { decrement, increment } from '../store/testActions';
 
@@ -11,9 +12,6 @@ export const SandboxPage = () => {
 
   return (
     <div>
-      <h1>Sandbox Page</h1>
-
-      <h3>Counter Reducer Example</h3>
       <div className='mb-3'>
         <p>
           The data from the redux store is: <strong>{data}</strong>
@@ -39,8 +37,6 @@ export const SandboxPage = () => {
       </div>
 
       <div className='mb-3'>
-        <h3>Test Modal</h3>
-
         <button
           className='btn btn-primary'
           onClick={() => {
@@ -58,6 +54,10 @@ export const SandboxPage = () => {
 
       <div className='mb-3'>
         <TestPlaceInput />
+      </div>
+
+      <div className='mb-3'>
+        <TestMap />
       </div>
     </div>
   );
