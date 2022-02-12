@@ -37,7 +37,7 @@ export const MeetupDetailsInfo = ({ meetup }) => {
           <li className='list-group-item'>
             <div className='d-flex align-items-center'>
               <FaMapMarkerAlt size={15} className='mr-2' />
-              {meetup.venue}
+              {meetup.venue.address}
             </div>
           </li>
           <li className='list-group-item'>

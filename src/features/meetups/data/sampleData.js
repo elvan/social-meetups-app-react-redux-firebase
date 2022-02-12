@@ -1,49 +1,73 @@
 export const sampleData = [
   {
     id: '1',
-    title: 'Quisque velit nisi, pretium ut lacinia in, elementum id enim.',
-    date: new Date('2022-03-21'),
+    title: 'Trip to Empire State building',
+    date: new Date('2018-03-21'),
     category: 'culture',
     description:
-      'Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.',
-    city: 'NY, USA',
-    venue: 'Empire State Building, 5th Avenue, New York, NY, USA',
-    hostedBy: 'Aaron',
-    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/15.jpg',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
+    city: {
+      address: 'NY, USA',
+      latLng: {
+        lat: 40.7484405,
+        lng: -73.98566440000002,
+      },
+    },
+    venue: {
+      address: 'Empire State Building, 5th Avenue, New York, NY, USA',
+      latLng: {
+        lat: 40.7484405,
+        lng: -73.98566440000002,
+      },
+    },
+    hostedBy: 'Bob',
+    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/20.jpg',
     attendees: [
       {
         id: 'a',
-        displayName: 'Aaron',
-        photoUrl: 'https://randomuser.me/api/portraits/men/15.jpg',
+        displayName: 'Bob',
+        photoUrl: 'https://randomuser.me/api/portraits/men/20.jpg',
       },
       {
         id: 'b',
-        displayName: 'Harry',
-        photoUrl: 'https://randomuser.me/api/portraits/men/9.jpg',
+        displayName: 'Tom',
+        photoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
       },
     ],
   },
   {
     id: '2',
-    title: 'Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
-    date: new Date('2022-03-18'),
+    title: 'Trip to Punch and Judy Pub',
+    date: new Date('2018-03-18'),
     category: 'drinks',
     description:
-      'Nulla porttitor accumsan tincidunt. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
-    city: 'London, UK',
-    venue: 'Punch & Judy, Henrietta Street, London, UK',
-    hostedBy: 'Harry',
-    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/9.jpg',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
+    city: {
+      address: 'London, UK',
+      latLng: {
+        lat: 51.5118074,
+        lng: -0.12300089999996544,
+      },
+    },
+    venue: {
+      address: 'Punch & Judy, Henrietta Street, London, UK',
+      latLng: {
+        lat: 51.5118074,
+        lng: -0.12300089999996544,
+      },
+    },
+    hostedBy: 'Tom',
+    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
     attendees: [
       {
         id: 'a',
-        displayName: 'Aaron',
-        photoUrl: 'https://randomuser.me/api/portraits/men/19.jpg',
+        displayName: 'Bob',
+        photoUrl: 'https://randomuser.me/api/portraits/men/20.jpg',
       },
       {
         id: 'b',
-        displayName: 'Harry',
-        photoUrl: 'https://randomuser.me/api/portraits/men/9.jpg',
+        displayName: 'Tom',
+        photoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
       },
     ],
   },

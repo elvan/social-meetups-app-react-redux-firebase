@@ -1,3 +1,5 @@
+/* global google */
+
 import cuid from 'cuid';
 import { Form, Formik } from 'formik';
 import { Button, Col, Row, Spinner } from 'react-bootstrap';
@@ -74,7 +76,7 @@ export const MeetupFormPage = ({ history, match }) => {
               }
             }}
           >
-            {({ dirty, isSubmitting, isValid }) => (
+            {({ dirty, values, isSubmitting, isValid }) => (
               <Form>
                 <fieldset>
                   <legend className='text-info'>Meetup Details</legend>
@@ -91,7 +93,16 @@ export const MeetupFormPage = ({ history, match }) => {
                 <fieldset>
                   <legend className='text-info'>Location Details</legend>
                   <MyPlaceInput name='city' label='City' />
-                  <MyPlaceInput name='venue' label='Venue' />
+                  <MyPlaceInput
+                    name='venue'
+                    label='Venue'
+                    disabled={!values.city.latLng}
+                    options={{
+                      location: new google.maps.LatLng(values.city.latLng),
+                      radius: 1000,
+                      types: ['establishment'],
+                    }}
+                  />
                 </fieldset>
 
                 <Button

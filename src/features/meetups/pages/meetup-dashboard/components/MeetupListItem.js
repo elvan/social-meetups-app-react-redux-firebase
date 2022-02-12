@@ -64,7 +64,7 @@ export const MeetupListItem = ({ meetup }) => {
         <ListGroupItem>
           <div className='d-flex align-items-center'>
             <FaMapMarkerAlt size={15} className='mr-2' />
-            {meetup.venue}
+            {meetup.venue.address}
           </div>
         </ListGroupItem>
         {meetup.attendees.length > 0 ? (
