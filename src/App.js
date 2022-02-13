@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { ErrorComponent } from './components/errors/ErrorComponent';
 import { ModalManager } from './components/modals/ModalManager';
 import { AppNavbar } from './components/navbar/AppNavbar';
 import { HomePage } from './features/home/HomePage';
@@ -49,6 +50,7 @@ export const App = () => {
                   exact
                 />
                 <Route path='/sandbox' component={SandboxPage} exact />
+                <Route path='/error' component={ErrorComponent} exact />
               </Switch>
             </Container>
           </Fragment>

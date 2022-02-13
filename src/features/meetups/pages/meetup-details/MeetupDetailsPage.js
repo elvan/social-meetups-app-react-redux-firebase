@@ -1,5 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { ErrorComponent } from '../../../../components/errors/ErrorComponent';
 import { Loading } from '../../../../components/loading/Loading';
 import { useDocument } from '../../../../hooks/useDocument';
 import { getMeetupDocument } from '../../services/meetupFirestore';
@@ -14,10 +15,7 @@ export const MeetupDetailsPage = ({ match }) => {
   const dispatch = useDispatch();
 
   // @ts-ignore
-  const { loading } = useSelector((state) => state.asyncState);
-
-  // @ts-ignore
-  const { meetups } = useSelector((state) => state.meetupState);
+  const { pending, error, meetups } = useSelector((state) => state.meetupState);
   const meetup = meetups.find((meetup) => meetup.id === meetupId);
 
   useDocument({
@@ -26,24 +24,28 @@ export const MeetupDetailsPage = ({ match }) => {
     deps: [meetupId],
   });
 
-  if (loading) {
+  if (pending) {
     return <Loading />;
   }
 
-  if (!meetup) {
-    return <div>Meetup not found</div>;
+  if (error && !meetup) {
+    return <ErrorComponent error={error} />;
   }
 
   return (
-    <Row>
-      <Col md={8}>
-        <MeetupDetailsHeader meetup={meetup} />
-        <MeetupDetailsInfo meetup={meetup} />
-        <MeetupDetailsChat />
-      </Col>
-      <Col md={4}>
-        <MeetupDetailsSidebar attendees={meetup.attendees} />
-      </Col>
-    </Row>
+    <>
+      {meetup && (
+        <Row>
+          <Col md={8}>
+            <MeetupDetailsHeader meetup={meetup} />
+            <MeetupDetailsInfo meetup={meetup} />
+            <MeetupDetailsChat />
+          </Col>
+          <Col md={4}>
+            <MeetupDetailsSidebar attendees={meetup.attendees} />
+          </Col>
+        </Row>
+      )}
+    </>
   );
 };
