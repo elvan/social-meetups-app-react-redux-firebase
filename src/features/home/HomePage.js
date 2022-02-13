@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FaUserPlus, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { SocialLogin } from '../auth/components/SocialLogin';
 import { LoginForm } from '../auth/forms/LoginForm';
 
 export const HomePage = ({ history }) => {
@@ -32,15 +33,15 @@ export const HomePage = ({ history }) => {
               <Card.Body>
                 <LoginForm />
 
-                <p className='text-center'>
+                <div className='text-center'>
                   <Link to='/forgot-password' className='text-primary'>
                     Forgotten Password?
                   </Link>
-                </p>
+                </div>
 
                 <hr />
 
-                <p className='text-center'>
+                <div className='text-center'>
                   <Link
                     className='btn btn-success shadow'
                     to='/register'
@@ -49,7 +50,10 @@ export const HomePage = ({ history }) => {
                     <FaUserPlus size={18} className='mr-2' />
                     Create New Account
                   </Link>
-                </p>
+                </div>
+
+                <hr />
+                <SocialLogin />
               </Card.Body>
             </Card>
           </Col>

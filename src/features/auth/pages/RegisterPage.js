@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { SocialLogin } from '../components/SocialLogin';
 import { RegisterForm } from '../forms/RegisterForm';
 
 export const RegisterPage = () => {
@@ -9,11 +10,13 @@ export const RegisterPage = () => {
       <RegisterForm />
       <hr />
       <div className='text-center'>
-        <p>Already have an account?</p>
+        <span className='mr-2'>Already have an account?</span>
         <Link to='/login' role='button'>
           Login here
         </Link>
       </div>
+      <hr />
+      <SocialLogin />
     </div>
   );
 };
