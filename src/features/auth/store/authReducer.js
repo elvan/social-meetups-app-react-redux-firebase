@@ -44,7 +44,7 @@ export function authReducer(state = initialStates, { type, payload }) {
         authenticated: true,
         currentUser: {
           email: payload.email,
-          photoUrl: '/assets/user.png',
+          photoURL: '/assets/user.png',
         },
       };
     case AUTH_LOGOUT_USER:

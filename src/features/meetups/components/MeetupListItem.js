@@ -32,22 +32,12 @@ export const MeetupListItem = ({ meetup }) => {
       <Card.Body className='row clearfix py-3 px-4'>
         <Image
           className='float-left ml-2 mr-2'
-          src={meetup.hostPhotoUrl}
+          src={meetup.hostPhotoURL}
           roundedCircle
           style={{ height: '100px', width: '100px' }}
         />
         <Col>
-          <Card.Title className='mb-2'>
-            {meetup.title}
-            {meetup.isCancelled && (
-              <span
-                className='badge badge-danger ml-2'
-                style={{ fontSize: '1rem' }}
-              >
-                Cancelled
-              </span>
-            )}
-          </Card.Title>
+          <Card.Title className='mb-2'>{meetup.title}</Card.Title>
           <Card.Text>
             Hosted by <strong>{meetup.hostedBy}</strong>
           </Card.Text>
@@ -92,18 +82,28 @@ export const MeetupListItem = ({ meetup }) => {
         )}
         <ListGroupItem>{meetup.description}</ListGroupItem>
         <ListGroupItem className='bg-light'>
-          <Link to={`/meetups/${meetup.id}`} className='btn btn-info mr-2'>
-            <div className='d-flex align-items-center'>
-              <FaUsers size={15} className='mr-2' />
-              View Meetup
-            </div>
-          </Link>
-          <Button className='btn btn-danger mr-2' onClick={handleDelete}>
-            <div className='d-flex align-items-center'>
-              <FaTrashAlt size={15} className='mr-2' />
-              Delete
-            </div>
-          </Button>
+          <div className='d-flex align-items-center'>
+            <Link to={`/meetups/${meetup.id}`} className='btn btn-info mr-2'>
+              <div className='d-flex align-items-center'>
+                <FaUsers size={15} className='mr-2' />
+                View Meetup
+              </div>
+            </Link>
+            <Button className='btn btn-danger mr-2' onClick={handleDelete}>
+              <div className='d-flex align-items-center'>
+                <FaTrashAlt size={15} className='mr-2' />
+                Delete
+              </div>
+            </Button>
+            {meetup.isCancelled && (
+              <span
+                className='badge badge-danger ml-auto'
+                style={{ fontSize: '1rem' }}
+              >
+                Cancelled
+              </span>
+            )}
+          </div>
         </ListGroupItem>
       </ListGroup>
     </Card>

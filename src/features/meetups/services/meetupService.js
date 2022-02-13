@@ -32,11 +32,11 @@ function createSampleMeetup(meetup) {
   return {
     ...meetup,
     hostedBy: 'Aaron',
-    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+    hostPhotoURL: 'https://randomuser.me/api/portraits/men/1.jpg',
     attendees: firebase.firestore.FieldValue.arrayUnion({
       id: cuid(),
       displayName: 'Tom',
-      photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+      photoURL: 'https://randomuser.me/api/portraits/men/1.jpg',
     }),
   };
 }

@@ -21,17 +21,17 @@ export const sampleData = [
       },
     },
     hostedBy: 'Bob',
-    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/20.jpg',
+    hostPhotoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
     attendees: [
       {
         id: 'a',
         displayName: 'Bob',
-        photoUrl: 'https://randomuser.me/api/portraits/men/20.jpg',
+        photoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
       },
       {
         id: 'b',
         displayName: 'Tom',
-        photoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
+        photoURL: 'https://randomuser.me/api/portraits/men/22.jpg',
       },
     ],
   },
@@ -57,17 +57,17 @@ export const sampleData = [
       },
     },
     hostedBy: 'Tom',
-    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
+    hostPhotoURL: 'https://randomuser.me/api/portraits/men/22.jpg',
     attendees: [
       {
         id: 'a',
         displayName: 'Bob',
-        photoUrl: 'https://randomuser.me/api/portraits/men/20.jpg',
+        photoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
       },
       {
         id: 'b',
         displayName: 'Tom',
-        photoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
+        photoURL: 'https://randomuser.me/api/portraits/men/22.jpg',
       },
     ],
   },

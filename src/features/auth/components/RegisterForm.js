@@ -10,13 +10,13 @@ import { registerWithCredentials } from '../store/authActions';
 
 export const RegisterForm = () => {
   const initialValues = {
+    auth: null, // to store the error message
     displayName: '',
     email: '',
     password: '',
   };
 
   const dispatch = useDispatch();
-
   const history = useHistory();
 
   const validationSchema = Yup.object({

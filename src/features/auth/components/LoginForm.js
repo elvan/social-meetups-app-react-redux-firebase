@@ -10,12 +10,12 @@ import { loginWithCredentials } from '../store/authActions';
 
 export const LoginForm = () => {
   const initialValues = {
+    auth: null, // to store the error message
     email: '',
     password: '',
   };
 
   const dispatch = useDispatch();
-
   const history = useHistory();
 
   const validationSchema = Yup.object({

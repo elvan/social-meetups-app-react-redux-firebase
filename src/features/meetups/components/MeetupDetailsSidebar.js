@@ -19,7 +19,7 @@ export const MeetupDetailsSidebar = ({ attendees }) => {
               className='list-group-item d-flex align-items-center px-3 py-2'
             >
               <img
-                src={attendee.photoUrl ?? '/assets/user.png'}
+                src={attendee.photoURL ?? '/assets/user.png'}
                 alt='a man'
                 width={50}
                 className='mr-2 rounded-circle'

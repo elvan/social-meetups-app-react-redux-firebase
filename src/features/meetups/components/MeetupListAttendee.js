@@ -3,7 +3,7 @@ import { Image } from 'react-bootstrap';
 export const MeetupListAttendee = ({ attendee }) => {
   return (
     <Image
-      src={attendee.photoUrl}
+      src={attendee.photoURL}
       width={50}
       roundedCircle
       className='mr-1'
