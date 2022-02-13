@@ -42,6 +42,7 @@ export function registerWithCredentials(credentials) {
       });
     } catch (error) {
       dispatch(authAsyncError(error));
+      throw error;
     } finally {
       dispatch(authAsyncFinish());
     }
@@ -55,6 +56,7 @@ export function loginWithCredentials(credentials) {
       await loginWithCredentialsToFirebase(credentials);
     } catch (error) {
       dispatch(authAsyncError(error));
+      throw error;
     } finally {
       dispatch(authAsyncFinish());
     }
@@ -68,6 +70,7 @@ export function logoutUser() {
       await logoutFromFirebase();
     } catch (error) {
       dispatch(authAsyncError(error));
+      throw error;
     } finally {
       dispatch(authAsyncFinish());
     }

@@ -3,6 +3,7 @@ import { Button, Spinner } from 'react-bootstrap';
 import { FaUserPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../../components/form/MyTextInput';
 import { registerWithCredentials } from '../store/authActions';
@@ -28,14 +29,16 @@ export const RegisterForm = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
       await dispatch(registerWithCredentials(values));
       history.push('/meetups');
-    } catch (error) {
       setSubmitting(false);
-      console.log(error);
+      toast.success('Account created successfully');
+    } catch (error) {
+      setErrors({ auth: error.message });
+      setSubmitting(false);
     }
   };
 
@@ -45,8 +48,14 @@ export const RegisterForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ errors, isSubmitting }) => (
         <Form className='mb-4'>
+          {errors.auth && (
+            <div className='alert alert-danger' role='alert'>
+              {errors.auth}
+            </div>
+          )}
+
           <MyTextInput name='displayName' label='Display Name' />
           <MyTextInput name='email' label='Email' />
           <MyTextInput name='password' label='Password' type='password' />

@@ -3,6 +3,7 @@ import { Button, Spinner } from 'react-bootstrap';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../../components/form/MyTextInput';
 import { loginWithCredentials } from '../store/authActions';
@@ -24,14 +25,16 @@ export const LoginForm = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
       await dispatch(loginWithCredentials(values));
-      history.push('/meetups');
-    } catch (error) {
       setSubmitting(false);
-      console.log(error);
+      history.push('/meetups');
+      toast.success('You are logged in successfully');
+    } catch (error) {
+      setErrors({ auth: error.message });
+      setSubmitting(false);
     }
   };
 
@@ -41,8 +44,14 @@ export const LoginForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ errors, isSubmitting }) => (
         <Form className='mb-4'>
+          {errors.auth && (
+            <div className='alert alert-danger' role='alert'>
+              {errors.auth}
+            </div>
+          )}
+
           <MyTextInput name='email' label='Email' />
           <MyTextInput name='password' label='Password' type='password' />
 
