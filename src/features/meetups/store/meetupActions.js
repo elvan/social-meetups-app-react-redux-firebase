@@ -6,13 +6,13 @@ import {
 import { fetchSampleData } from '../data/fetchSampleData';
 import {
   addMeetupToFirestore,
+  deleteMeetupInFirestore,
   updateMeetupInFirestore,
 } from '../services/meetupFirestore';
 import {
   MEETUP_ASYNC_ERROR,
   MEETUP_ASYNC_FINISH,
   MEETUP_ASYNC_START,
-  MEETUP_DELETE,
   MEETUP_LIST,
 } from './meetupConstants';
 
@@ -87,8 +87,15 @@ export function updateMeetup(meetup) {
 }
 
 export function deleteMeetup(id) {
-  return {
-    type: MEETUP_DELETE,
-    payload: id,
+  return async function (dispatch) {
+    dispatch(meetupAsyncStart());
+
+    try {
+      await deleteMeetupInFirestore(id);
+    } catch (error) {
+      dispatch(meetupAsyncError(error));
+    } finally {
+      dispatch(meetupAsyncFinish());
+    }
   };
 }

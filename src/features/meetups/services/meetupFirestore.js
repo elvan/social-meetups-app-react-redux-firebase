@@ -18,6 +18,10 @@ export function updateMeetupInFirestore(meetup) {
   return getMeetupsCollection().doc(meetup.id).update(meetup);
 }
 
+export function deleteMeetupInFirestore(meetupId) {
+  return getMeetupsCollection().doc(meetupId).delete();
+}
+
 function createSampleMeetup(meetup) {
   return {
     ...meetup,
