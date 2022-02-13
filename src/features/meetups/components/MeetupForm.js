@@ -1,7 +1,8 @@
 /* global google */
 
 import { Form, Formik } from 'formik';
-import { Button, Col, Row, Spinner } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Col, Modal, Row, Spinner } from 'react-bootstrap';
 import {
   FaCalendarCheck,
   FaCalendarTimes,
@@ -57,6 +58,8 @@ export const MeetupForm = ({ meetup, history }) => {
     },
   };
 
+  const [showModal, setShowModal] = useState(false);
+
   // @ts-ignore
   const { pending } = useSelector((state) => state.meetupState);
 
@@ -72,8 +75,46 @@ export const MeetupForm = ({ meetup, history }) => {
     }
   };
 
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const handleShow = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirm = () => {
+    toggleMeetupCancelInFirestore(meetup);
+    setShowModal(false);
+  };
+
   return (
     <>
+      {meetup && (
+        <Modal show={showModal} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Meetup {meetup.isCancelled ? ' Reactivation' : ' Cancellation'}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to
+            {meetup.isCancelled ? ' reactivate ' : ' cancel '}
+            this meetup?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={handleClose}>
+              Not sure
+            </Button>
+            <Button
+              variant={meetup.isCancelled ? 'success' : 'danger'}
+              onClick={handleConfirm}
+            >
+              Yes, I am sure
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
       <Row>
         <Col xs={12} md={8} className='mb-3'>
           <div className='rounded bg-white p-3 shadow'>
@@ -118,7 +159,7 @@ export const MeetupForm = ({ meetup, history }) => {
                   <div className='d-flex'>
                     <Button
                       disabled={!dirty || !isValid || isSubmitting}
-                      variant='success'
+                      variant='primary'
                       type='submit'
                       className='mr-2'
                     >
@@ -151,9 +192,7 @@ export const MeetupForm = ({ meetup, history }) => {
                         disabled={isSubmitting}
                         type='button'
                         className='ml-auto'
-                        onClick={() => {
-                          toggleMeetupCancelInFirestore(meetup);
-                        }}
+                        onClick={handleShow}
                       >
                         <div className='d-flex align-items-center'>
                           {isSubmitting ? (
