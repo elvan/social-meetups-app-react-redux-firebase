@@ -3,6 +3,7 @@ import { Button, Image, Modal, NavDropdown } from 'react-bootstrap';
 import { FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { logoutUser } from '../../features/auth/store/authActions';
 
 export const LoggedInMenu = () => {
@@ -21,10 +22,11 @@ export const LoggedInMenu = () => {
     setShowModal(true);
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
     setShowModal(false);
     history.push('/');
+    toast.success('You are logged out successfully');
   };
 
   return (
