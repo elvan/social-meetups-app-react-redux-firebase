@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { RegisterForm } from '../forms/RegisterForm';
 
 export const RegisterPage = () => {
@@ -6,6 +7,13 @@ export const RegisterPage = () => {
       <h3>Create New Account</h3>
       <hr />
       <RegisterForm />
+      <hr />
+      <div className='text-center'>
+        <p>Already have an account?</p>
+        <Link to='/login' role='button'>
+          Login here
+        </Link>
+      </div>
     </div>
   );
 };
