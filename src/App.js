@@ -6,9 +6,10 @@ import { ErrorComponent } from './components/errors/ErrorComponent';
 import { ModalManager } from './components/modals/ModalManager';
 import { AppNavbar } from './components/navbar/AppNavbar';
 import { HomePage } from './features/home/HomePage';
+import { MeetupCreatePage } from './features/meetups/pages/meetup-create/MeetupCreatePage';
 import { MeetupDashboardPage } from './features/meetups/pages/meetup-dashboard/MeetupDashboardPage';
 import { MeetupDetailsPage } from './features/meetups/pages/meetup-details/MeetupDetailsPage';
-import { MeetupFormPage } from './features/meetups/pages/meetup-form/MeetupFormPage';
+import { MeetupUpdatePage } from './features/meetups/pages/meetup-update/MeetupUpdatePage';
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 
 export const App = () => {
@@ -45,8 +46,14 @@ export const App = () => {
                 />
                 <Route
                   key={key}
-                  path={['/create-meetup', '/manage-meetup/:id']}
-                  component={MeetupFormPage}
+                  path={'/create-meetup'}
+                  component={MeetupCreatePage}
+                  exact
+                />
+                <Route
+                  key={key}
+                  path={'/manage-meetup/:id'}
+                  component={MeetupUpdatePage}
                   exact
                 />
                 <Route path='/sandbox' component={SandboxPage} exact />

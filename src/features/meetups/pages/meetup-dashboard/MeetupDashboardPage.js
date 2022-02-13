@@ -23,12 +23,15 @@ export const MeetupDashboardPage = () => {
     toast.error(error);
   }
 
+  if (pending) {
+    return <Loading />;
+  }
+
   return (
     <Row>
       <Col md={8}>
-        {pending && <Loading />}
-        {!pending && meetups.length > 0 && <MeetupList meetups={meetups} />}
-        {!pending && meetups.length === 0 && <p>No meetups found</p>}
+        {meetups.length > 0 && <MeetupList meetups={meetups} />}
+        {meetups.length === 0 && <p>No meetups found</p>}
       </Col>
       <Col md={4}>
         <MeetupFilters />

@@ -5,6 +5,10 @@ import {
 } from '../../../common/async/asyncActions';
 import { fetchSampleData } from '../data/fetchSampleData';
 import {
+  addMeetupToFirestore,
+  updateMeetupInFirestore,
+} from '../services/meetupFirestore';
+import {
   MEETUP_ASYNC_ERROR,
   MEETUP_ASYNC_FINISH,
   MEETUP_ASYNC_START,
@@ -59,16 +63,41 @@ export function listenToMeetups(meetups) {
 }
 
 export function createMeetup(meetup) {
-  return {
-    type: MEETUP_CREATE,
-    payload: meetup,
+  return async function (dispatch) {
+    dispatch(meetupAsyncStart());
+
+    try {
+      const docRef = await addMeetupToFirestore(meetup);
+      meetup.id = docRef.id;
+    } catch (error) {
+      dispatch(meetupAsyncError(error));
+    } finally {
+      dispatch(meetupAsyncFinish());
+    }
+
+    return {
+      type: MEETUP_CREATE,
+      payload: meetup,
+    };
   };
 }
 
 export function updateMeetup(meetup) {
-  return {
-    type: MEETUP_UPDATE,
-    payload: meetup,
+  return async function (dispatch) {
+    dispatch(meetupAsyncStart());
+
+    try {
+      await updateMeetupInFirestore(meetup);
+    } catch (error) {
+      dispatch(meetupAsyncError(error));
+    } finally {
+      dispatch(meetupAsyncFinish());
+    }
+
+    return {
+      type: MEETUP_UPDATE,
+      payload: meetup,
+    };
   };
 }
 

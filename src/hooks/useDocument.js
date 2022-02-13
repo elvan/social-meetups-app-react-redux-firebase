@@ -23,6 +23,7 @@ export function useDocument({ document, listen, deps }) {
           );
           return;
         }
+
         listen(dataFromSnapshot(snapshot));
         dispatch(meetupAsyncFinish());
       },
