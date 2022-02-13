@@ -1,4 +1,5 @@
 import { appAuth } from '../../../firebase/appFirebase';
+import { setUserProfileData } from '../../users/services/userService';
 import {
   loginWithCredentialsToFirebase,
   logoutFromFirebase,
@@ -40,6 +41,7 @@ export function registerWithCredentials(credentials) {
       await result.user?.updateProfile({
         displayName: credentials.displayName,
       });
+      await setUserProfileData(result.user);
     } catch (error) {
       dispatch(authAsyncError(error));
       throw error;
