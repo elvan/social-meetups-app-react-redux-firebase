@@ -4,6 +4,7 @@ import {
   loginWithCredentialsToFirebase,
   logoutFromFirebase,
   registerWithCredentialsToFirebase,
+  socialLoginWithGoogle,
 } from '../services/authServices';
 import {
   AUTH_ASYNC_ERROR,
@@ -56,6 +57,23 @@ export function loginWithCredentials(credentials) {
     try {
       dispatch(authAsyncStart());
       await loginWithCredentialsToFirebase(credentials);
+    } catch (error) {
+      dispatch(authAsyncError(error));
+      throw error;
+    } finally {
+      dispatch(authAsyncFinish());
+    }
+  };
+}
+
+export function socialLoginUser() {
+  return async function (dispatch) {
+    try {
+      dispatch(authAsyncStart());
+      const result = await socialLoginWithGoogle();
+      if (result.additionalUserInfo?.isNewUser) {
+        await setUserProfileData(result.user);
+      }
     } catch (error) {
       dispatch(authAsyncError(error));
       throw error;

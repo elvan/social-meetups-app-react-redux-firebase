@@ -6,9 +6,12 @@ export function getUsersCollection() {
 }
 
 export function setUserProfileData(user) {
-  return getUsersCollection().doc(user.uid).set({
-    displayName: user.displayName,
-    email: user.email,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  });
+  return getUsersCollection()
+    .doc(user.uid)
+    .set({
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL || null,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
 }

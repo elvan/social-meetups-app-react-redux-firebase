@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Button, Image, Modal, NavDropdown } from 'react-bootstrap';
 import { FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ export const LoggedInMenu = () => {
   // @ts-ignore
   const { currentUser } = useSelector((state) => state.authState);
   const [showModal, setShowModal] = useState(false);
+  const [unmounted, setUnmounted] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,11 +24,20 @@ export const LoggedInMenu = () => {
   };
 
   const handleLogout = async () => {
-    await dispatch(logoutUser());
-    setShowModal(false);
-    history.push('/');
-    toast.success('You are logged out successfully');
+    if (!unmounted) {
+      await dispatch(logoutUser());
+      setShowModal(false);
+      toast.success('You are logged out successfully');
+      history.push('/');
+    }
   };
+
+  useEffect(() => {
+    setUnmounted(false);
+    return () => {
+      setUnmounted(true);
+    };
+  }, []);
 
   return (
     <>

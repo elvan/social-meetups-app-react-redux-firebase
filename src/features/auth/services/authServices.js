@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import { appAuth } from '../../../firebase/appFirebase';
 
 export function registerWithCredentialsToFirebase(credentials) {
@@ -12,6 +13,11 @@ export function loginWithCredentialsToFirebase(credentials) {
     credentials.email,
     credentials.password
   );
+}
+
+export function socialLoginWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  return appAuth.signInWithPopup(provider);
 }
 
 export function logoutFromFirebase() {
