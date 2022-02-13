@@ -33,9 +33,8 @@ export const MeetupListItem = ({ meetup }) => {
         <Image
           className='float-left ml-2 mr-2'
           src={meetup.hostPhotoUrl}
-          width={100}
-          fluid
           roundedCircle
+          style={{ height: '100px', width: '100px' }}
         />
         <Col>
           <Card.Title className='mb-2'>{meetup.title}</Card.Title>

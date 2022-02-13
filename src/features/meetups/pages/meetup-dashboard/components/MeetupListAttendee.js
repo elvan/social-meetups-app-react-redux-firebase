@@ -5,9 +5,9 @@ export const MeetupListAttendee = ({ attendee }) => {
     <Image
       src={attendee.photoUrl}
       width={50}
-      fluid
       roundedCircle
       className='mr-1'
+      style={{ height: '50px', width: '50px' }}
     />
   );
 };

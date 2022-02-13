@@ -12,10 +12,8 @@ import {
   MEETUP_ASYNC_ERROR,
   MEETUP_ASYNC_FINISH,
   MEETUP_ASYNC_START,
-  MEETUP_CREATE,
   MEETUP_DELETE,
   MEETUP_LIST,
-  MEETUP_UPDATE,
 } from './meetupConstants';
 
 export const meetupAsyncStart = () => {
@@ -43,10 +41,7 @@ export function fetchMeetups() {
 
     try {
       const meetups = await fetchSampleData();
-      dispatch({
-        type: MEETUP_LIST,
-        payload: meetups,
-      });
+      dispatch({ type: MEETUP_LIST, payload: meetups });
     } catch (error) {
       dispatch(asyncActionError(error));
     } finally {
@@ -74,11 +69,6 @@ export function createMeetup(meetup) {
     } finally {
       dispatch(meetupAsyncFinish());
     }
-
-    return {
-      type: MEETUP_CREATE,
-      payload: meetup,
-    };
   };
 }
 
@@ -93,11 +83,6 @@ export function updateMeetup(meetup) {
     } finally {
       dispatch(meetupAsyncFinish());
     }
-
-    return {
-      type: MEETUP_UPDATE,
-      payload: meetup,
-    };
   };
 }
 

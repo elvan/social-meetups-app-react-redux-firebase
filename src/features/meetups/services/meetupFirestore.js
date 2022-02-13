@@ -21,12 +21,12 @@ export function updateMeetupInFirestore(meetup) {
 function createSampleMeetup(meetup) {
   return {
     ...meetup,
-    hostedBy: 'Tom',
-    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
+    hostedBy: 'Aaron',
+    hostPhotoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
     attendees: firebase.firestore.FieldValue.arrayUnion({
       id: cuid(),
       displayName: 'Tom',
-      photoUrl: 'https://randomuser.me/api/portraits/men/22.jpg',
+      photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
     }),
   };
 }
