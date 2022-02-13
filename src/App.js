@@ -9,10 +9,10 @@ import { AppNavbar } from './components/navbar/AppNavbar';
 import { LoginPage } from './features/auth/pages/LoginPage';
 import { RegisterPage } from './features/auth/pages/RegisterPage';
 import { HomePage } from './features/home/HomePage';
-import { MeetupCreatePage } from './features/meetups/pages/meetup-create/MeetupCreatePage';
-import { MeetupDashboardPage } from './features/meetups/pages/meetup-dashboard/MeetupDashboardPage';
-import { MeetupDetailsPage } from './features/meetups/pages/meetup-details/MeetupDetailsPage';
-import { MeetupUpdatePage } from './features/meetups/pages/meetup-update/MeetupUpdatePage';
+import { MeetupCreatePage } from './features/meetups/pages/MeetupCreatePage';
+import { MeetupDashboardPage } from './features/meetups/pages/MeetupDashboardPage';
+import { MeetupDetailsPage } from './features/meetups/pages/MeetupDetailsPage';
+import { MeetupUpdatePage } from './features/meetups/pages/MeetupUpdatePage';
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 
 export const App = () => {

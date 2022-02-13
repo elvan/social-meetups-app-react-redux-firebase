@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { asyncReducer } from '../common/async/asyncReducer';
+import { asyncReducer } from '../async/asyncReducer';
 import { modalReducer } from '../components/modals/store/modalReducer';
 import { authReducer } from '../features/auth/store/authReducer';
 import { meetupReducer } from '../features/meetups/store/meetupReducer';

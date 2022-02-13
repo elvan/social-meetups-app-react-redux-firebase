@@ -1,4 +1,4 @@
-import { delay } from '../../../common/utils/delay';
+import { delay } from '../../../utils/delay';
 import { sampleData } from './sampleData';
 
 export const fetchSampleData = () => {

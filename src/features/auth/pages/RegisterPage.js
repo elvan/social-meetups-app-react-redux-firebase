@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
+import { RegisterForm } from '../components/RegisterForm';
 import { SocialLogin } from '../components/SocialLogin';
-import { RegisterForm } from '../forms/RegisterForm';
 
 export const RegisterPage = () => {
   return (

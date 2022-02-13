@@ -1,14 +1,14 @@
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorComponent } from '../../../../components/errors/ErrorComponent';
-import { Loading } from '../../../../components/loading/Loading';
-import { useDocument } from '../../../../hooks/useDocument';
-import { getMeetupDocument } from '../../services/meetupFirestore';
-import { listenToMeetups } from '../../store/meetupActions';
-import { MeetupDetailsChat } from './components/MeetupDetailsChat';
-import { MeetupDetailsHeader } from './components/MeetupDetailsHeader';
-import { MeetupDetailsInfo } from './components/MeetupDetailsInfo';
-import { MeetupDetailsSidebar } from './components/MeetupDetailsSidebar';
+import { ErrorComponent } from '../../../components/errors/ErrorComponent';
+import { Loading } from '../../../components/loading/Loading';
+import { useDocument } from '../../../hooks/useDocument';
+import { MeetupDetailsChat } from '../components/MeetupDetailsChat';
+import { MeetupDetailsHeader } from '../components/MeetupDetailsHeader';
+import { MeetupDetailsInfo } from '../components/MeetupDetailsInfo';
+import { MeetupDetailsSidebar } from '../components/MeetupDetailsSidebar';
+import { getMeetupDocument } from '../services/meetupService';
+import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDetailsPage = ({ match }) => {
   const meetupId = match.params.id;

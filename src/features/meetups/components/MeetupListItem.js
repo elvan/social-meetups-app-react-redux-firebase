@@ -17,7 +17,7 @@ import {
 } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteMeetup } from '../../../store/meetupActions';
+import { deleteMeetup } from '../store/meetupActions';
 import { MeetupListAttendee } from './MeetupListAttendee';
 
 export const MeetupListItem = ({ meetup }) => {

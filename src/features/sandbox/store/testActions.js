@@ -2,8 +2,8 @@ import {
   asyncActionError,
   asyncActionFinish,
   asyncActionStart,
-} from '../../../common/async/asyncActions';
-import { delay } from '../../../common/utils/delay';
+} from '../../../async/asyncActions';
+import { delay } from '../../../utils/delay';
 import { DECREMENT_COUNTER, INCREMENT_COUNTER } from './testConstants';
 
 export const increment = (amount = 1) => {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { FaCalendarAlt, FaFilter } from 'react-icons/fa';
 
-export const MeetupFilters = () => {
+export const MeetupListFilters = () => {
   const [value, onChange] = useState(new Date());
 
   return (

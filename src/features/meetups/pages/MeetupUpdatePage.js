@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorComponent } from '../../../../components/errors/ErrorComponent';
-import { Loading } from '../../../../components/loading/Loading';
-import { useDocument } from '../../../../hooks/useDocument';
-import { MeetupForm } from '../../components/MeetupForm';
-import { getMeetupDocument } from '../../services/meetupFirestore';
-import { listenToMeetups } from '../../store/meetupActions';
+import { ErrorComponent } from '../../../components/errors/ErrorComponent';
+import { Loading } from '../../../components/loading/Loading';
+import { useDocument } from '../../../hooks/useDocument';
+import { MeetupForm } from '../components/MeetupForm';
+import { getMeetupDocument } from '../services/meetupService';
+import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupUpdatePage = ({ history, match }) => {
   const meetupId = match.params.id;

@@ -18,7 +18,7 @@ import { MySelectInput } from '../../../components/form/MySelectInput';
 import { MyTextArea } from '../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../components/form/MyTextInput';
 import { categoryOptions } from '../data/categoryOptions';
-import { toggleMeetupCancelInFirestore } from '../services/meetupFirestore';
+import { toggleMeetupCancelInFirestore } from '../services/meetupService';
 import { createMeetup, updateMeetup } from '../store/meetupActions';
 
 const validationSchema = Yup.object().shape({

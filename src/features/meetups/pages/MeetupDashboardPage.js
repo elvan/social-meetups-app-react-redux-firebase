@@ -1,12 +1,12 @@
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Loading } from '../../../../components/loading/Loading';
-import { useCollection } from '../../../../hooks/useCollection';
-import { getMeetupsCollection } from '../../services/meetupFirestore';
-import { listenToMeetups } from '../../store/meetupActions';
-import { MeetupFilters } from './components/MeetupFilters';
-import { MeetupList } from './components/MeetupList';
+import { Loading } from '../../../components/loading/Loading';
+import { useCollection } from '../../../hooks/useCollection';
+import { MeetupList } from '../components/MeetupList';
+import { MeetupListFilters } from '../components/MeetupListFilters';
+import { getMeetupsCollection } from '../services/meetupService';
+import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDashboardPage = () => {
   // @ts-ignore
@@ -34,7 +34,7 @@ export const MeetupDashboardPage = () => {
         {meetups.length === 0 && <p>No meetups found</p>}
       </Col>
       <Col md={4}>
-        <MeetupFilters />
+        <MeetupListFilters />
       </Col>
     </Row>
   );

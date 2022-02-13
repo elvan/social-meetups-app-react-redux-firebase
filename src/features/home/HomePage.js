@@ -2,8 +2,8 @@ import { Fragment } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FaUserPlus, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { LoginForm } from '../auth/components/LoginForm';
 import { SocialLogin } from '../auth/components/SocialLogin';
-import { LoginForm } from '../auth/forms/LoginForm';
 
 export const HomePage = ({ history }) => {
   return (

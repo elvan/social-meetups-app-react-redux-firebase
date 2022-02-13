@@ -2,13 +2,13 @@ import {
   asyncActionError,
   asyncActionFinish,
   asyncActionStart,
-} from '../../../common/async/asyncActions';
+} from '../../../async/asyncActions';
 import { fetchSampleData } from '../data/fetchSampleData';
 import {
   addMeetupToFirestore,
   deleteMeetupInFirestore,
   updateMeetupInFirestore,
-} from '../services/meetupFirestore';
+} from '../services/meetupService';
 import {
   MEETUP_ASYNC_ERROR,
   MEETUP_ASYNC_FINISH,
