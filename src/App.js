@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { ErrorComponent } from './components/errors/ErrorComponent';
 import { ModalManager } from './components/modals/ModalManager';
 import { AppNavbar } from './components/navbar/AppNavbar';
+import { RegisterPage } from './features/auth/pages/RegisterPage';
 import { HomePage } from './features/home/HomePage';
 import { MeetupCreatePage } from './features/meetups/pages/meetup-create/MeetupCreatePage';
 import { MeetupDashboardPage } from './features/meetups/pages/meetup-dashboard/MeetupDashboardPage';
@@ -64,6 +65,7 @@ export const App = () => {
                   component={MeetupUpdatePage}
                   exact
                 />
+                <Route path='/register' component={RegisterPage} exact />
                 <Route path='/sandbox' component={SandboxPage} exact />
                 <Route path='/error' component={ErrorComponent} exact />
               </Switch>

@@ -2,6 +2,7 @@ import { appAuth } from '../../../firebase/appFirebase';
 import {
   loginWithCredentialsToFirebase,
   logoutFromFirebase,
+  registerWithCredentialsToFirebase,
 } from '../services/authServices';
 import {
   AUTH_ASYNC_ERROR,
@@ -30,6 +31,22 @@ export const authAsyncError = (error) => {
     payload: error,
   };
 };
+
+export function registerWithCredentials(credentials) {
+  return async function (dispatch) {
+    try {
+      dispatch(authAsyncStart());
+      const result = await registerWithCredentialsToFirebase(credentials);
+      await result.user?.updateProfile({
+        displayName: credentials.displayName,
+      });
+    } catch (error) {
+      dispatch(authAsyncError(error));
+    } finally {
+      dispatch(authAsyncFinish());
+    }
+  };
+}
 
 export function loginWithCredentials(credentials) {
   return async function (dispatch) {
