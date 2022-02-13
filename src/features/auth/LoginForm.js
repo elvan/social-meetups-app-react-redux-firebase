@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../components/form/MyTextInput';
-import { loginUser } from './store/authActions';
+import { loginWithCredentialsToFirebase } from './services/authServices';
 
 export const LoginForm = () => {
   const initialValues = {
@@ -24,17 +24,23 @@ export const LoginForm = () => {
       .required('Password is required'),
   });
 
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      setSubmitting(true);
+      await loginWithCredentialsToFirebase(values);
+      setSubmitting(false);
+      history.push('/meetups');
+    } catch (error) {
+      setSubmitting(false);
+      console.log(error);
+    }
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        dispatch(loginUser(values));
-        setTimeout(() => {
-          setSubmitting(false);
-          history.push('/meetups');
-        }, 1000);
-      }}
+      onSubmit={handleSubmit}
     >
       {({ dirty, touched, isSubmitting, isValid }) => (
         <Form className='mb-4'>
