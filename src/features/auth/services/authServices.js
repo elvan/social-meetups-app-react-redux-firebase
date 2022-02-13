@@ -6,3 +6,7 @@ export function loginWithCredentialsToFirebase(credentials) {
     credentials.password
   );
 }
+
+export function logoutFromFirebase() {
+  return appAuth.signOut();
+}

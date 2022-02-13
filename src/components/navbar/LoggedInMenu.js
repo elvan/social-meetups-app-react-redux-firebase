@@ -10,7 +10,6 @@ export const LoggedInMenu = () => {
   const { currentUser } = useSelector((state) => state.authState);
 
   const dispatch = useDispatch();
-
   const history = useHistory();
 
   const handleLogout = () => {

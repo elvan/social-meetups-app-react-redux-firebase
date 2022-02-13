@@ -1,5 +1,8 @@
 import { appAuth } from '../../../firebase/appFirebase';
-import { loginWithCredentialsToFirebase } from '../services/authServices';
+import {
+  loginWithCredentialsToFirebase,
+  logoutFromFirebase,
+} from '../services/authServices';
 import {
   AUTH_ASYNC_ERROR,
   AUTH_ASYNC_FINISH,
@@ -28,19 +31,6 @@ export const authAsyncError = (error) => {
   };
 };
 
-export function loginUser(user) {
-  return {
-    type: AUTH_LOGIN_USER,
-    payload: user,
-  };
-}
-
-export function logoutUser() {
-  return {
-    type: AUTH_LOGOUT_USER,
-  };
-}
-
 export function loginWithCredentials(credentials) {
   return async function (dispatch) {
     try {
@@ -54,13 +44,26 @@ export function loginWithCredentials(credentials) {
   };
 }
 
+export function logoutUser() {
+  return async function (dispatch) {
+    try {
+      dispatch(authAsyncStart());
+      await logoutFromFirebase();
+    } catch (error) {
+      dispatch(authAsyncError(error));
+    } finally {
+      dispatch(authAsyncFinish());
+    }
+  };
+}
+
 export function verifyAuth() {
   return async function (dispatch) {
     return appAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        dispatch(loginUser(user));
+        dispatch({ type: AUTH_LOGIN_USER, payload: user });
       } else {
-        dispatch(logoutUser());
+        dispatch({ type: AUTH_LOGOUT_USER });
       }
 
       dispatch({ type: AUTH_IS_READY });

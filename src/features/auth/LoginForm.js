@@ -1,18 +1,13 @@
 import { Form, Formik } from 'formik';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaSignInAlt } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../components/form/MyTextInput';
 import { loginWithCredentials } from './store/authActions';
 
 export const LoginForm = () => {
-  const { ready, pending, authenticated, currentUser, error } = useSelector(
-    // @ts-ignore
-    (state) => state.authState
-  );
-
   const initialValues = {
     email: '',
     password: '',
@@ -46,7 +41,7 @@ export const LoginForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ dirty, touched, isSubmitting, isValid }) => (
+      {({ isSubmitting }) => (
         <Form className='mb-4'>
           <MyTextInput name='email' label='Email' />
           <MyTextInput name='password' label='Password' type='password' />
