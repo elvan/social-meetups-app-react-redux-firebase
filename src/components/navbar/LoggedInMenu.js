@@ -61,7 +61,7 @@ export const LoggedInMenu = () => {
         title={
           <Fragment>
             <Image
-              src={currentUser.photoURL}
+              src={currentUser.photoURL || '/assets/user.png'}
               width={38.5}
               fluid
               roundedCircle
