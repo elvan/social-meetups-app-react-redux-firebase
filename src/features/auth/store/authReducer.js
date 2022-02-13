@@ -1,11 +1,9 @@
 import { LOGIN_USER, LOGOUT_USER } from './authConstants';
 
 const initialStates = {
-  authenticated: true,
-  currentUser: {
-    email: 'user@example.com',
-    photoUrl: '/assets/user.png',
-  },
+  ready: false,
+  authenticated: false,
+  currentUser: null,
 };
 
 export function authReducer(state = initialStates, { type, payload }) {
