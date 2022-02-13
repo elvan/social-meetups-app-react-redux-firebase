@@ -2,7 +2,12 @@
 
 import { Form, Formik } from 'formik';
 import { Button, Col, Row, Spinner } from 'react-bootstrap';
-import { FaChevronCircleLeft, FaSave } from 'react-icons/fa';
+import {
+  FaCalendarCheck,
+  FaCalendarTimes,
+  FaChevronCircleLeft,
+  FaSave,
+} from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -12,6 +17,7 @@ import { MySelectInput } from '../../../components/form/MySelectInput';
 import { MyTextArea } from '../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../components/form/MyTextInput';
 import { categoryOptions } from '../data/categoryOptions';
+import { toggleMeetupCancelInFirestore } from '../services/meetupFirestore';
 import { createMeetup, updateMeetup } from '../store/meetupActions';
 
 const validationSchema = Yup.object().shape({
@@ -109,34 +115,65 @@ export const MeetupForm = ({ meetup, history }) => {
                     />
                   </fieldset>
 
-                  <Button
-                    disabled={!dirty || !isValid || isSubmitting}
-                    variant='success'
-                    type='submit'
-                    className='mr-2'
-                  >
-                    <div className='d-flex align-items-center'>
-                      {isSubmitting ? (
-                        <Spinner animation='border' className='mr-2' />
-                      ) : (
-                        <FaSave className='mr-2' />
-                      )}
-                      Submit
-                    </div>
-                  </Button>
+                  <div className='d-flex'>
+                    <Button
+                      disabled={!dirty || !isValid || isSubmitting}
+                      variant='success'
+                      type='submit'
+                      className='mr-2'
+                    >
+                      <div className='d-flex align-items-center'>
+                        {isSubmitting ? (
+                          <Spinner animation='border' className='mr-2' />
+                        ) : (
+                          <FaSave className='mr-2' />
+                        )}
+                        Save Meetup
+                      </div>
+                    </Button>
 
-                  <Button
-                    disabled={isSubmitting}
-                    as={Link}
-                    to='/meetups'
-                    variant='light'
-                    type='button'
-                  >
-                    <div className='d-flex align-items-center'>
-                      <FaChevronCircleLeft className='mr-2' />
-                      Cancel
-                    </div>
-                  </Button>
+                    <Button
+                      disabled={isSubmitting}
+                      as={Link}
+                      to='/meetups'
+                      variant='light'
+                      type='button'
+                    >
+                      <div className='d-flex align-items-center'>
+                        <FaChevronCircleLeft className='mr-2' />
+                        Back to Meetups
+                      </div>
+                    </Button>
+
+                    {meetup?.id && (
+                      <Button
+                        variant={meetup.isCancelled ? 'success' : 'danger'}
+                        disabled={isSubmitting}
+                        type='button'
+                        className='ml-auto'
+                        onClick={() => {
+                          toggleMeetupCancelInFirestore(meetup);
+                        }}
+                      >
+                        <div className='d-flex align-items-center'>
+                          {isSubmitting ? (
+                            <Spinner animation='border' className='mr-2' />
+                          ) : (
+                            <>
+                              {meetup.isCancelled ? (
+                                <FaCalendarCheck className='mr-2' />
+                              ) : (
+                                <FaCalendarTimes className='mr-2' />
+                              )}
+                            </>
+                          )}
+                          {meetup.isCancelled
+                            ? 'Reactivate Meetup'
+                            : 'Cancel Meetup'}
+                        </div>
+                      </Button>
+                    )}
+                  </div>
                 </Form>
               )}
             </Formik>

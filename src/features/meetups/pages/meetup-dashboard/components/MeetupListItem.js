@@ -37,7 +37,17 @@ export const MeetupListItem = ({ meetup }) => {
           style={{ height: '100px', width: '100px' }}
         />
         <Col>
-          <Card.Title className='mb-2'>{meetup.title}</Card.Title>
+          <Card.Title className='mb-2'>
+            {meetup.title}
+            {meetup.isCancelled && (
+              <span
+                className='badge badge-danger ml-2'
+                style={{ fontSize: '1rem' }}
+              >
+                Cancelled
+              </span>
+            )}
+          </Card.Title>
           <Card.Text>
             Hosted by <strong>{meetup.hostedBy}</strong>
           </Card.Text>

@@ -6,8 +6,8 @@ export function getMeetupsCollection() {
   return appFirestore.collection('meetups');
 }
 
-export function getMeetupDocument(meetupId) {
-  return getMeetupsCollection().doc(meetupId);
+export function getMeetupDocument(id) {
+  return getMeetupsCollection().doc(id);
 }
 
 export function addMeetupToFirestore(meetup) {
@@ -18,8 +18,14 @@ export function updateMeetupInFirestore(meetup) {
   return getMeetupsCollection().doc(meetup.id).update(meetup);
 }
 
-export function deleteMeetupInFirestore(meetupId) {
-  return getMeetupsCollection().doc(meetupId).delete();
+export function deleteMeetupInFirestore(id) {
+  return getMeetupsCollection().doc(id).delete();
+}
+
+export function toggleMeetupCancelInFirestore(meetup) {
+  return getMeetupsCollection().doc(meetup.id).update({
+    isCancelled: !meetup.isCancelled,
+  });
 }
 
 function createSampleMeetup(meetup) {
