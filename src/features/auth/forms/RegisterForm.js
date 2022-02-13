@@ -4,8 +4,8 @@ import { FaUserPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import { MyTextInput } from '../../components/form/MyTextInput';
-import { registerWithCredentials } from './store/authActions';
+import { MyTextInput } from '../../../components/form/MyTextInput';
+import { registerWithCredentials } from '../store/authActions';
 
 export const RegisterForm = () => {
   const initialValues = {

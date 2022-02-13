@@ -4,8 +4,8 @@ import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import { MyTextInput } from '../../components/form/MyTextInput';
-import { loginWithCredentials } from './store/authActions';
+import { MyTextInput } from '../../../components/form/MyTextInput';
+import { loginWithCredentials } from '../store/authActions';
 
 export const LoginForm = () => {
   const initialValues = {

@@ -47,7 +47,11 @@ export const LoggedInMenu = () => {
         </div>
       </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item onClick={handleLogout}>
+      <NavDropdown.Item
+        as='a'
+        onClick={handleLogout}
+        style={{ cursor: 'pointer' }}
+      >
         <div className='d-flex align-items-center'>
           <FaSignOutAlt className='mr-2' />
           Logout
