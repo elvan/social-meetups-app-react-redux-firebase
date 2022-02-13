@@ -1,10 +1,11 @@
 import { appAuth } from '../../../firebase/appFirebase';
+import { loginWithCredentialsToFirebase } from '../services/authServices';
 import {
   AUTH_ASYNC_ERROR,
   AUTH_ASYNC_FINISH,
   AUTH_ASYNC_START,
-  LOGIN_USER,
-  LOGOUT_USER,
+  AUTH_LOGIN_USER,
+  AUTH_LOGOUT_USER,
 } from './authConstants';
 
 export const authAsyncStart = () => {
@@ -28,14 +29,27 @@ export const authAsyncError = (error) => {
 
 export function loginUser(user) {
   return {
-    type: LOGIN_USER,
+    type: AUTH_LOGIN_USER,
     payload: user,
   };
 }
 
 export function logoutUser() {
   return {
-    type: LOGOUT_USER,
+    type: AUTH_LOGOUT_USER,
+  };
+}
+
+export function loginWithCredentials(credentials) {
+  return async function (dispatch) {
+    try {
+      dispatch(authAsyncStart());
+      await loginWithCredentialsToFirebase(credentials);
+    } catch (error) {
+      dispatch(authAsyncError(error));
+    } finally {
+      dispatch(authAsyncFinish());
+    }
   };
 }
 
@@ -45,7 +59,7 @@ export function verifyAuth() {
       if (user) {
         dispatch(loginUser(user));
       } else {
-        dispatch({ type: LOGOUT_USER });
+        dispatch({ type: AUTH_LOGOUT_USER });
       }
     });
   };

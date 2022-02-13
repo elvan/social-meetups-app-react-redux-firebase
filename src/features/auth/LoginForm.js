@@ -1,13 +1,18 @@
 import { Form, Formik } from 'formik';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaSignInAlt } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../components/form/MyTextInput';
-import { loginWithCredentialsToFirebase } from './services/authServices';
+import { loginWithCredentials } from './store/authActions';
 
 export const LoginForm = () => {
+  const { ready, pending, authenticated, currentUser, error } = useSelector(
+    // @ts-ignore
+    (state) => state.authState
+  );
+
   const initialValues = {
     email: '',
     password: '',
@@ -25,10 +30,9 @@ export const LoginForm = () => {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
+    setSubmitting(true);
     try {
-      setSubmitting(true);
-      await loginWithCredentialsToFirebase(values);
-      setSubmitting(false);
+      await dispatch(loginWithCredentials(values));
       history.push('/meetups');
     } catch (error) {
       setSubmitting(false);

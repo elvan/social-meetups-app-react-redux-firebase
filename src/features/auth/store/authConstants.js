@@ -2,5 +2,5 @@ export const AUTH_ASYNC_START = 'AUTH_ASYNC_START';
 export const AUTH_ASYNC_FINISH = 'AUTH_ASYNC_FINISH';
 export const AUTH_ASYNC_ERROR = 'AUTH_ASYNC_ERROR';
 
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGOUT_USER = 'LOGOUT_USER';
+export const AUTH_LOGIN_USER = 'AUTH_LOGIN_USER';
+export const AUTH_LOGOUT_USER = 'AUTH_LOGOUT_USER';

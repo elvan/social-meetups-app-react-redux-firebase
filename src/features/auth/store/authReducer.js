@@ -2,8 +2,8 @@ import {
   AUTH_ASYNC_ERROR,
   AUTH_ASYNC_FINISH,
   AUTH_ASYNC_START,
-  LOGIN_USER,
-  LOGOUT_USER,
+  AUTH_LOGIN_USER,
+  AUTH_LOGOUT_USER,
 } from './authConstants';
 
 const initialStates = {
@@ -32,7 +32,7 @@ export function authReducer(state = initialStates, { type, payload }) {
         pending: false,
         error: payload,
       };
-    case LOGIN_USER:
+    case AUTH_LOGIN_USER:
       return {
         ...state,
         authenticated: true,
@@ -42,7 +42,7 @@ export function authReducer(state = initialStates, { type, payload }) {
         },
       };
 
-    case LOGOUT_USER:
+    case AUTH_LOGOUT_USER:
       return {
         ...state,
         authenticated: false,
