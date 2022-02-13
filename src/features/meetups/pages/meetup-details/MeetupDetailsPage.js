@@ -26,8 +26,12 @@ export const MeetupDetailsPage = ({ match }) => {
     deps: [meetupId],
   });
 
-  if (loading || !meetup) {
+  if (loading) {
     return <Loading />;
+  }
+
+  if (!meetup) {
+    return <div>Meetup not found</div>;
   }
 
   return (

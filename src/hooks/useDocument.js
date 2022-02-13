@@ -14,6 +14,15 @@ export function useDocument({ document, listen, deps }) {
     dispatch(meetupAsyncStart());
     const unsubscribe = document().onSnapshot(
       (snapshot) => {
+        if (!snapshot.exists) {
+          dispatch(
+            meetupAsyncError({
+              code: 'not-found',
+              message: 'Document does not exist',
+            })
+          );
+          return;
+        }
         listen(dataFromSnapshot(snapshot));
         dispatch(meetupAsyncFinish());
       },
