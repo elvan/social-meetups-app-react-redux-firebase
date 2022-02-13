@@ -4,6 +4,7 @@ import {
   AUTH_ASYNC_ERROR,
   AUTH_ASYNC_FINISH,
   AUTH_ASYNC_START,
+  AUTH_IS_READY,
   AUTH_LOGIN_USER,
   AUTH_LOGOUT_USER,
 } from './authConstants';
@@ -59,8 +60,10 @@ export function verifyAuth() {
       if (user) {
         dispatch(loginUser(user));
       } else {
-        dispatch({ type: AUTH_LOGOUT_USER });
+        dispatch(logoutUser());
       }
+
+      dispatch({ type: AUTH_IS_READY });
     });
   };
 }

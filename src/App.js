@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { ErrorComponent } from './components/errors/ErrorComponent';
@@ -13,7 +14,14 @@ import { MeetupUpdatePage } from './features/meetups/pages/meetup-update/MeetupU
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 
 export const App = () => {
+  // @ts-ignore
+  const { ready } = useSelector((state) => state.authState);
+
   const { key } = useLocation();
+
+  if (!ready) {
+    return <span className='bg-warning py-1 px-2'>Loading...</span>;
+  }
 
   return (
     <div className='d-flex flex-column vh-100'>

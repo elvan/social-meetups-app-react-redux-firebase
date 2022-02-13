@@ -1,3 +1,5 @@
+export const AUTH_IS_READY = 'AUTH_IS_READY';
+
 export const AUTH_ASYNC_START = 'AUTH_ASYNC_START';
 export const AUTH_ASYNC_FINISH = 'AUTH_ASYNC_FINISH';
 export const AUTH_ASYNC_ERROR = 'AUTH_ASYNC_ERROR';

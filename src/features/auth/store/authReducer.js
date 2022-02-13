@@ -2,6 +2,7 @@ import {
   AUTH_ASYNC_ERROR,
   AUTH_ASYNC_FINISH,
   AUTH_ASYNC_START,
+  AUTH_IS_READY,
   AUTH_LOGIN_USER,
   AUTH_LOGOUT_USER,
 } from './authConstants';
@@ -16,6 +17,11 @@ const initialStates = {
 
 export function authReducer(state = initialStates, { type, payload }) {
   switch (type) {
+    case AUTH_IS_READY:
+      return {
+        ...state,
+        ready: true,
+      };
     case AUTH_ASYNC_START:
       return {
         ...state,
@@ -41,14 +47,12 @@ export function authReducer(state = initialStates, { type, payload }) {
           photoUrl: '/assets/user.png',
         },
       };
-
     case AUTH_LOGOUT_USER:
       return {
         ...state,
         authenticated: false,
         currentUser: null,
       };
-
     default:
       return state;
   }
