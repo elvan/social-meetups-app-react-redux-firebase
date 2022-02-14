@@ -1,3 +1,4 @@
+import { ProfileContent } from '../components/ProfileContent';
 import { ProfileHeader } from '../components/ProfileHeader';
 
 export const ProfilePage = () => {
@@ -8,7 +9,7 @@ export const ProfilePage = () => {
           <ProfileHeader />
         </div>
         <div className='shadow rounded bg-white p-3 mb-3'>
-          <h2>Profile Content</h2>
+          <ProfileContent />
         </div>
       </div>
     </div>
