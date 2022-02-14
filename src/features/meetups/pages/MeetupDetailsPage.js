@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorComponent } from '../../../components/errors/ErrorComponent';
@@ -17,10 +18,18 @@ export const MeetupDetailsPage = ({ match }) => {
   const { pending, error, meetups } = useSelector((state) => state.meetupState);
   const meetup = meetups.find((meetup) => meetup.id === meetupId);
 
+  const documentMemo = useMemo(() => getMeetupDocument(meetupId), [meetupId]);
+
+  const listenCallback = useCallback(
+    (meetup) => {
+      return dispatch(listenToMeetups([meetup]));
+    },
+    [dispatch]
+  );
+
   useDocument({
-    document: () => getMeetupDocument(meetupId),
-    listen: (meetup) => dispatch(listenToMeetups([meetup])),
-    deps: [meetupId],
+    document: documentMemo,
+    listen: listenCallback,
   });
 
   if (pending) {

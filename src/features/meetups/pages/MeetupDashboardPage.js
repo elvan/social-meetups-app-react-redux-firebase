@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -9,13 +10,22 @@ import { getMeetupsCollection } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDashboardPage = () => {
-  const { pending, error, meetups } = useSelector((state) => state.meetupState);
-
   const dispatch = useDispatch();
 
+  const { pending, error, meetups } = useSelector((state) => state.meetupState);
+
+  const collectionMemo = useMemo(() => getMeetupsCollection(), []);
+
+  const listenCallback = useCallback(
+    (documents) => {
+      return dispatch(listenToMeetups(documents));
+    },
+    [dispatch]
+  );
+
   useCollection({
-    collection: getMeetupsCollection,
-    listen: (documents) => dispatch(listenToMeetups(documents)),
+    collection: collectionMemo,
+    listen: listenCallback,
   });
 
   if (error) {

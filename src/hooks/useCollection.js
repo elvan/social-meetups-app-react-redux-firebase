@@ -12,20 +12,18 @@ export function useCollection({ collection, listen }) {
 
   useEffect(() => {
     dispatch(meetupAsyncStart());
-    const unsubscribe = collection()
-      .orderBy('date', 'asc')
-      .onSnapshot(
-        (snapshot) => {
-          listen(snapshot.docs.map(dataFromSnapshot));
-          dispatch(meetupAsyncFinish());
-        },
-        (error) => {
-          dispatch(meetupAsyncError(error));
-        }
-      );
+    const unsubscribe = collection.orderBy('date', 'asc').onSnapshot(
+      (snapshot) => {
+        listen(snapshot.docs.map(dataFromSnapshot));
+        dispatch(meetupAsyncFinish());
+      },
+      (error) => {
+        dispatch(meetupAsyncError(error));
+      }
+    );
 
     return () => {
       unsubscribe();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch, collection, listen]);
 }

@@ -7,12 +7,12 @@ import {
 } from '../async/asyncActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useDocument({ document, listen, deps }) {
+export function useDocument({ document, listen }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(asyncActionStart());
-    const unsubscribe = document().onSnapshot(
+    const unsubscribe = document.onSnapshot(
       (snapshot) => {
         if (!snapshot.exists) {
           dispatch(
@@ -35,5 +35,5 @@ export function useDocument({ document, listen, deps }) {
     return () => {
       unsubscribe();
     };
-  }, deps); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch, document, listen]);
 }
