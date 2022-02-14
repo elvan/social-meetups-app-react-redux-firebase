@@ -60,7 +60,7 @@ export const MeetupForm = ({ meetup, history }) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const { pending } = useSelector((state) => state.meetupState);
+  const { loading } = useSelector((state) => state.asyncState);
 
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(true);
@@ -129,7 +129,7 @@ export const MeetupForm = ({ meetup, history }) => {
                     <MyTextInput
                       name='title'
                       label='Title'
-                      disabled={pending}
+                      disabled={loading}
                     />
                     <MyDateInput name='date' label='Date' />
                     <MySelectInput

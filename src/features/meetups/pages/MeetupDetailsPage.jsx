@@ -15,7 +15,8 @@ export const MeetupDetailsPage = ({ match }) => {
   const id = match.params.id;
   const dispatch = useDispatch();
 
-  const { pending, error, meetups } = useSelector((state) => state.meetupState);
+  const { loading, error } = useSelector((state) => state.asyncState);
+  const { meetups } = useSelector((state) => state.meetupState);
   const meetup = meetups.find((meetup) => meetup.id === id);
 
   const documentMemo = useMemo(() => getMeetupDocument(id), [id]);
@@ -32,7 +33,7 @@ export const MeetupDetailsPage = ({ match }) => {
     listenCallback: listenCallback,
   });
 
-  if (pending) {
+  if (loading) {
     return <Loading />;
   }
 

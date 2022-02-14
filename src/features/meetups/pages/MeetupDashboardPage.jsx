@@ -12,7 +12,8 @@ import { listenToMeetups } from '../store/meetupActions';
 export const MeetupDashboardPage = () => {
   const dispatch = useDispatch();
 
-  const { pending, error, meetups } = useSelector((state) => state.meetupState);
+  const { meetups } = useSelector((state) => state.meetupState);
+  const { loading, error } = useSelector((state) => state.asyncState);
 
   const collectionMemo = useMemo(() => getMeetupsCollection(), []);
 
@@ -32,7 +33,7 @@ export const MeetupDashboardPage = () => {
     toast.error(error);
   }
 
-  if (pending) {
+  if (loading) {
     return <Loading />;
   }
 
