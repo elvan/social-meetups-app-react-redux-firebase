@@ -9,14 +9,14 @@ import { MyTextInput } from '../../../components/form/MyTextInput';
 import { loginWithCredentials } from '../store/authActions';
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const initialValues = {
     auth: null, // to store the error message
     email: '',
     password: '',
   };
-
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email').required('Email is required'),
