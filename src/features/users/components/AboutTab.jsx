@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { useState } from 'react';
 import { ProfileForm } from './ProfileForm';
 
-export const AboutTab = ({ profile }) => {
+export const AboutTab = ({ currentUser, profile }) => {
   const [editMode, setEditMode] = useState(false);
 
   return (
@@ -15,12 +15,14 @@ export const AboutTab = ({ profile }) => {
               Member since: {format(profile.createdAt, 'dd MMM yyyy')}
             </p>
           </div>
-          <button
-            className='btn btn-sm btn-outline-primary'
-            onClick={() => setEditMode(!editMode)}
-          >
-            {editMode ? 'Cancel' : 'Edit Profile'}
-          </button>
+          {currentUser.uid === profile.id && (
+            <button
+              className='btn btn-sm btn-outline-primary'
+              onClick={() => setEditMode(!editMode)}
+            >
+              {editMode ? 'Cancel' : 'Edit Profile'}
+            </button>
+          )}
         </div>
       </div>
 

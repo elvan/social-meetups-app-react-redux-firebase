@@ -1,7 +1,7 @@
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { AboutTab } from './AboutTab';
 
-export const ProfileContent = ({ profile }) => {
+export const ProfileContent = ({ currentUser, profile }) => {
   return (
     <Tab.Container id='left-tabs-example' defaultActiveKey='tab-1'>
       <Row>
@@ -27,7 +27,7 @@ export const ProfileContent = ({ profile }) => {
         <Col sm={9}>
           <Tab.Content>
             <Tab.Pane eventKey='tab-1'>
-              <AboutTab profile={profile} />
+              <AboutTab currentUser={currentUser} profile={profile} />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-2'>
               <h5>Photos</h5>

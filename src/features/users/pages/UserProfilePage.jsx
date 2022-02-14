@@ -6,21 +6,21 @@ import { useDocument } from '../../../hooks/useDocument';
 import { ProfileContent } from '../components/ProfileContent';
 import { ProfileHeader } from '../components/ProfileHeader';
 import { getUserProfileInFirebase } from '../services/userService';
-import { listenToUserProfile } from '../store/userActions';
+import { listenToSelectedProfile } from '../store/userActions';
 
 export const UserProfilePage = ({ match }) => {
   const id = match.params.id;
   const dispatch = useDispatch();
 
-  const { isLoading, isError, userProfile, error } = useSelector(
-    (state) => state.userState
-  );
+  const { loading, error } = useSelector((state) => state.asyncState);
+  const { currentUser } = useSelector((state) => state.authState);
+  const { selectedProfile } = useSelector((state) => state.userState);
 
   const documentMemo = useMemo(() => getUserProfileInFirebase(id), [id]);
 
   const listenCallback = useCallback(
     (profile) => {
-      return dispatch(listenToUserProfile(profile));
+      return dispatch(listenToSelectedProfile(profile));
     },
     [dispatch]
   );
@@ -30,24 +30,30 @@ export const UserProfilePage = ({ match }) => {
     listenCallback: listenCallback,
   });
 
-  if (isLoading) {
+  if (loading) {
     return <Loading />;
   }
 
-  if (isError) {
+  if (error) {
     return toast.error(error.message);
   }
 
   return (
     <>
-      {userProfile && (
+      {selectedProfile && (
         <div className='row'>
           <div className='col-md-12'>
             <div className='shadow rounded bg-white p-3 mb-3'>
-              <ProfileHeader profile={userProfile} />
+              <ProfileHeader
+                currentUser={currentUser}
+                profile={selectedProfile}
+              />
             </div>
             <div className='shadow rounded bg-white p-3 mb-3'>
-              <ProfileContent profile={userProfile} />
+              <ProfileContent
+                currentUser={currentUser}
+                profile={selectedProfile}
+              />
             </div>
           </div>
         </div>

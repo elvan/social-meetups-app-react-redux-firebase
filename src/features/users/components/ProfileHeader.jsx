@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
-export const ProfileHeader = ({ profile }) => {
+export const ProfileHeader = ({ currentUser, profile }) => {
   const [following, setFollowing] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -32,34 +32,39 @@ export const ProfileHeader = ({ profile }) => {
             <div className=''>Following</div>
           </div>
         </div>
-        <hr />
-        <div className='profile-following'>
-          <button
-            disabled={loading}
-            className={
-              following
-                ? 'btn btn-block btn-info'
-                : 'btn btn-block btn-outline-info'
-            }
-            onClick={() => {
-              setLoading(true);
-              setTimeout(() => {
-                setFollowing(!following);
-                setLoading(false);
-              }, 1000);
-            }}
-          >
-            <div className='d-flex justify-content-center align-items-center'>
-              {loading && (
-                <Spinner
-                  animation='border'
-                  style={{ height: '22.5px', width: '22.5px' }}
-                />
-              )}
-              {!loading && (following ? 'Following' : 'Follow')}
+
+        {currentUser.uid !== profile.id && (
+          <>
+            <hr />
+            <div>
+              <button
+                disabled={loading}
+                className={
+                  following
+                    ? 'btn btn-block btn-info'
+                    : 'btn btn-block btn-outline-info'
+                }
+                onClick={() => {
+                  setLoading(true);
+                  setTimeout(() => {
+                    setFollowing(!following);
+                    setLoading(false);
+                  }, 1000);
+                }}
+              >
+                <div className='d-flex justify-content-center align-items-center'>
+                  {loading && (
+                    <Spinner
+                      animation='border'
+                      style={{ height: '22.5px', width: '22.5px' }}
+                    />
+                  )}
+                  {!loading && (following ? 'Following' : 'Follow')}
+                </div>
+              </button>
             </div>
-          </button>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
 import {
   asyncActionError,
   asyncActionFinish,
-  asyncActionStart,
+  asyncActionStart
 } from '../../../async/asyncActions';
 import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_SELECTED_PROFILE,
-  LISTEN_TO_USER_PROFILE,
+  LISTEN_TO_USER_PROFILE
 } from './userConstants';
 
 export function listenToUserProfile(profile) {
