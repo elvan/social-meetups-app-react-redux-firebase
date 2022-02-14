@@ -15,6 +15,7 @@ import { MeetupDashboardPage } from './features/meetups/pages/MeetupDashboardPag
 import { MeetupDetailsPage } from './features/meetups/pages/MeetupDetailsPage';
 import { MeetupUpdatePage } from './features/meetups/pages/MeetupUpdatePage';
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
+import { ProfilePage } from './features/users/pages/ProfilePage';
 
 export const App = () => {
   // @ts-ignore
@@ -69,6 +70,7 @@ export const App = () => {
                 />
                 <Route path='/register' component={RegisterPage} exact />
                 <Route path='/login' component={LoginPage} exact />
+                <Route path='/profile' component={ProfilePage} exact />
                 <Route path='/account' component={AccountPage} exact />
                 <Route path='/sandbox' component={SandboxPage} exact />
                 <Route path='/error' component={ErrorComponent} exact />
