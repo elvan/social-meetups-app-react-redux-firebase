@@ -18,12 +18,6 @@ export const ProfileHeader = ({ profile }) => {
           <div className='media-body'>
             <h4 className='mt-0'>{profile.displayName}</h4>
             <h6>Blogger</h6>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt
-              distinctio iste est ducimus quidem aliquid, deserunt sunt fugiat
-              dolore maiores laudantium sint voluptatibus quasi! Commodi fugit
-              ullam voluptate assumenda amet.
-            </p>
           </div>
         </div>
       </div>
@@ -59,7 +53,7 @@ export const ProfileHeader = ({ profile }) => {
               {loading && (
                 <Spinner
                   animation='border'
-                  style={{ height: '23px', width: '23px' }}
+                  style={{ height: '22.5px', width: '22.5px' }}
                 />
               )}
               {!loading && (following ? 'Following' : 'Follow')}
