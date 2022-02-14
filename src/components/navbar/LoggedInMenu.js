@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Button, Image, Modal, NavDropdown } from 'react-bootstrap';
-import { FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
+import { FaCog, FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -78,10 +78,16 @@ export const LoggedInMenu = () => {
             Create Meetup
           </div>
         </NavDropdown.Item>
-        <NavDropdown.Item as={Link} to='/settings'>
+        <NavDropdown.Item as={Link} to='/profile'>
           <div className='d-flex align-items-center'>
             <FaUserAlt className='mr-2' />
             My Profile
+          </div>
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to='/account'>
+          <div className='d-flex align-items-center'>
+            <FaCog className='mr-2' />
+            My Account
           </div>
         </NavDropdown.Item>
         <NavDropdown.Divider />
