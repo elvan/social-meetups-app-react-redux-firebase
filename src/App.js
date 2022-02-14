@@ -14,8 +14,8 @@ import { MeetupCreatePage } from './features/meetups/pages/MeetupCreatePage';
 import { MeetupDashboardPage } from './features/meetups/pages/MeetupDashboardPage';
 import { MeetupDetailsPage } from './features/meetups/pages/MeetupDetailsPage';
 import { MeetupUpdatePage } from './features/meetups/pages/MeetupUpdatePage';
+import { ProfilePage } from './features/profiles/pages/ProfilePage';
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
-import { ProfilePage } from './features/users/pages/ProfilePage';
 
 export const App = () => {
   // @ts-ignore
