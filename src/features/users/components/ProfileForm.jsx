@@ -1,12 +1,13 @@
 import { Form, Formik } from 'formik';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { MyTextArea } from '../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../components/form/MyTextInput';
 import { updateUserProfile } from '../store/userActions';
 
-export const ProfileForm = ({ profile }) => {
+export const ProfileForm = ({ profile, setEditMode }) => {
   const dispatch = useDispatch();
 
   return (
@@ -29,6 +30,8 @@ export const ProfileForm = ({ profile }) => {
         };
         try {
           await dispatch(updateUserProfile(updatedProfile));
+          toast.success('Profile updated successfully');
+          setEditMode(false);
         } catch (error) {
           setErrors({
             errorMessage: error.message,

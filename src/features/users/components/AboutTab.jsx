@@ -19,13 +19,13 @@ export const AboutTab = ({ profile }) => {
             className='btn btn-sm btn-outline-primary'
             onClick={() => setEditMode(!editMode)}
           >
-            {editMode ? 'Cancel' : 'Edit Profile'}
+            {editMode ? 'Done' : 'Edit Profile'}
           </button>
         </div>
       </div>
 
       {editMode ? (
-        <ProfileForm profile={profile} />
+        <ProfileForm profile={profile} setEditMode={setEditMode} />
       ) : (
         <div>
           <h5>Bio</h5>
