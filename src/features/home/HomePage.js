@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { LoginForm } from '../auth/components/LoginForm';
 import { SocialLogin } from '../auth/components/SocialLogin';
 
-export const HomePage = ({ history }) => {
+export const HomePage = () => {
   return (
     <Fragment>
       <div className='container-lg pt-5'>

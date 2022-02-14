@@ -2,7 +2,6 @@ import { useField } from 'formik';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 
 export const MyTextArea = ({ label, ...props }) => {
-  // @ts-ignore
   const [field, meta] = useField(props);
 
   return (

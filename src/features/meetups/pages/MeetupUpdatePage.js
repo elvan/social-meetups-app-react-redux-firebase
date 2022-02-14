@@ -10,7 +10,6 @@ export const MeetupUpdatePage = ({ history, match }) => {
   const meetupId = match.params.id;
   const dispatch = useDispatch();
 
-  // @ts-ignore
   const { pending, error, meetups } = useSelector((state) => state.meetupState);
 
   let storedMeetup;

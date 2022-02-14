@@ -9,7 +9,6 @@ import { MyTextInput } from '../../../components/form/MyTextInput';
 import { loginWithCredentials, updatePassword } from '../store/authActions';
 
 export const AccountPage = () => {
-  // @ts-ignore
   const { currentUser } = useSelector((state) => state.authState);
   const [showModal, setShowModal] = useState(false);
   const [unmounted, setUnmounted] = useState(false);
@@ -134,8 +133,7 @@ export const AccountPage = () => {
                     toast.success('Password updated successfully');
                   } catch (error) {
                     console.log(error);
-                    // error.code 'auth/requires-recent-login'
-                    if (error.code == 'auth/requires-recent-login') {
+                    if (error.code === 'auth/requires-recent-login') {
                       setShowModal(true);
                     }
                     setErrors({ auth: error.message });

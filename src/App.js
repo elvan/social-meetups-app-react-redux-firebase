@@ -18,8 +18,7 @@ import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 import { UserProfilePage } from './features/users/pages/UserProfilePage';
 
 export const App = () => {
-  // @ts-ignore
-  const { ready, currentUser } = useSelector((state) => state.authState);
+  const { ready } = useSelector((state) => state.authState);
   const { key } = useLocation();
 
   if (!ready) {

@@ -9,7 +9,6 @@ import { getMeetupsCollection } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDashboardPage = () => {
-  // @ts-ignore
   const { pending, error, meetups } = useSelector((state) => state.meetupState);
 
   const dispatch = useDispatch();

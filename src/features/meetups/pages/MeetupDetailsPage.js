@@ -14,7 +14,6 @@ export const MeetupDetailsPage = ({ match }) => {
   const meetupId = match.params.id;
   const dispatch = useDispatch();
 
-  // @ts-ignore
   const { pending, error, meetups } = useSelector((state) => state.meetupState);
   const meetup = meetups.find((meetup) => meetup.id === meetupId);
 

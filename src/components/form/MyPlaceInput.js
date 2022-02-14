@@ -4,7 +4,6 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import PlacesAutocomplete from 'react-places-autocomplete/dist/PlacesAutocomplete';
 
 export const MyPlaceInput = ({ label, options = {}, ...props }) => {
-  // @ts-ignore
   const [field, meta, helpers] = useField(props);
 
   const handleSelect = (address) => {
@@ -28,7 +27,7 @@ export const MyPlaceInput = ({ label, options = {}, ...props }) => {
       onSelect={(value) => handleSelect(value)}
       searchOptions={options}
     >
-      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+      {({ getInputProps, suggestions, getSuggestionItemProps }) => (
         <FormGroup controlId={props.name}>
           <FormLabel
             className={meta.touched && meta.error ? 'text-danger' : ''}

@@ -2,7 +2,6 @@ import { useField } from 'formik';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 
 export const MySelectInput = ({ label, options, ...props }) => {
-  // @ts-ignore
   const [field, meta, helpers] = useField(props);
 
   return (

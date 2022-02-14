@@ -9,7 +9,6 @@ import { listenToUserProfile } from '../store/userActions';
 
 export const UserProfilePage = ({ match }) => {
   const { isLoading, isError, userProfile, error } = useSelector(
-    // @ts-ignore
     (state) => state.userState
   );
   const dispatch = useDispatch();

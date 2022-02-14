@@ -37,9 +37,8 @@ export const meetupAsyncError = (error) => {
 
 export function fetchMeetups() {
   return async function (dispatch) {
-    dispatch(asyncActionStart());
-
     try {
+      dispatch(asyncActionStart());
       const meetups = await fetchSampleData();
       dispatch({ type: MEETUP_LIST, payload: meetups });
     } catch (error) {
@@ -59,9 +58,8 @@ export function listenToMeetups(meetups) {
 
 export function createMeetup(meetup) {
   return async function (dispatch) {
-    dispatch(meetupAsyncStart());
-
     try {
+      dispatch(meetupAsyncStart());
       const docRef = await addMeetupToFirestore(meetup);
       meetup.id = docRef.id;
     } catch (error) {
@@ -74,9 +72,8 @@ export function createMeetup(meetup) {
 
 export function updateMeetup(meetup) {
   return async function (dispatch) {
-    dispatch(meetupAsyncStart());
-
     try {
+      dispatch(meetupAsyncStart());
       await updateMeetupInFirestore(meetup);
     } catch (error) {
       dispatch(meetupAsyncError(error));
@@ -88,9 +85,8 @@ export function updateMeetup(meetup) {
 
 export function deleteMeetup(id) {
   return async function (dispatch) {
-    dispatch(meetupAsyncStart());
-
     try {
+      dispatch(meetupAsyncStart());
       await deleteMeetupInFirestore(id);
     } catch (error) {
       dispatch(meetupAsyncError(error));

@@ -17,14 +17,10 @@ const defaultProps = {
 };
 
 export const SandboxPage = () => {
-  // @ts-ignore
   const { loading } = useSelector((state) => state.asyncState);
-
-  // @ts-ignore
   const { data } = useSelector((state) => state.testState);
 
   const [target, setTarget] = useState('');
-
   const [location, setLocation] = useState(defaultProps);
 
   const dispatch = useDispatch();

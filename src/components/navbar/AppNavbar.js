@@ -6,7 +6,6 @@ import { LoggedInMenu } from './LoggedInMenu';
 import { LoggedOutMenu } from './LoggedOutMenu';
 
 export const AppNavbar = () => {
-  // @ts-ignore
   const { authenticated } = useSelector((state) => state.authState);
 
   return (

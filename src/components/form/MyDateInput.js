@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './MyDateInput.css';
 
 export const MyDateInput = ({ label, ...props }) => {
-  // @ts-ignore
   const [field, meta, helpers] = useField(props);
   const { setFieldValue } = useFormikContext();
 

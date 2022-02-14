@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { logoutUser } from '../../features/auth/store/authActions';
 
 export const LoggedInMenu = () => {
-  // @ts-ignore
   const { currentUser } = useSelector((state) => state.authState);
   const [showModal, setShowModal] = useState(false);
   const [unmounted, setUnmounted] = useState(false);

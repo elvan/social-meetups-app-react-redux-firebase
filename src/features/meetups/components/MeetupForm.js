@@ -60,7 +60,6 @@ export const MeetupForm = ({ meetup, history }) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  // @ts-ignore
   const { pending } = useSelector((state) => state.meetupState);
 
   const handleSubmit = (values, { setSubmitting }) => {
