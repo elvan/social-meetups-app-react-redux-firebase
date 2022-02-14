@@ -14,13 +14,12 @@ import { MeetupCreatePage } from './features/meetups/pages/MeetupCreatePage';
 import { MeetupDashboardPage } from './features/meetups/pages/MeetupDashboardPage';
 import { MeetupDetailsPage } from './features/meetups/pages/MeetupDetailsPage';
 import { MeetupUpdatePage } from './features/meetups/pages/MeetupUpdatePage';
-import { ProfilePage } from './features/profiles/pages/ProfilePage';
 import { SandboxPage } from './features/sandbox/pages/SandboxPage';
+import { UserProfilePage } from './features/users/pages/UserProfilePage';
 
 export const App = () => {
   // @ts-ignore
-  const { ready } = useSelector((state) => state.authState);
-
+  const { ready, currentUser } = useSelector((state) => state.authState);
   const { key } = useLocation();
 
   if (!ready) {
@@ -70,7 +69,7 @@ export const App = () => {
                 />
                 <Route path='/register' component={RegisterPage} exact />
                 <Route path='/login' component={LoginPage} exact />
-                <Route path='/profile' component={ProfilePage} exact />
+                <Route path='/profile/:id' component={UserProfilePage} exact />
                 <Route path='/account' component={AccountPage} exact />
                 <Route path='/sandbox' component={SandboxPage} exact />
                 <Route path='/error' component={ErrorComponent} exact />

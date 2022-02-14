@@ -15,3 +15,7 @@ export function setUserProfileData(user) {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
 }
+
+export function getUserProfileData(id) {
+  return getUsersCollection().doc(id);
+}

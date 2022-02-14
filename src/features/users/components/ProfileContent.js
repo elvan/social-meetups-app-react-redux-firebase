@@ -1,6 +1,6 @@
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 
-export const ProfileContent = () => {
+export const ProfileContent = ({ profile }) => {
   return (
     <Tab.Container id='left-tabs-example' defaultActiveKey='tab-1'>
       <Row>

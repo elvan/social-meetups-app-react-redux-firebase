@@ -78,7 +78,7 @@ export const LoggedInMenu = () => {
             Create Meetup
           </div>
         </NavDropdown.Item>
-        <NavDropdown.Item as={Link} to='/profile'>
+        <NavDropdown.Item as={Link} to={`/profile/${currentUser.uid}`}>
           <div className='d-flex align-items-center'>
             <FaUserAlt className='mr-2' />
             My Profile

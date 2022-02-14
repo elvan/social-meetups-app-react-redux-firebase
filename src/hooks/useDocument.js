@@ -1,22 +1,22 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  meetupAsyncError,
-  meetupAsyncFinish,
-  meetupAsyncStart,
-} from '../features/meetups/store/meetupActions';
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+} from '../async/asyncActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
 export function useDocument({ document, listen, deps }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(meetupAsyncStart());
+    dispatch(asyncActionStart());
     const unsubscribe = document().onSnapshot(
       (snapshot) => {
         if (!snapshot.exists) {
           dispatch(
-            meetupAsyncError({
+            asyncActionError({
               code: 'not-found',
               message: 'Document does not exist',
             })
@@ -25,10 +25,10 @@ export function useDocument({ document, listen, deps }) {
         }
 
         listen(dataFromSnapshot(snapshot));
-        dispatch(meetupAsyncFinish());
+        dispatch(asyncActionFinish());
       },
       (error) => {
-        dispatch(meetupAsyncError(error));
+        dispatch(asyncActionError(error));
       }
     );
 

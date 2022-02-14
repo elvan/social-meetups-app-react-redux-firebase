@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
-export const ProfileHeader = () => {
+export const ProfileHeader = ({ profile }) => {
   const [following, setFollowing] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -10,13 +10,13 @@ export const ProfileHeader = () => {
       <div className='col-md-8'>
         <div className='media'>
           <img
-            src='/assets/user.png'
+            src={profile.photoURL || '/assets/user.png'}
             alt='user'
             className='rounded-circle align-self-start mr-3'
             style={{ width: '100px' }}
           />
           <div className='media-body'>
-            <h4 className='mt-0'>Example User</h4>
+            <h4 className='mt-0'>{profile.displayName}</h4>
             <h6>Blogger</h6>
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt
