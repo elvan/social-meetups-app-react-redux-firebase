@@ -43,8 +43,11 @@ export function authReducer(state = initialStates, { type, payload }) {
         ...state,
         authenticated: true,
         currentUser: {
+          uid: payload.uid,
+          displayName: payload.displayName,
           email: payload.email,
           photoURL: payload.photoURL,
+          providerId: payload.providerData[0].providerId,
         },
       };
     case AUTH_LOGOUT_USER:

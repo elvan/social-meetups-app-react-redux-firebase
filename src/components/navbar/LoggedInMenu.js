@@ -67,7 +67,7 @@ export const LoggedInMenu = () => {
               roundedCircle
               className='mr-2'
             />
-            <span>{currentUser.email}</span>
+            <span>{currentUser.displayName}</span>
           </Fragment>
         }
         id='collasible-nav-dropdown'
