@@ -1,29 +1,29 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  meetupAsyncError,
-  meetupAsyncFinish,
-  meetupAsyncStart,
-} from '../features/meetups/store/meetupActions';
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+} from '../async/asyncActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useCollection({ collection, listen }) {
+export function useCollection({ collectionMemo, listenCallback }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(meetupAsyncStart());
-    const unsubscribe = collection.orderBy('date', 'asc').onSnapshot(
+    dispatch(asyncActionStart());
+    const unsubscribe = collectionMemo.orderBy('date', 'asc').onSnapshot(
       (snapshot) => {
-        listen(snapshot.docs.map(dataFromSnapshot));
-        dispatch(meetupAsyncFinish());
+        listenCallback(snapshot.docs.map(dataFromSnapshot));
+        dispatch(asyncActionFinish());
       },
       (error) => {
-        dispatch(meetupAsyncError(error));
+        dispatch(asyncActionError(error));
       }
     );
 
     return () => {
       unsubscribe();
     };
-  }, [dispatch, collection, listen]);
+  }, [dispatch, collectionMemo, listenCallback]);
 }

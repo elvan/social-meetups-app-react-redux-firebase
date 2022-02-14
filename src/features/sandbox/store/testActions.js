@@ -18,6 +18,7 @@ export const increment = (amount = 1) => {
       });
     } catch (error) {
       dispatch(asyncActionError(error));
+      throw error;
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -36,6 +37,7 @@ export const decrement = (amount = 1) => {
       });
     } catch (error) {
       dispatch(asyncActionError(error));
+      throw error;
     } finally {
       dispatch(asyncActionFinish());
     }

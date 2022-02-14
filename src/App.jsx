@@ -56,19 +56,19 @@ export const App = () => {
                 />
                 <Route
                   key={key}
-                  path={'/create-meetup'}
+                  path='/create-meetup'
                   component={MeetupCreatePage}
                   exact
                 />
                 <Route
                   key={key}
-                  path={'/manage-meetup/:id'}
+                  path='/manage-meetup/:id'
                   component={MeetupUpdatePage}
                   exact
                 />
-                <Route path='/register' component={RegisterPage} exact />
-                <Route path='/login' component={LoginPage} exact />
                 <Route path='/profile/:id' component={UserProfilePage} exact />
+                <Route path='/register' component={RegisterPage} exact />
+                <Route path='/login' component={LoginPage} />
                 <Route path='/account' component={AccountPage} exact />
                 <Route path='/sandbox' component={SandboxPage} exact />
                 <Route path='/error' component={ErrorComponent} exact />

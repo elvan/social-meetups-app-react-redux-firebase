@@ -9,31 +9,7 @@ import {
   deleteMeetupInFirestore,
   updateMeetupInFirestore,
 } from '../services/meetupService';
-import {
-  MEETUP_ASYNC_ERROR,
-  MEETUP_ASYNC_FINISH,
-  MEETUP_ASYNC_START,
-  MEETUP_LIST,
-} from './meetupConstants';
-
-export const meetupAsyncStart = () => {
-  return {
-    type: MEETUP_ASYNC_START,
-  };
-};
-
-export const meetupAsyncFinish = () => {
-  return {
-    type: MEETUP_ASYNC_FINISH,
-  };
-};
-
-export const meetupAsyncError = (error) => {
-  return {
-    type: MEETUP_ASYNC_ERROR,
-    payload: error,
-  };
-};
+import { MEETUP_LIST } from './meetupConstants';
 
 export function fetchMeetups() {
   return async function (dispatch) {
@@ -43,6 +19,7 @@ export function fetchMeetups() {
       dispatch({ type: MEETUP_LIST, payload: meetups });
     } catch (error) {
       dispatch(asyncActionError(error));
+      throw error;
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -59,13 +36,14 @@ export function listenToMeetups(meetups) {
 export function createMeetup(meetup) {
   return async function (dispatch) {
     try {
-      dispatch(meetupAsyncStart());
+      dispatch(asyncActionStart());
       const docRef = await addMeetupToFirestore(meetup);
       meetup.id = docRef.id;
     } catch (error) {
-      dispatch(meetupAsyncError(error));
+      dispatch(asyncActionError(error));
+      throw error;
     } finally {
-      dispatch(meetupAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }
@@ -73,12 +51,13 @@ export function createMeetup(meetup) {
 export function updateMeetup(meetup) {
   return async function (dispatch) {
     try {
-      dispatch(meetupAsyncStart());
+      dispatch(asyncActionStart());
       await updateMeetupInFirestore(meetup);
     } catch (error) {
-      dispatch(meetupAsyncError(error));
+      dispatch(asyncActionError(error));
+      throw error;
     } finally {
-      dispatch(meetupAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }
@@ -86,12 +65,13 @@ export function updateMeetup(meetup) {
 export function deleteMeetup(id) {
   return async function (dispatch) {
     try {
-      dispatch(meetupAsyncStart());
+      dispatch(asyncActionStart());
       await deleteMeetupInFirestore(id);
     } catch (error) {
-      dispatch(meetupAsyncError(error));
+      dispatch(asyncActionError(error));
+      throw error;
     } finally {
-      dispatch(meetupAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }

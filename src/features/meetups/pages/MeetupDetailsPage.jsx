@@ -12,13 +12,13 @@ import { getMeetupDocument } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDetailsPage = ({ match }) => {
-  const meetupId = match.params.id;
+  const id = match.params.id;
   const dispatch = useDispatch();
 
   const { pending, error, meetups } = useSelector((state) => state.meetupState);
-  const meetup = meetups.find((meetup) => meetup.id === meetupId);
+  const meetup = meetups.find((meetup) => meetup.id === id);
 
-  const documentMemo = useMemo(() => getMeetupDocument(meetupId), [meetupId]);
+  const documentMemo = useMemo(() => getMeetupDocument(id), [id]);
 
   const listenCallback = useCallback(
     (meetup) => {
@@ -28,8 +28,8 @@ export const MeetupDetailsPage = ({ match }) => {
   );
 
   useDocument({
-    document: documentMemo,
-    listen: listenCallback,
+    documentMemo: documentMemo,
+    listenCallback: listenCallback,
   });
 
   if (pending) {

@@ -1,3 +1,8 @@
+import {
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+} from '../../../async/asyncActions';
 import { appAuth } from '../../../firebase/appFirebase';
 import { setUserProfileData } from '../../users/services/userService';
 import {
@@ -8,47 +13,25 @@ import {
   updatePasswordInFirebase,
 } from '../services/authServices';
 import {
-  AUTH_ASYNC_ERROR,
-  AUTH_ASYNC_FINISH,
-  AUTH_ASYNC_START,
   AUTH_IS_READY,
   AUTH_LOGIN_USER,
   AUTH_LOGOUT_USER,
 } from './authConstants';
 
-export const authAsyncStart = () => {
-  return {
-    type: AUTH_ASYNC_START,
-  };
-};
-
-export const authAsyncFinish = () => {
-  return {
-    type: AUTH_ASYNC_FINISH,
-  };
-};
-
-export const authAsyncError = (error) => {
-  return {
-    type: AUTH_ASYNC_ERROR,
-    payload: error,
-  };
-};
-
 export function registerWithCredentials(credentials) {
   return async function (dispatch) {
     try {
-      dispatch(authAsyncStart());
+      dispatch(asyncActionStart());
       const result = await registerWithCredentialsToFirebase(credentials);
       await result.user?.updateProfile({
         displayName: credentials.displayName,
       });
       await setUserProfileData(result.user);
     } catch (error) {
-      dispatch(authAsyncError(error));
+      dispatch(asyncActionError(error));
       throw error;
     } finally {
-      dispatch(authAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }
@@ -56,13 +39,13 @@ export function registerWithCredentials(credentials) {
 export function loginWithCredentials(credentials) {
   return async function (dispatch) {
     try {
-      dispatch(authAsyncStart());
+      dispatch(asyncActionStart());
       await loginWithCredentialsToFirebase(credentials);
     } catch (error) {
-      dispatch(authAsyncError(error));
+      dispatch(asyncActionError(error));
       throw error;
     } finally {
-      dispatch(authAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }
@@ -70,16 +53,16 @@ export function loginWithCredentials(credentials) {
 export function socialLoginUser() {
   return async function (dispatch) {
     try {
-      dispatch(authAsyncStart());
+      dispatch(asyncActionStart());
       const result = await socialLoginWithGoogle();
       if (result.additionalUserInfo?.isNewUser) {
         await setUserProfileData(result.user);
       }
     } catch (error) {
-      dispatch(authAsyncError(error));
+      dispatch(asyncActionError(error));
       throw error;
     } finally {
-      dispatch(authAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }
@@ -87,13 +70,13 @@ export function socialLoginUser() {
 export function logoutUser() {
   return async function (dispatch) {
     try {
-      dispatch(authAsyncStart());
+      dispatch(asyncActionStart());
       await logoutFromFirebase();
     } catch (error) {
-      dispatch(authAsyncError(error));
+      dispatch(asyncActionError(error));
       throw error;
     } finally {
-      dispatch(authAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }
@@ -101,13 +84,13 @@ export function logoutUser() {
 export function updatePassword(credentials) {
   return async function (dispatch) {
     try {
-      dispatch(authAsyncStart());
+      dispatch(asyncActionStart());
       await updatePasswordInFirebase(credentials);
     } catch (error) {
-      dispatch(authAsyncError(error));
+      dispatch(asyncActionError(error));
       throw error;
     } finally {
-      dispatch(authAsyncFinish());
+      dispatch(asyncActionFinish());
     }
   };
 }

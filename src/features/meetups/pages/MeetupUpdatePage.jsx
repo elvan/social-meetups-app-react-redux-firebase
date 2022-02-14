@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorComponent } from '../../../components/errors/ErrorComponent';
 import { Loading } from '../../../components/loading/Loading';
@@ -7,30 +8,42 @@ import { getMeetupDocument } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupUpdatePage = ({ history, match }) => {
-  const meetupId = match.params.id;
+  let storedMeetup;
+
+  const id = match.params.id;
   const dispatch = useDispatch();
 
   const { pending, error, meetups } = useSelector((state) => state.meetupState);
 
-  let storedMeetup;
-
-  if (meetupId) {
-    storedMeetup = meetups.find((meetup) => meetup.id === meetupId);
+  if (id) {
+    storedMeetup = meetups.find((meetup) => meetup.id === id);
   }
 
+  const documentMemo = useMemo(() => getMeetupDocument(id), [id]);
+
+  const listenCallback = useCallback(
+    (meetup) => {
+      return dispatch(listenToMeetups([meetup]));
+    },
+    [dispatch]
+  );
+
   useDocument({
-    document: () => getMeetupDocument(meetupId),
-    listen: (meetup) => dispatch(listenToMeetups([meetup])),
-    deps: [meetupId],
+    documentMemo: documentMemo,
+    listenCallback: listenCallback,
   });
 
   if (pending) {
     return <Loading />;
   }
 
-  if (error && meetupId && !storedMeetup) {
+  if (id && error && !storedMeetup) {
     return <ErrorComponent error={error} />;
   }
 
-  return <MeetupForm meetup={storedMeetup} history={history} />;
+  return (
+    <>
+      {storedMeetup && <MeetupForm meetup={storedMeetup} history={history} />}
+    </>
+  );
 };

@@ -24,8 +24,8 @@ export const MeetupDashboardPage = () => {
   );
 
   useCollection({
-    collection: collectionMemo,
-    listen: listenCallback,
+    collectionMemo: collectionMemo,
+    listenCallback: listenCallback,
   });
 
   if (error) {

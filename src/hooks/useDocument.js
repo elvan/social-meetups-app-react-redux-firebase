@@ -7,12 +7,12 @@ import {
 } from '../async/asyncActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useDocument({ document, listen }) {
+export function useDocument({ documentMemo, listenCallback }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(asyncActionStart());
-    const unsubscribe = document.onSnapshot(
+    const unsubscribe = documentMemo.onSnapshot(
       (snapshot) => {
         if (!snapshot.exists) {
           dispatch(
@@ -24,7 +24,7 @@ export function useDocument({ document, listen }) {
           return;
         }
 
-        listen(dataFromSnapshot(snapshot));
+        listenCallback(dataFromSnapshot(snapshot));
         dispatch(asyncActionFinish());
       },
       (error) => {
@@ -35,5 +35,5 @@ export function useDocument({ document, listen }) {
     return () => {
       unsubscribe();
     };
-  }, [dispatch, document, listen]);
+  }, [dispatch, documentMemo, listenCallback]);
 }

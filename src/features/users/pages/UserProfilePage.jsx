@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Loading } from '../../../components/loading/Loading';
@@ -8,17 +9,25 @@ import { getUserProfileData } from '../services/userService';
 import { listenToUserProfile } from '../store/userActions';
 
 export const UserProfilePage = ({ match }) => {
+  const id = match.params.id;
+  const dispatch = useDispatch();
+
   const { isLoading, isError, userProfile, error } = useSelector(
     (state) => state.userState
   );
-  const dispatch = useDispatch();
 
-  const id = match.params.id;
+  const documentMemo = useMemo(() => getUserProfileData(id), [id]);
+
+  const listenCallback = useCallback(
+    (profile) => {
+      return dispatch(listenToUserProfile(profile));
+    },
+    [dispatch]
+  );
 
   useDocument({
-    document: () => getUserProfileData(id),
-    listen: (profile) => dispatch(listenToUserProfile(profile)),
-    deps: [dispatch, id],
+    documentMemo: documentMemo,
+    listenCallback: listenCallback,
   });
 
   if (isLoading) {
