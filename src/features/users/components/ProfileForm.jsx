@@ -1,10 +1,14 @@
 import { Form, Formik } from 'formik';
 import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { MyTextArea } from '../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../components/form/MyTextInput';
+import { updateUserProfile } from '../store/userActions';
 
 export const ProfileForm = ({ profile }) => {
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{
@@ -17,14 +21,14 @@ export const ProfileForm = ({ profile }) => {
         description: Yup.string().required('Description is required'),
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
+        setSubmitting(true);
         const { displayName, description } = values;
-        const { id } = profile;
         const updatedProfile = {
           displayName,
           description,
         };
         try {
-          // await updateProfile(id, updatedProfile);
+          await dispatch(updateUserProfile(updatedProfile));
         } catch (error) {
           setErrors({
             errorMessage: error.message,

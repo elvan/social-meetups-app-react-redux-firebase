@@ -5,7 +5,7 @@ import { Loading } from '../../../components/loading/Loading';
 import { useDocument } from '../../../hooks/useDocument';
 import { ProfileContent } from '../components/ProfileContent';
 import { ProfileHeader } from '../components/ProfileHeader';
-import { getUserProfileData } from '../services/userService';
+import { getUserProfileInFirebase } from '../services/userService';
 import { listenToUserProfile } from '../store/userActions';
 
 export const UserProfilePage = ({ match }) => {
@@ -16,7 +16,7 @@ export const UserProfilePage = ({ match }) => {
     (state) => state.userState
   );
 
-  const documentMemo = useMemo(() => getUserProfileData(id), [id]);
+  const documentMemo = useMemo(() => getUserProfileInFirebase(id), [id]);
 
   const listenCallback = useCallback(
     (profile) => {

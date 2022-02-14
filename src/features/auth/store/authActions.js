@@ -4,7 +4,7 @@ import {
   asyncActionStart,
 } from '../../../async/asyncActions';
 import { appAuth } from '../../../firebase/appFirebase';
-import { setUserProfileData } from '../../users/services/userService';
+import { setUserProfileInFirebase } from '../../users/services/userService';
 import {
   loginWithCredentialsToFirebase,
   logoutFromFirebase,
@@ -26,7 +26,7 @@ export function registerWithCredentials(credentials) {
       await result.user?.updateProfile({
         displayName: credentials.displayName,
       });
-      await setUserProfileData(result.user);
+      await setUserProfileInFirebase(result.user);
     } catch (error) {
       dispatch(asyncActionError(error));
       throw error;
@@ -56,7 +56,7 @@ export function socialLoginUser() {
       dispatch(asyncActionStart());
       const result = await socialLoginWithGoogle();
       if (result.additionalUserInfo?.isNewUser) {
-        await setUserProfileData(result.user);
+        await setUserProfileInFirebase(result.user);
       }
     } catch (error) {
       dispatch(asyncActionError(error));

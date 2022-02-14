@@ -1,11 +1,15 @@
 import firebase from 'firebase/app';
-import { appFirestore } from '../../../firebase/appFirebase';
+import { appAuth, appFirestore } from '../../../firebase/appFirebase';
 
 export function getUsersCollection() {
   return appFirestore.collection('users');
 }
 
-export function setUserProfileData(user) {
+export function getUserProfileInFirebase(id) {
+  return getUsersCollection().doc(id);
+}
+
+export function setUserProfileInFirebase(user) {
   return getUsersCollection()
     .doc(user.uid)
     .set({
@@ -16,6 +20,18 @@ export function setUserProfileData(user) {
     });
 }
 
-export function getUserProfileData(id) {
-  return getUsersCollection().doc(id);
+export async function updateUserProfileInFirebase(profile) {
+  const user = appAuth.currentUser;
+  try {
+    if (user) {
+      if (user.displayName !== profile.displayName) {
+        await user.updateProfile({
+          displayName: profile.displayName,
+        });
+      }
+      return await getUsersCollection().doc(user.uid).update(profile);
+    }
+  } catch (error) {
+    throw error;
+  }
 }
