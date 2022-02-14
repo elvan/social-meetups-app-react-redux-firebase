@@ -1,13 +1,15 @@
 import { Form, Formik } from 'formik';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../../components/form/MyTextInput';
+import { updatePassword } from '../store/authActions';
 
 export const AccountPage = () => {
   // @ts-ignore
   const { currentUser } = useSelector((state) => state.authState);
+  const dispatch = useDispatch();
 
   return (
     <div className='col-6 mx-auto'>
@@ -16,7 +18,7 @@ export const AccountPage = () => {
         <hr />
         {currentUser?.providerId === 'password' && (
           <div>
-            <p>Use this page to change your password.</p>
+            <p>Use this form to change your password.</p>
             <Formik
               initialValues={{
                 auth: null,
@@ -34,11 +36,15 @@ export const AccountPage = () => {
                   )
                   .required('Password confirmation is required'),
               })}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  console.log(values);
+              onSubmit={async (values, { setSubmitting, setErrors }) => {
+                try {
+                  setSubmitting(true);
+                  await dispatch(updatePassword(values));
+                } catch (error) {
+                  setErrors({ auth: error.message });
+                } finally {
                   setSubmitting(false);
-                }, 500);
+                }
               }}
             >
               {({ dirty, errors, isSubmitting, isValid }) => (

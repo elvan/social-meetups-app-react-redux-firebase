@@ -5,6 +5,7 @@ import {
   logoutFromFirebase,
   registerWithCredentialsToFirebase,
   socialLoginWithGoogle,
+  updatePasswordInFirebase,
 } from '../services/authServices';
 import {
   AUTH_ASYNC_ERROR,
@@ -88,6 +89,20 @@ export function logoutUser() {
     try {
       dispatch(authAsyncStart());
       await logoutFromFirebase();
+    } catch (error) {
+      dispatch(authAsyncError(error));
+      throw error;
+    } finally {
+      dispatch(authAsyncFinish());
+    }
+  };
+}
+
+export function updatePassword(credentials) {
+  return async function (dispatch) {
+    try {
+      dispatch(authAsyncStart());
+      await updatePasswordInFirebase(credentials);
     } catch (error) {
       dispatch(authAsyncError(error));
       throw error;

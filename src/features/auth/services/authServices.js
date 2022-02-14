@@ -23,3 +23,7 @@ export function socialLoginWithGoogle() {
 export function logoutFromFirebase() {
   return appAuth.signOut();
 }
+
+export function updatePasswordInFirebase(credentials) {
+  return appAuth.currentUser?.updatePassword(credentials.newPassword1);
+}
