@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { ProfileForm } from './ProfileForm';
 
 export const AboutTab = ({ profile }) => {
   const [editMode, setEditMode] = useState(false);
@@ -24,13 +25,7 @@ export const AboutTab = ({ profile }) => {
       </div>
 
       {editMode ? (
-        <div>
-          <textarea
-            className='form-control'
-            rows={5}
-            defaultValue={profile.about}
-          />
-        </div>
+        <ProfileForm profile={profile} />
       ) : (
         <div>
           <p>{profile.about}</p>
