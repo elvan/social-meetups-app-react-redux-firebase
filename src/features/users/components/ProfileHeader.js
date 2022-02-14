@@ -38,8 +38,8 @@ export const ProfileHeader = ({ profile }) => {
             disabled={loading}
             className={
               following
-                ? 'btn btn-block btn-primary'
-                : 'btn btn-block btn-outline-primary'
+                ? 'btn btn-block btn-info'
+                : 'btn btn-block btn-outline-info'
             }
             onClick={() => {
               setLoading(true);

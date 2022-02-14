@@ -9,9 +9,7 @@ export const AboutTab = ({ profile }) => {
       <div className='mb-3'>
         <div className='d-flex justify-content-between align-items-center'>
           <div>
-            <h5>
-              About <strong>{profile.displayName}</strong>
-            </h5>
+            <h5>About</h5>
             <p className='text-muted'>
               Member since: {format(profile.createdAt, 'dd MMM yyyy')}
             </p>
