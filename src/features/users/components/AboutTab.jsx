@@ -19,7 +19,7 @@ export const AboutTab = ({ profile }) => {
             className='btn btn-sm btn-outline-primary'
             onClick={() => setEditMode(!editMode)}
           >
-            {editMode ? 'Done' : 'Edit Profile'}
+            {editMode ? 'Cancel' : 'Edit Profile'}
           </button>
         </div>
       </div>

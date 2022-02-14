@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { logoutUser } from '../../features/auth/store/authActions';
 
 export const LoggedInMenu = () => {
-  const { currentUser } = useSelector((state) => state.authState);
+  const { userProfile } = useSelector((state) => state.userState);
   const [showModal, setShowModal] = useState(false);
   const [unmounted, setUnmounted] = useState(false);
 
@@ -60,13 +60,13 @@ export const LoggedInMenu = () => {
         title={
           <Fragment>
             <Image
-              src={currentUser.photoURL || '/assets/user.png'}
+              src={userProfile.photoURL || '/assets/user.png'}
               width={38.5}
               fluid
               roundedCircle
               className='mr-2'
             />
-            <span>{currentUser.displayName}</span>
+            <span>{userProfile.displayName}</span>
           </Fragment>
         }
         id='collasible-nav-dropdown'
@@ -77,7 +77,7 @@ export const LoggedInMenu = () => {
             Create Meetup
           </div>
         </NavDropdown.Item>
-        <NavDropdown.Item as={Link} to={`/profile/${currentUser.uid}`}>
+        <NavDropdown.Item as={Link} to={`/profile/${userProfile.id}`}>
           <div className='d-flex align-items-center'>
             <FaUserAlt className='mr-2' />
             My Profile

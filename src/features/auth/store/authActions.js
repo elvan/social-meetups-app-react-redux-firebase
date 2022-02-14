@@ -4,7 +4,12 @@ import {
   asyncActionStart,
 } from '../../../async/asyncActions';
 import { appAuth } from '../../../firebase/appFirebase';
-import { setUserProfileInFirebase } from '../../users/services/userService';
+import { dataFromSnapshot } from '../../../firebase/dataFromSnapshot';
+import {
+  getUserProfileInFirebase,
+  setUserProfileInFirebase,
+} from '../../users/services/userService';
+import { listenToUserProfile } from '../../users/store/userActions';
 import {
   loginWithCredentialsToFirebase,
   logoutFromFirebase,
@@ -100,11 +105,15 @@ export function verifyAuth() {
     return appAuth.onAuthStateChanged(async (user) => {
       if (user) {
         dispatch({ type: AUTH_LOGIN_USER, payload: user });
+        const profileRef = getUserProfileInFirebase(user.uid);
+        profileRef.onSnapshot((snapshot) => {
+          dispatch(listenToUserProfile(dataFromSnapshot(snapshot)));
+          dispatch({ type: AUTH_IS_READY });
+        });
       } else {
         dispatch({ type: AUTH_LOGOUT_USER });
+        dispatch({ type: AUTH_IS_READY });
       }
-
-      dispatch({ type: AUTH_IS_READY });
     });
   };
 }

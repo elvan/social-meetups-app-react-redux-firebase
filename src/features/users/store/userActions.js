@@ -4,11 +4,21 @@ import {
   asyncActionStart,
 } from '../../../async/asyncActions';
 import { updateUserProfileInFirebase } from '../services/userService';
-import { LISTEN_TO_USER_PROFILE } from './userConstants';
+import {
+  LISTEN_TO_SELECTED_PROFILE,
+  LISTEN_TO_USER_PROFILE,
+} from './userConstants';
 
 export function listenToUserProfile(profile) {
   return {
     type: LISTEN_TO_USER_PROFILE,
+    payload: profile,
+  };
+}
+
+export function listenToSelectedProfile(profile) {
+  return {
+    type: LISTEN_TO_SELECTED_PROFILE,
     payload: profile,
   };
 }
