@@ -1,8 +1,3 @@
-import {
-  asyncActionError,
-  asyncActionFinish,
-  asyncActionStart,
-} from '../../../async/asyncActions';
 import { appAuth } from '../../../firebase/appFirebase';
 import { dataFromSnapshot } from '../../../firebase/dataFromSnapshot';
 import {
@@ -18,6 +13,9 @@ import {
   updatePasswordInFirebase,
 } from '../services/authServices';
 import {
+  AUTH_ASYNC_ERROR,
+  AUTH_ASYNC_FINISH,
+  AUTH_ASYNC_START,
   AUTH_IS_READY,
   AUTH_LOGIN_USER,
   AUTH_LOGOUT_USER,
@@ -44,16 +42,16 @@ export function verifyAuth() {
 export function socialLoginUser() {
   return async function (dispatch) {
     try {
-      dispatch(asyncActionStart());
+      dispatch({ type: AUTH_ASYNC_START });
       const result = await socialLoginUserWithFirebase();
       if (result.additionalUserInfo?.isNewUser) {
         await setUserProfileInFirebase(result.user);
       }
     } catch (error) {
-      dispatch(asyncActionError(error));
+      dispatch({ type: AUTH_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch(asyncActionFinish());
+      dispatch({ type: AUTH_ASYNC_FINISH });
     }
   };
 }
@@ -61,17 +59,17 @@ export function socialLoginUser() {
 export function registerUser(credentials) {
   return async function (dispatch) {
     try {
-      dispatch(asyncActionStart());
+      dispatch({ type: AUTH_ASYNC_START });
       const result = await registerUserToFirebase(credentials);
       await result.user?.updateProfile({
         displayName: credentials.displayName,
       });
       await setUserProfileInFirebase(result.user);
     } catch (error) {
-      dispatch(asyncActionError(error));
+      dispatch({ type: AUTH_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch(asyncActionFinish());
+      dispatch({ type: AUTH_ASYNC_FINISH });
     }
   };
 }
@@ -79,13 +77,13 @@ export function registerUser(credentials) {
 export function loginUser(credentials) {
   return async function (dispatch) {
     try {
-      dispatch(asyncActionStart());
+      dispatch({ type: AUTH_ASYNC_START });
       await loginUserToFirebase(credentials);
     } catch (error) {
-      dispatch(asyncActionError(error));
+      dispatch({ type: AUTH_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch(asyncActionFinish());
+      dispatch({ type: AUTH_ASYNC_FINISH });
     }
   };
 }
@@ -93,13 +91,13 @@ export function loginUser(credentials) {
 export function logoutUser() {
   return async function (dispatch) {
     try {
-      dispatch(asyncActionStart());
+      dispatch({ type: AUTH_ASYNC_START });
       await logoutUserFromFirebase();
     } catch (error) {
-      dispatch(asyncActionError(error));
+      dispatch({ type: AUTH_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch(asyncActionFinish());
+      dispatch({ type: AUTH_ASYNC_FINISH });
     }
   };
 }
@@ -107,13 +105,13 @@ export function logoutUser() {
 export function updatePassword(credentials) {
   return async function (dispatch) {
     try {
-      dispatch(asyncActionStart());
+      dispatch({ type: AUTH_ASYNC_START });
       await updatePasswordInFirebase(credentials);
     } catch (error) {
-      dispatch(asyncActionError(error));
+      dispatch({ type: AUTH_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch(asyncActionFinish());
+      dispatch({ type: AUTH_ASYNC_FINISH });
     }
   };
 }
