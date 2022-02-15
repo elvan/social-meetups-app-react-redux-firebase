@@ -5,8 +5,12 @@ export function getUsersCollection() {
   return appFirestore.collection('users');
 }
 
-export function getUserProfileInFirebase(id) {
-  return getUsersCollection().doc(id);
+export function getUserProfileInFirebase(uid) {
+  return getUsersCollection().doc(uid);
+}
+
+export function getUserPhotosCollection(uid) {
+  return getUserProfileInFirebase(uid).collection(`photos`);
 }
 
 export function setUserProfileInFirebase(user) {
@@ -30,6 +34,35 @@ export async function updateUserProfileInFirebase(profile) {
         });
       }
       return getUsersCollection().doc(user.uid).update(profile);
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateUserProfilePhotoInFirebase(downloadURL, filename) {
+  const user = appAuth.currentUser;
+  try {
+    if (user) {
+      const userDocRef = getUsersCollection().doc(user.uid);
+      const userDoc = await userDocRef.get();
+      const userData = userDoc.data();
+      if (userData) {
+        if (!userData.photoURL) {
+          await getUsersCollection().doc(user.uid).update({
+            photoURL: downloadURL,
+          });
+          await user.updateProfile({
+            photoURL: downloadURL,
+          });
+        }
+        return await getUserPhotosCollection(user.uid).add({
+          name: filename,
+          url: downloadURL,
+        });
+      }
+    } else {
+      throw new Error('User not found');
     }
   } catch (error) {
     throw error;

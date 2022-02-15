@@ -8,5 +8,6 @@ import { firebaseConfig } from '../config/firebaseConfig';
 const appFirebase = firebase.initializeApp(firebaseConfig);
 const appAuth = appFirebase.auth();
 const appFirestore = appFirebase.firestore();
+const appStorage = appFirebase.storage();
 
-export { appFirebase, appAuth, appFirestore };
+export { appFirebase, appAuth, appFirestore, appStorage };
