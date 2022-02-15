@@ -4,13 +4,13 @@ import {
   AUTH_LOGOUT_USER,
 } from './authConstants';
 
-const initialStates = {
+const initialState = {
   ready: false,
   authenticated: false,
   currentUser: null,
 };
 
-export function authReducer(state = initialStates, { type, payload }) {
+export function authReducer(state = initialState, { type, payload }) {
   switch (type) {
     case AUTH_IS_READY:
       return {

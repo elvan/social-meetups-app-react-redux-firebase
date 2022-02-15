@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../../components/form/MyTextInput';
-import { loginWithCredentials, updatePassword } from '../store/authActions';
+import { loginUser, updatePassword } from '../store/authActions';
 
 export const AccountPage = () => {
   const { currentUser } = useSelector((state) => state.authState);
@@ -50,7 +50,7 @@ export const AccountPage = () => {
             onSubmit={async (values, { setSubmitting, setErrors }) => {
               if (!unmounted) {
                 setSubmitting(true);
-                await dispatch(loginWithCredentials(values));
+                await dispatch(loginUser(values));
                 setSubmitting(false);
                 setShowModal(false);
                 toast.success('You are logged out successfully');

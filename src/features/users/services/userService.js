@@ -29,7 +29,7 @@ export async function updateUserProfileInFirebase(profile) {
           displayName: profile.displayName,
         });
       }
-      return await getUsersCollection().doc(user.uid).update(profile);
+      return getUsersCollection().doc(user.uid).update(profile);
     }
   } catch (error) {
     throw error;

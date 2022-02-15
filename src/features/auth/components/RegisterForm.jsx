@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../../components/form/MyTextInput';
-import { registerWithCredentials } from '../store/authActions';
+import { registerUser } from '../store/authActions';
 
 export const RegisterForm = () => {
   const initialValues = {
@@ -32,7 +32,7 @@ export const RegisterForm = () => {
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     setSubmitting(true);
     try {
-      await dispatch(registerWithCredentials(values));
+      await dispatch(registerUser(values));
       history.push('/meetups');
       setSubmitting(false);
       toast.success('Account created successfully');

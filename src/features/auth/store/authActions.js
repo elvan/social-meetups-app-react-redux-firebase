@@ -9,12 +9,12 @@ import {
   getUserProfileInFirebase,
   setUserProfileInFirebase,
 } from '../../users/services/userService';
-import { listenToUserProfile } from '../../users/store/userActions';
+import { listenToCurrentProfile } from '../../users/store/userActions';
 import {
-  loginWithCredentialsToFirebase,
-  logoutFromFirebase,
-  registerWithCredentialsToFirebase,
-  socialLoginWithGoogle,
+  loginUserToFirebase,
+  logoutUserFromFirebase,
+  registerUserToFirebase,
+  socialLoginUserWithFirebase,
   updatePasswordInFirebase,
 } from '../services/authServices';
 import {
@@ -23,11 +23,46 @@ import {
   AUTH_LOGOUT_USER,
 } from './authConstants';
 
-export function registerWithCredentials(credentials) {
+export function verifyAuth() {
+  return async function (dispatch) {
+    return appAuth.onAuthStateChanged(async (user) => {
+      if (user) {
+        dispatch({ type: AUTH_LOGIN_USER, payload: user });
+        const profileRef = getUserProfileInFirebase(user.uid);
+        profileRef.onSnapshot((snapshot) => {
+          dispatch(listenToCurrentProfile(dataFromSnapshot(snapshot)));
+          dispatch({ type: AUTH_IS_READY });
+        });
+      } else {
+        dispatch({ type: AUTH_LOGOUT_USER });
+        dispatch({ type: AUTH_IS_READY });
+      }
+    });
+  };
+}
+
+export function socialLoginUser() {
   return async function (dispatch) {
     try {
       dispatch(asyncActionStart());
-      const result = await registerWithCredentialsToFirebase(credentials);
+      const result = await socialLoginUserWithFirebase();
+      if (result.additionalUserInfo?.isNewUser) {
+        await setUserProfileInFirebase(result.user);
+      }
+    } catch (error) {
+      dispatch(asyncActionError(error));
+      throw error;
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+}
+
+export function registerUser(credentials) {
+  return async function (dispatch) {
+    try {
+      dispatch(asyncActionStart());
+      const result = await registerUserToFirebase(credentials);
       await result.user?.updateProfile({
         displayName: credentials.displayName,
       });
@@ -41,28 +76,11 @@ export function registerWithCredentials(credentials) {
   };
 }
 
-export function loginWithCredentials(credentials) {
+export function loginUser(credentials) {
   return async function (dispatch) {
     try {
       dispatch(asyncActionStart());
-      await loginWithCredentialsToFirebase(credentials);
-    } catch (error) {
-      dispatch(asyncActionError(error));
-      throw error;
-    } finally {
-      dispatch(asyncActionFinish());
-    }
-  };
-}
-
-export function socialLoginUser() {
-  return async function (dispatch) {
-    try {
-      dispatch(asyncActionStart());
-      const result = await socialLoginWithGoogle();
-      if (result.additionalUserInfo?.isNewUser) {
-        await setUserProfileInFirebase(result.user);
-      }
+      await loginUserToFirebase(credentials);
     } catch (error) {
       dispatch(asyncActionError(error));
       throw error;
@@ -76,7 +94,7 @@ export function logoutUser() {
   return async function (dispatch) {
     try {
       dispatch(asyncActionStart());
-      await logoutFromFirebase();
+      await logoutUserFromFirebase();
     } catch (error) {
       dispatch(asyncActionError(error));
       throw error;
@@ -97,23 +115,5 @@ export function updatePassword(credentials) {
     } finally {
       dispatch(asyncActionFinish());
     }
-  };
-}
-
-export function verifyAuth() {
-  return async function (dispatch) {
-    return appAuth.onAuthStateChanged(async (user) => {
-      if (user) {
-        dispatch({ type: AUTH_LOGIN_USER, payload: user });
-        const profileRef = getUserProfileInFirebase(user.uid);
-        profileRef.onSnapshot((snapshot) => {
-          dispatch(listenToUserProfile(dataFromSnapshot(snapshot)));
-          dispatch({ type: AUTH_IS_READY });
-        });
-      } else {
-        dispatch({ type: AUTH_LOGOUT_USER });
-        dispatch({ type: AUTH_IS_READY });
-      }
-    });
   };
 }

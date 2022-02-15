@@ -1,19 +1,19 @@
 import {
+  LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
-  LISTEN_TO_USER_PROFILE,
 } from './userConstants';
 
 const initialState = {
-  userProfile: null,
+  currentProfile: null,
   selectedProfile: null,
 };
 
 export function userReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case LISTEN_TO_USER_PROFILE:
+    case LISTEN_TO_CURRENT_PROFILE:
       return {
         ...state,
-        userProfile: payload,
+        currentProfile: payload,
       };
     case LISTEN_TO_SELECTED_PROFILE:
       return {
