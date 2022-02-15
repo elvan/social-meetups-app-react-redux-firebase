@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, ButtonGroup, Card } from 'react-bootstrap';
-import { ProfilePhotosForm } from './ProfilePhotosForm';
+import { PhotoUploadWidget } from '../../../components/photos/PhotoUploadWidget';
 
 export const ProfilePhotosTab = ({ currentUser, profile }) => {
   const [editMode, setEditMode] = useState(false);
@@ -26,7 +26,7 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
           </div>
 
           {editMode ? (
-            <ProfilePhotosForm profile={profile} setEditMode={setEditMode} />
+            <PhotoUploadWidget setEditMode={setEditMode} />
           ) : (
             <Card style={{ width: '150px' }}>
               <Card.Img variant='top' src='/assets/user.png' />
