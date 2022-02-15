@@ -1,4 +1,7 @@
 import {
+  MEETUP_ASYNC_ERROR,
+  MEETUP_ASYNC_FINISH,
+  MEETUP_ASYNC_START,
   MEETUP_CREATE,
   MEETUP_DELETE,
   MEETUP_LIST,
@@ -6,12 +9,30 @@ import {
 } from './meetupConstants';
 
 const initialState = {
-  /** @type {any[]} */
+  loading: false,
+  error: null,
   meetups: [],
 };
 
 export function meetupReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case MEETUP_ASYNC_START:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case MEETUP_ASYNC_FINISH:
+      return {
+        ...state,
+        loading: false,
+      };
+    case MEETUP_ASYNC_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
     case MEETUP_LIST:
       return {
         ...state,

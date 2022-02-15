@@ -10,10 +10,9 @@ import { getMeetupsCollection } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDashboardPage = () => {
-  const dispatch = useDispatch();
+  const { loading, error, meetups } = useSelector((state) => state.meetupState);
 
-  const { meetups } = useSelector((state) => state.meetupState);
-  const { loading, error } = useSelector((state) => state.asyncState);
+  const dispatch = useDispatch();
 
   const collectionMemo = useMemo(() => getMeetupsCollection(), []);
 
@@ -30,7 +29,7 @@ export const MeetupDashboardPage = () => {
   });
 
   if (error) {
-    toast.error(error);
+    return toast.error(error);
   }
 
   if (loading) {

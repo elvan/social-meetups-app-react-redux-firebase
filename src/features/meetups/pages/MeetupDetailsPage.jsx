@@ -12,11 +12,11 @@ import { getMeetupDocument } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDetailsPage = ({ match }) => {
+  const { loading, error, meetups } = useSelector((state) => state.meetupState);
+
   const id = match.params.id;
   const dispatch = useDispatch();
 
-  const { loading, error } = useSelector((state) => state.asyncState);
-  const { meetups } = useSelector((state) => state.meetupState);
   const meetup = meetups.find((meetup) => meetup.id === id);
 
   const documentMemo = useMemo(() => getMeetupDocument(id), [id]);

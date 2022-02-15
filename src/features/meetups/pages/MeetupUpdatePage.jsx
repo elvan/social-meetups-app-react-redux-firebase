@@ -13,8 +13,7 @@ export const MeetupUpdatePage = ({ history, match }) => {
   const id = match.params.id;
   const dispatch = useDispatch();
 
-  const { loading, error } = useSelector((state) => state.asyncState);
-  const { meetups } = useSelector((state) => state.meetupState);
+  const { loading, error, meetups } = useSelector((state) => state.meetupState);
 
   if (id) {
     storedMeetup = meetups.find((meetup) => meetup.id === id);
