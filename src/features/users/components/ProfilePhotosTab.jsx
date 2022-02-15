@@ -32,10 +32,18 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
               <Card.Img variant='top' src='/assets/user.png' />
               <Card.Body className='p-1'>
                 <ButtonGroup className='d-flex justify-content-center'>
-                  <Button size='sm' variant='outline-success'>
+                  <Button
+                    size='sm'
+                    variant='outline-success'
+                    style={{ width: '100%' }}
+                  >
                     Main
                   </Button>
-                  <Button size='sm' variant='outline-danger'>
+                  <Button
+                    size='sm'
+                    variant='outline-danger'
+                    style={{ width: '100%' }}
+                  >
                     Delete
                   </Button>
                 </ButtonGroup>
