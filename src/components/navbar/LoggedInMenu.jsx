@@ -8,6 +8,7 @@ import { logoutUser } from '../../features/auth/store/authActions';
 
 export const LoggedInMenu = () => {
   const { currentProfile } = useSelector((state) => state.userState);
+
   const [showModal, setShowModal] = useState(false);
   const [unmounted, setUnmounted] = useState(false);
 

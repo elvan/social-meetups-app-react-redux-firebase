@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Loading } from '../../../components/loading/Loading';
 import { PhotoUploadWidget } from '../../../components/photos/PhotoUploadWidget';
 import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
@@ -11,8 +12,7 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
   const profileId = profile.id;
   const [editMode, setEditMode] = useState(false);
 
-  const { loading } = useSelector((state) => state.asyncState);
-  const { photos } = useSelector((state) => state.userState);
+  const { loading, error, photos } = useSelector((state) => state.userState);
 
   const dispatch = useDispatch();
 
@@ -35,6 +35,10 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return toast.error(error.message);
   }
 
   return (

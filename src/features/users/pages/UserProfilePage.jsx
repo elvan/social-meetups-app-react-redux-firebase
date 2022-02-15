@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Loading } from '../../../components/loading/Loading';
 import { useFirestoreDocument } from '../../../hooks/useFirestoreDocument';
 import { ProfileContent } from '../components/ProfileContent';
 import { ProfileHeader } from '../components/ProfileHeader';
@@ -11,9 +12,10 @@ export const UserProfilePage = ({ match }) => {
   const id = match.params.id;
   const dispatch = useDispatch();
 
-  const { loading, error } = useSelector((state) => state.asyncState);
   const { currentUser } = useSelector((state) => state.authState);
-  const { selectedProfile } = useSelector((state) => state.userState);
+  const { loading, error, selectedProfile } = useSelector(
+    (state) => state.userState
+  );
 
   const documentMemo = useMemo(() => getUserProfileInFirebase(id), [id]);
 
@@ -29,9 +31,9 @@ export const UserProfilePage = ({ match }) => {
     listenCallback: listenCallback,
   });
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
 
   if (error) {
     return toast.error(error.message);

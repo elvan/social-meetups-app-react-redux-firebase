@@ -1,13 +1,11 @@
-import {
-  asyncActionError,
-  asyncActionFinish,
-  asyncActionStart,
-} from '../../../async/asyncActions';
 import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
   LISTEN_TO_USER_PHOTOS,
+  USER_ASYNC_ERROR,
+  USER_ASYNC_FINISH,
+  USER_ASYNC_START,
 } from './userConstants';
 
 export function listenToCurrentProfile(profile) {
@@ -34,13 +32,13 @@ export function listenToUserPhotos(photos) {
 export function updateUserProfile(profile) {
   return async function (dispatch) {
     try {
-      dispatch(asyncActionStart());
+      dispatch({ type: USER_ASYNC_START });
       return updateUserProfileInFirebase(profile);
     } catch (error) {
-      dispatch(asyncActionError(error));
+      dispatch({ type: USER_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch(asyncActionFinish());
+      dispatch({ type: USER_ASYNC_FINISH });
     }
   };
 }
