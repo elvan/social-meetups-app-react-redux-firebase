@@ -7,6 +7,7 @@ import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
+  LISTEN_TO_USER_PHOTOS,
 } from './userConstants';
 
 export function listenToCurrentProfile(profile) {
@@ -20,6 +21,13 @@ export function listenToSelectedProfile(profile) {
   return {
     type: LISTEN_TO_SELECTED_PROFILE,
     payload: profile,
+  };
+}
+
+export function listenToUserPhotos(photos) {
+  return {
+    type: LISTEN_TO_USER_PHOTOS,
+    payload: photos,
   };
 }
 

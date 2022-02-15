@@ -5,16 +5,17 @@ export function getUsersCollection() {
   return appFirestore.collection('users');
 }
 
-export function getUserProfileInFirebase(uid) {
-  return getUsersCollection().doc(uid);
+export function getUserProfileInFirebase(id) {
+  return appFirestore.collection('users').doc(id);
 }
 
-export function getUserPhotosCollection(uid) {
-  return getUserProfileInFirebase(uid).collection(`photos`);
+export function getUserPhotosCollection(id) {
+  return appFirestore.collection('users').doc(id).collection('photos');
 }
 
 export function setUserProfileInFirebase(user) {
-  return getUsersCollection()
+  return appFirestore
+    .collection('users')
     .doc(user.uid)
     .set({
       displayName: user.displayName,

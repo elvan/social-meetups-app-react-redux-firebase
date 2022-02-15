@@ -11,10 +11,12 @@ export function useCollection({ collectionMemo, listenCallback }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // TODO: fix the loading state. Move to each component or reducer
     dispatch(asyncActionStart());
-    const unsubscribe = collectionMemo.orderBy('date', 'asc').onSnapshot(
+    const unsubscribe = collectionMemo.onSnapshot(
       (snapshot) => {
-        listenCallback(snapshot.docs.map(dataFromSnapshot));
+        const docs = snapshot.docs.map(dataFromSnapshot);
+        listenCallback(docs);
         dispatch(asyncActionFinish());
       },
       (error) => {

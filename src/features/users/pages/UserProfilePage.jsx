@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Loading } from '../../../components/loading/Loading';
 import { useDocument } from '../../../hooks/useDocument';
 import { ProfileContent } from '../components/ProfileContent';
 import { ProfileHeader } from '../components/ProfileHeader';
@@ -30,9 +29,9 @@ export const UserProfilePage = ({ match }) => {
     listenCallback: listenCallback,
   });
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   if (error) {
     return toast.error(error.message);
