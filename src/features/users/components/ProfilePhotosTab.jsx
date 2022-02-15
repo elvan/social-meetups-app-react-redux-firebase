@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Loading } from '../../../components/loading/Loading';
@@ -7,12 +6,15 @@ import { PhotoUploadWidget } from '../../../components/photos/PhotoUploadWidget'
 import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
 import { getUserPhotosCollection } from '../services/userService';
 import { listenToUserPhotos } from '../store/userActions';
+import { ProfilePhotoCard } from './ProfilePhotoCard';
 
 export const ProfilePhotosTab = ({ currentUser, profile }) => {
   const profileId = profile.id;
   const [editMode, setEditMode] = useState(false);
 
-  const { loading, error, photos } = useSelector((state) => state.userState);
+  const { loading, error, photos, selectedProfile } = useSelector(
+    (state) => state.userState
+  );
 
   const dispatch = useDispatch();
 
@@ -70,27 +72,10 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
                   key={photo.id}
                   className='col-md-4 mb-3  align-self-center'
                 >
-                  <Card style={{ width: '150px' }} className='mx-auto'>
-                    <Card.Img variant='top' src={photo.url} />
-                    <Card.Body className='p-1'>
-                      <ButtonGroup className='d-flex'>
-                        <Button
-                          size='sm'
-                          variant='outline-success'
-                          style={{ width: '100%' }}
-                        >
-                          Main
-                        </Button>
-                        <Button
-                          size='sm'
-                          variant='outline-danger'
-                          style={{ width: '100%' }}
-                        >
-                          Delete
-                        </Button>
-                      </ButtonGroup>
-                    </Card.Body>
-                  </Card>
+                  <ProfilePhotoCard
+                    photo={photo}
+                    selectedProfile={selectedProfile}
+                  />
                 </div>
               ))}
             </div>

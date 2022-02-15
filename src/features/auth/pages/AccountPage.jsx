@@ -35,8 +35,7 @@ export const AccountPage = () => {
   }
 
   if (error) {
-    toast.error(error.message);
-    return;
+    return toast.error(error.message);
   }
 
   return (

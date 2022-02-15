@@ -24,6 +24,7 @@ export const PhotoUploadWidget = ({ setEditMode }) => {
         progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
+        console.log('Upload is ' + progress + '% done');
       },
       (error) => {
         toast.error(error.message);

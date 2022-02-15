@@ -1,7 +1,7 @@
 import { appAuth } from '../../../firebase/appFirebase';
 import { dataFromSnapshot } from '../../../firebase/dataFromSnapshot';
 import {
-  getUserProfileInFirebase,
+  getUserProfileDocument,
   setUserProfileInFirebase,
 } from '../../users/services/userService';
 import { listenToCurrentProfile } from '../../users/store/userActions';
@@ -26,7 +26,7 @@ export function verifyAuth() {
     return appAuth.onAuthStateChanged(async (user) => {
       if (user) {
         dispatch({ type: AUTH_LOGIN_USER, payload: user });
-        const profileRef = getUserProfileInFirebase(user.uid);
+        const profileRef = getUserProfileDocument(user.uid);
         profileRef.onSnapshot((snapshot) => {
           dispatch(listenToCurrentProfile(dataFromSnapshot(snapshot)));
           dispatch({ type: AUTH_IS_READY });

@@ -5,7 +5,7 @@ export function getUsersCollection() {
   return appFirestore.collection('users');
 }
 
-export function getUserProfileInFirebase(id) {
+export function getUserProfileDocument(id) {
   return appFirestore.collection('users').doc(id);
 }
 
@@ -64,6 +64,22 @@ export async function updateUserProfilePhotoInFirebase(downloadURL, filename) {
       }
     } else {
       throw new Error('User not found');
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function setMainPhotoInFirebase(photo) {
+  const user = appAuth.currentUser;
+  try {
+    if (user) {
+      await getUserProfileDocument(user.uid).update({
+        photoURL: photo.url,
+      });
+      return user.updateProfile({
+        photoURL: photo.url,
+      });
     }
   } catch (error) {
     throw error;
