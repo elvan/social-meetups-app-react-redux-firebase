@@ -7,7 +7,7 @@ import { MyTextArea } from '../../../components/form/MyTextArea';
 import { MyTextInput } from '../../../components/form/MyTextInput';
 import { updateUserProfile } from '../store/userActions';
 
-export const ProfileForm = ({ profile, setEditMode }) => {
+export const ProfileAboutForm = ({ profile, setEditMode }) => {
   const dispatch = useDispatch();
 
   return (

@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
-import { ProfileForm } from './ProfileForm';
+import { ProfileAboutForm } from './ProfileAboutForm';
 
-export const AboutTab = ({ currentUser, profile }) => {
+export const ProfileAboutTab = ({ currentUser, profile }) => {
   const [editMode, setEditMode] = useState(false);
 
   return (
@@ -29,7 +29,7 @@ export const AboutTab = ({ currentUser, profile }) => {
           </div>
 
           {editMode ? (
-            <ProfileForm profile={profile} setEditMode={setEditMode} />
+            <ProfileAboutForm profile={profile} setEditMode={setEditMode} />
           ) : (
             <div>
               <h5>Bio</h5>
