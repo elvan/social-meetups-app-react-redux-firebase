@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorComponent } from '../../../components/errors/ErrorComponent';
 import { Loading } from '../../../components/loading/Loading';
-import { useDocument } from '../../../hooks/useDocument';
+import { useFirestoreDocument } from '../../../hooks/useFirestoreDocument';
 import { MeetupDetailsChat } from '../components/MeetupDetailsChat';
 import { MeetupDetailsHeader } from '../components/MeetupDetailsHeader';
 import { MeetupDetailsInfo } from '../components/MeetupDetailsInfo';
@@ -28,7 +28,7 @@ export const MeetupDetailsPage = ({ match }) => {
     [dispatch]
   );
 
-  useDocument({
+  useFirestoreDocument({
     documentMemo: documentMemo,
     listenCallback: listenCallback,
   });

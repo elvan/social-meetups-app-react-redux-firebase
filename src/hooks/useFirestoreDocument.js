@@ -7,16 +7,24 @@ import {
 } from '../async/asyncActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useCollection({ collectionMemo, listenCallback }) {
+export function useFirestoreDocument({ documentMemo, listenCallback }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // TODO: fix the loading state. Move to each component or reducer
     dispatch(asyncActionStart());
-    const unsubscribe = collectionMemo.onSnapshot(
+    const unsubscribe = documentMemo.onSnapshot(
       (snapshot) => {
-        const docs = snapshot.docs.map(dataFromSnapshot);
-        listenCallback(docs);
+        if (!snapshot.exists) {
+          dispatch(
+            asyncActionError({
+              code: 'not-found',
+              message: 'Document does not exist',
+            })
+          );
+          return;
+        }
+
+        listenCallback(dataFromSnapshot(snapshot));
         dispatch(asyncActionFinish());
       },
       (error) => {
@@ -27,5 +35,5 @@ export function useCollection({ collectionMemo, listenCallback }) {
     return () => {
       unsubscribe();
     };
-  }, [dispatch, collectionMemo, listenCallback]);
+  }, [dispatch, documentMemo, listenCallback]);
 }

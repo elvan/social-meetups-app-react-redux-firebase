@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useDocument } from '../../../hooks/useDocument';
+import { useFirestoreDocument } from '../../../hooks/useFirestoreDocument';
 import { ProfileContent } from '../components/ProfileContent';
 import { ProfileHeader } from '../components/ProfileHeader';
 import { getUserProfileInFirebase } from '../services/userService';
@@ -24,7 +24,7 @@ export const UserProfilePage = ({ match }) => {
     [dispatch]
   );
 
-  useDocument({
+  useFirestoreDocument({
     documentMemo: documentMemo,
     listenCallback: listenCallback,
   });

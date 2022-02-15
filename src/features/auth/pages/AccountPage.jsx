@@ -6,10 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { MyTextInput } from '../../../components/form/MyTextInput';
+import { Loading } from '../../../components/loading/Loading';
 import { loginUser, updatePassword } from '../store/authActions';
 
 export const AccountPage = () => {
-  const { currentUser } = useSelector((state) => state.authState);
+  const { loading, error, currentUser } = useSelector(
+    (state) => state.authState
+  );
+
   const [showModal, setShowModal] = useState(false);
   const [unmounted, setUnmounted] = useState(false);
 
@@ -25,6 +29,15 @@ export const AccountPage = () => {
       setUnmounted(true);
     };
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    toast.error(error.message);
+    return;
+  }
 
   return (
     <>

@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorComponent } from '../../../components/errors/ErrorComponent';
 import { Loading } from '../../../components/loading/Loading';
-import { useDocument } from '../../../hooks/useDocument';
+import { useFirestoreDocument } from '../../../hooks/useFirestoreDocument';
 import { MeetupForm } from '../components/MeetupForm';
 import { getMeetupDocument } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
@@ -29,7 +29,7 @@ export const MeetupUpdatePage = ({ history, match }) => {
     [dispatch]
   );
 
-  useDocument({
+  useFirestoreDocument({
     documentMemo: documentMemo,
     listenCallback: listenCallback,
   });

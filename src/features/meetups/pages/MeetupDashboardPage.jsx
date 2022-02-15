@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Loading } from '../../../components/loading/Loading';
-import { useCollection } from '../../../hooks/useCollection';
+import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
 import { MeetupList } from '../components/MeetupList';
 import { MeetupListFilters } from '../components/MeetupListFilters';
 import { getMeetupsCollection } from '../services/meetupService';
@@ -24,7 +24,7 @@ export const MeetupDashboardPage = () => {
     [dispatch]
   );
 
-  useCollection({
+  useFirestoreCollection({
     collectionMemo: collectionMemo,
     listenCallback: listenCallback,
   });

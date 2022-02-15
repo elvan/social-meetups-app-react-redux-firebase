@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from '../../../components/loading/Loading';
 import { PhotoUploadWidget } from '../../../components/photos/PhotoUploadWidget';
-import { useCollection } from '../../../hooks/useCollection';
+import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
 import { getUserPhotosCollection } from '../services/userService';
 import { listenToUserPhotos } from '../store/userActions';
 
@@ -28,7 +28,7 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
     [dispatch]
   );
 
-  useCollection({
+  useFirestoreCollection({
     collectionMemo: collectionMemo,
     listenCallback: listenCallback,
   });
