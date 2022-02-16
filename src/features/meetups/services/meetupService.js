@@ -1,4 +1,3 @@
-import cuid from 'cuid';
 import firebase from 'firebase/app';
 import { appAuth, appFirestore } from '../../../firebase/appFirebase';
 
@@ -40,17 +39,4 @@ export function toggleMeetupCancelInFirestore(meetup) {
   return getMeetupsCollection().doc(meetup.id).update({
     isCancelled: !meetup.isCancelled,
   });
-}
-
-function createSampleMeetup(meetup) {
-  return {
-    ...meetup,
-    hostedBy: 'Aaron',
-    hostPhotoURL: 'https://randomuser.me/api/portraits/men/1.jpg',
-    attendees: firebase.firestore.FieldValue.arrayUnion({
-      id: cuid(),
-      displayName: 'Tom',
-      photoURL: 'https://randomuser.me/api/portraits/men/1.jpg',
-    }),
-  };
 }
