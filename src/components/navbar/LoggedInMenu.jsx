@@ -80,7 +80,7 @@ export const LoggedInMenu = () => {
                 Create Meetup
               </div>
             </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to={`/profile/${currentProfile.id}`}>
+            <NavDropdown.Item as={Link} to={`/profiles/${currentProfile.id}`}>
               <div className='d-flex align-items-center'>
                 <FaUserAlt className='mr-2' />
                 My Profile

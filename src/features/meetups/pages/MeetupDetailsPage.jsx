@@ -60,7 +60,10 @@ export const MeetupDetailsPage = ({ match }) => {
             <MeetupDetailsChat />
           </Col>
           <Col md={4}>
-            <MeetupDetailsSidebar attendees={meetup.attendees} />
+            <MeetupDetailsSidebar
+              attendees={meetup.attendees}
+              hostUid={meetup.hostUid}
+            />
           </Col>
         </Row>
       )}

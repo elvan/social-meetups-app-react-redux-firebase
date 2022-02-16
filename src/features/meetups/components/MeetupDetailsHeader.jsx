@@ -51,7 +51,10 @@ export const MeetupDetailsHeader = ({ meetup, isHost, isGoing }) => {
             <p className='card-text'>
               {format(meetup.date, 'MMMM d, yyyy h:mm a')}
             </p>
-            <p className='card-text'>Hosted by {meetup.hostedBy}</p>
+            <p className='card-text'>
+              Hosted by{' '}
+              <Link to={`/profiles/${meetup.hostUid}`}>{meetup.hostedBy}</Link>
+            </p>
           </div>
         </div>
 

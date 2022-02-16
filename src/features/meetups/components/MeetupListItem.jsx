@@ -39,7 +39,8 @@ export const MeetupListItem = ({ meetup }) => {
         <Col>
           <Card.Title className='mb-2'>{meetup.title}</Card.Title>
           <Card.Text>
-            Hosted by <strong>{meetup.hostedBy}</strong>
+            Hosted by{' '}
+            <Link to={`/profiles/${meetup.hostUid}`}>{meetup.hostedBy}</Link>
           </Card.Text>
         </Col>
       </Card.Body>

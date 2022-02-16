@@ -66,7 +66,7 @@ export const App = () => {
                   component={MeetupUpdatePage}
                   exact
                 />
-                <Route path='/profile/:id' component={UserProfilePage} exact />
+                <Route path='/profiles/:id' component={UserProfilePage} exact />
                 <Route path='/register' component={RegisterPage} exact />
                 <Route path='/login' component={LoginPage} />
                 <Route path='/account' component={AccountPage} exact />
