@@ -1,6 +1,6 @@
 import cuid from 'cuid';
 import firebase from 'firebase/app';
-import { appFirestore } from '../../../firebase/appFirebase';
+import { appAuth, appFirestore } from '../../../firebase/appFirebase';
 
 export function getMeetupsCollection() {
   return appFirestore.collection('meetups');
@@ -11,7 +11,21 @@ export function getMeetupDocument(id) {
 }
 
 export function addMeetupToFirestore(meetup) {
-  return getMeetupsCollection().add(createSampleMeetup(meetup));
+  const user = appAuth.currentUser;
+  if (user) {
+    return getMeetupsCollection().add({
+      ...meetup,
+      hostUid: user.uid,
+      hostedBy: user.displayName,
+      hostPhotoURL: user.photoURL || null,
+      attendeeIds: firebase.firestore.FieldValue.arrayUnion(user.uid),
+      attendees: firebase.firestore.FieldValue.arrayUnion({
+        id: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL || null,
+      }),
+    });
+  }
 }
 
 export function updateMeetupInFirestore(meetup) {

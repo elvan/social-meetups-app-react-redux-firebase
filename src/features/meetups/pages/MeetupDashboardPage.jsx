@@ -28,12 +28,12 @@ export const MeetupDashboardPage = () => {
     listenCallback: listenCallback,
   });
 
-  if (error) {
-    return toast.error(error);
-  }
-
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return toast.error(error);
   }
 
   return (
