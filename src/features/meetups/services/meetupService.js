@@ -40,3 +40,19 @@ export function toggleMeetupCancelInFirestore(meetup) {
     isCancelled: !meetup.isCancelled,
   });
 }
+
+export function addUserAttendanceToFirestore(meetupId) {
+  const user = appAuth.currentUser;
+  if (user) {
+    return getMeetupsCollection()
+      .doc(meetupId)
+      .update({
+        attendeeIds: firebase.firestore.FieldValue.arrayUnion(user.uid),
+        attendees: firebase.firestore.FieldValue.arrayUnion({
+          id: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL || null,
+        }),
+      });
+  }
+}

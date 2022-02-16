@@ -12,12 +12,17 @@ import { getMeetupDocument } from '../services/meetupService';
 import { listenToMeetups } from '../store/meetupActions';
 
 export const MeetupDetailsPage = ({ match }) => {
-  const { loading, error, meetups } = useSelector((state) => state.meetupState);
-
   const id = match.params.id;
   const dispatch = useDispatch();
 
+  const { loading, error, meetups } = useSelector((state) => state.meetupState);
+  const { currentUser } = useSelector((state) => state.authState);
+
   const meetup = meetups.find((meetup) => meetup.id === id);
+  const isHost = meetup?.hostUid === currentUser?.uid;
+  const isGoing = meetup?.attendees.some(
+    (attendee) => attendee.id === currentUser?.uid
+  );
 
   const documentMemo = useMemo(() => getMeetupDocument(id), [id]);
 
@@ -46,7 +51,11 @@ export const MeetupDetailsPage = ({ match }) => {
       {meetup && (
         <Row>
           <Col md={8}>
-            <MeetupDetailsHeader meetup={meetup} />
+            <MeetupDetailsHeader
+              meetup={meetup}
+              isHost={isHost}
+              isGoing={isGoing}
+            />
             <MeetupDetailsInfo meetup={meetup} />
             <MeetupDetailsChat />
           </Col>
