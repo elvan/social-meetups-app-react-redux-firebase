@@ -4,19 +4,34 @@ import { Button, Spinner } from 'react-bootstrap';
 import { FaUserCheck, FaUsersCog, FaUserTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { addUserAttendanceToFirestore } from '../services/meetupService';
+import {
+  addUserAttendanceToFirestore,
+  removeUserAttendanceFromFirestore,
+} from '../services/meetupService';
 
 export const MeetupDetailsHeader = ({ meetup, isHost, isGoing }) => {
-  const [loading, setLoading] = useState(false);
+  const [joining, setJoining] = useState(false);
+  const [leaving, setLeaving] = useState(false);
 
   const handleUserJoinMeetup = async () => {
-    setLoading(true);
+    setJoining(true);
     try {
       await addUserAttendanceToFirestore(meetup.id);
     } catch (error) {
       toast.error(error.message);
     } finally {
-      setLoading(false);
+      setJoining(false);
+    }
+  };
+
+  const handleUserLeaveMeetup = async () => {
+    setLeaving(true);
+    try {
+      await removeUserAttendanceFromFirestore(meetup.id);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLeaving(false);
     }
   };
 
@@ -44,30 +59,45 @@ export const MeetupDetailsHeader = ({ meetup, isHost, isGoing }) => {
           {!isHost && (
             <>
               {isGoing ? (
-                <Button className='btn btn-danger'>
+                <Button
+                  className='btn btn-danger'
+                  onClick={handleUserLeaveMeetup}
+                  disabled={leaving}
+                >
                   <div className='d-flex align-items-center'>
-                    <FaUserTimes size={15} className='mr-2' />
-                    Cancel My Place
+                    <>
+                      {leaving ? (
+                        <Spinner
+                          animation='border'
+                          size='sm'
+                          className='mr-2'
+                        />
+                      ) : (
+                        <FaUserTimes size={15} className='mr-2' />
+                      )}
+                      Cancel My Place
+                    </>
                   </div>
                 </Button>
               ) : (
                 <Button
                   className='btn btn-success'
                   onClick={handleUserJoinMeetup}
-                  disabled={loading}
+                  disabled={joining}
                 >
                   <div className='d-flex align-items-center'>
-                    {loading ? (
-                      <>
-                        <Spinner animation='border' size='sm' />
-                        Joining...
-                      </>
-                    ) : (
-                      <>
+                    <>
+                      {joining ? (
+                        <Spinner
+                          animation='border'
+                          size='sm'
+                          className='mr-2'
+                        />
+                      ) : (
                         <FaUserCheck size={15} className='mr-2' />
-                        Join This Meetup
-                      </>
-                    )}
+                      )}
+                      Join This Meetup
+                    </>
                   </div>
                 </Button>
               )}

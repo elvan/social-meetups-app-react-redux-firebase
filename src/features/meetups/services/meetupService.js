@@ -56,3 +56,22 @@ export function addUserAttendanceToFirestore(meetupId) {
       });
   }
 }
+
+export async function removeUserAttendanceFromFirestore(meetupId) {
+  const user = appAuth.currentUser;
+  if (user) {
+    try {
+      const meetupDoc = await getMeetupsCollection().doc(meetupId).get();
+      return getMeetupsCollection()
+        .doc(meetupId)
+        .update({
+          attendeeIds: firebase.firestore.FieldValue.arrayRemove(user.uid),
+          attendees: meetupDoc
+            .data()
+            .attendees.filter((attendee) => attendee.id !== user.uid),
+        });
+    } catch (error) {
+      throw error;
+    }
+  }
+}
