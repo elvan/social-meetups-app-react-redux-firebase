@@ -85,3 +85,10 @@ export async function setMainPhotoInFirebase(photo) {
     throw error;
   }
 }
+
+export async function deletePhotoFromFirestore(photoId) {
+  const user = appAuth.currentUser;
+  if (user) {
+    return getUserPhotosCollection(user.uid).doc(photoId).delete();
+  }
+}

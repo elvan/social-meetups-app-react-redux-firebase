@@ -1,19 +1,36 @@
 import { useState } from 'react';
 import { Button, ButtonGroup, Card, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { setMainPhotoInFirebase } from '../services/userService';
+import { deleteFileFromStorage } from '../services/storageService';
+import {
+  deletePhotoFromFirestore,
+  setMainPhotoInFirebase,
+} from '../services/userService';
 
 export const ProfilePhotoCard = ({ selectedProfile, photo }) => {
-  const [loading, setLoading] = useState(false);
+  const [updating, setUpdating] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const handleSetMainPhoto = async (photo) => {
-    setLoading(true);
+    setUpdating(true);
     try {
       await setMainPhotoInFirebase(photo);
     } catch (error) {
       toast.error(error.message);
     } finally {
-      setLoading(false);
+      setUpdating(false);
+    }
+  };
+
+  const handleDeletePhoto = async (photo) => {
+    setDeleting(true);
+    try {
+      await deleteFileFromStorage(photo.name);
+      await deletePhotoFromFirestore(photo.id);
+      setDeleting(false);
+    } catch (error) {
+      setDeleting(false);
+      toast.error(error.message);
     }
   };
 
@@ -30,9 +47,9 @@ export const ProfilePhotoCard = ({ selectedProfile, photo }) => {
             }
             style={{ width: '100%' }}
             onClick={() => handleSetMainPhoto(photo)}
-            disabled={loading || photo.url === selectedProfile.photoURL}
+            disabled={updating || photo.url === selectedProfile.photoURL}
           >
-            {loading ? (
+            {updating ? (
               <Spinner
                 animation='border'
                 style={{ height: '18px', width: '18px' }}
@@ -41,8 +58,25 @@ export const ProfilePhotoCard = ({ selectedProfile, photo }) => {
               <>Main</>
             )}
           </Button>
-          <Button size='sm' variant='outline-danger' style={{ width: '100%' }}>
-            Delete
+          <Button
+            size='sm'
+            variant={
+              photo.url === selectedProfile.photoURL
+                ? 'danger'
+                : 'outline-danger'
+            }
+            style={{ width: '100%' }}
+            disabled={updating || photo.url === selectedProfile.photoURL}
+            onClick={() => handleDeletePhoto(photo)}
+          >
+            {deleting ? (
+              <Spinner
+                animation='border'
+                style={{ height: '18px', width: '18px' }}
+              />
+            ) : (
+              <>Delete</>
+            )}
           </Button>
         </ButtonGroup>
       </Card.Body>
