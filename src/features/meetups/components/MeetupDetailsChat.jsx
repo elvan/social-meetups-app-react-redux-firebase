@@ -1,6 +1,7 @@
-import { FaComment, FaComments } from 'react-icons/fa';
+import { FaComments } from 'react-icons/fa';
+import { MeetupChatForm } from './MeetupChatForm';
 
-export const MeetupDetailsChat = () => {
+export const MeetupDetailsChat = ({ meetupId }) => {
   return (
     <div className='bg-white shadow rounded'>
       <div className='card mb-5'>
@@ -48,23 +49,7 @@ export const MeetupDetailsChat = () => {
         </div>
 
         <div className='card-body'>
-          <div className='form-group'>
-            <label htmlFor='exampleFormControlTextarea1'>
-              <strong>Leave a Message</strong>
-            </label>
-            <textarea
-              className='form-control'
-              id='exampleFormControlTextarea1'
-              rows={3}
-            ></textarea>
-          </div>
-
-          <button className='btn btn-info btn-block'>
-            <div className='d-flex justify-content-center align-items-center'>
-              <FaComment size={15} className='mr-2' />
-              Send Message
-            </div>
-          </button>
+          <MeetupChatForm meetupId={meetupId} />
         </div>
       </div>
     </div>

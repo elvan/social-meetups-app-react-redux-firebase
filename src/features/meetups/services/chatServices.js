@@ -1,4 +1,4 @@
-import { appAuth, appFirebase } from '../../../firebase/appFirebase';
+import { appAuth, appDatabase } from '../../../firebase/appFirebase';
 
 export function addMeetupChatComment(meetupId, comment) {
   const user = appAuth.currentUser;
@@ -10,6 +10,6 @@ export function addMeetupChatComment(meetupId, comment) {
       text: comment,
       date: Date.now(),
     };
-    return appFirebase.database().ref(`chats/${meetupId}`).push(newComment);
+    return appDatabase.ref(`chats/${meetupId}`).push(newComment);
   }
 }

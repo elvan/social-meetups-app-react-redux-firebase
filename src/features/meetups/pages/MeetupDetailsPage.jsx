@@ -57,7 +57,7 @@ export const MeetupDetailsPage = ({ match }) => {
               isGoing={isGoing}
             />
             <MeetupDetailsInfo meetup={meetup} />
-            <MeetupDetailsChat />
+            <MeetupDetailsChat meetupId={meetup.id} />
           </Col>
           <Col md={4}>
             <MeetupDetailsSidebar
