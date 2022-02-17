@@ -7,12 +7,13 @@ import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
 import { MeetupList } from '../components/MeetupList';
 import { MeetupListFilters } from '../components/MeetupListFilters';
 import { getMeetupsCollection } from '../services/meetupService';
-import { listenToMeetups } from '../store/meetupActions';
+import { listMeetups } from '../store/meetupActions';
 
 export const MeetupDashboardPage = () => {
   const dispatch = useDispatch();
 
-  const { loading, error, meetups } = useSelector((state) => state.meetupState);
+  const { loading, error } = useSelector((state) => state.asyncState);
+  const { meetups } = useSelector((state) => state.meetupState);
 
   const predicates = new Map();
   predicates.set('startDate', new Date());
@@ -20,15 +21,14 @@ export const MeetupDashboardPage = () => {
 
   const [predicate, setPredicate] = useState(predicates);
 
-  const handleChangePredicate = (key, value) => {
-    setPredicate(new Map(predicate.set(key, value)));
-  };
-
-  const collectionMemo = useMemo(() => getMeetupsCollection(), []);
+  const collectionMemo = useMemo(
+    () => getMeetupsCollection(predicate),
+    [predicate]
+  );
 
   const listenCallback = useCallback(
     (documents) => {
-      return dispatch(listenToMeetups(documents));
+      return dispatch(listMeetups(documents));
     },
     [dispatch]
   );
@@ -38,27 +38,38 @@ export const MeetupDashboardPage = () => {
     listenCallback: listenCallback,
   });
 
+  const handleChangePredicate = (key, value) => {
+    setPredicate(new Map(predicate.set(key, value)));
+  };
+
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
-    return toast.error(error);
+    toast.error(error.message);
   }
 
   return (
-    <Row>
-      <Col md={8}>
-        {meetups.length > 0 && <MeetupList meetups={meetups} />}
-        {meetups.length === 0 && <p>No meetups found</p>}
-      </Col>
-      <Col md={4}>
-        <MeetupListFilters
-          predicate={predicate}
-          changePredicate={handleChangePredicate}
-          loading={loading}
-        />
-      </Col>
-    </Row>
+    <>
+      {error?.message && (
+        <div className='alert alert-danger'>
+          <div>{error.message}</div>
+        </div>
+      )}
+      <Row>
+        <Col md={8}>
+          {meetups.length > 0 && <MeetupList meetups={meetups} />}
+          {meetups.length === 0 && <p>No meetups found</p>}
+        </Col>
+        <Col md={4}>
+          <MeetupListFilters
+            predicate={predicate}
+            changePredicate={handleChangePredicate}
+            loading={loading}
+          />
+        </Col>
+      </Row>
+    </>
   );
 };

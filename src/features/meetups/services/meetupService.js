@@ -1,18 +1,31 @@
 import firebase from 'firebase/app';
 import { appAuth, appFirestore } from '../../../firebase/appFirebase';
 
-export function getMeetupsCollection() {
-  return appFirestore.collection('meetups');
+export function getMeetupsCollection(predicate) {
+  let meetupsRef = appFirestore.collection('meetups').orderBy('date');
+  const user = appAuth.currentUser;
+  switch (predicate.get('filter')) {
+    case 'isGoing':
+      return meetupsRef
+        .where('attendeeIds', 'array-contains', user?.uid)
+        .where('date', '>=', predicate.get('startDate'));
+    case 'isHosting':
+      return meetupsRef
+        .where('hostUid', '==', user?.uid)
+        .where('date', '>=', predicate.get('startDate'));
+    default:
+      return meetupsRef.where('date', '>=', predicate.get('startDate'));
+  }
 }
 
 export function getMeetupDocument(id) {
-  return getMeetupsCollection().doc(id);
+  return appFirestore.collection('meetups').doc(id);
 }
 
 export function addMeetupToFirestore(meetup) {
   const user = appAuth.currentUser;
   if (user) {
-    return getMeetupsCollection().add({
+    return appFirestore.collection('meetups').add({
       ...meetup,
       hostUid: user.uid,
       hostedBy: user.displayName,
@@ -28,15 +41,15 @@ export function addMeetupToFirestore(meetup) {
 }
 
 export function updateMeetupInFirestore(meetup) {
-  return getMeetupsCollection().doc(meetup.id).update(meetup);
+  return appFirestore.collection('meetups').doc(meetup.id).update(meetup);
 }
 
 export function deleteMeetupInFirestore(id) {
-  return getMeetupsCollection().doc(id).delete();
+  return appFirestore.collection('meetups').doc(id).delete();
 }
 
 export function toggleMeetupCancelInFirestore(meetup) {
-  return getMeetupsCollection().doc(meetup.id).update({
+  return appFirestore.collection('meetups').doc(meetup.id).update({
     isCancelled: !meetup.isCancelled,
   });
 }
@@ -44,7 +57,8 @@ export function toggleMeetupCancelInFirestore(meetup) {
 export function addUserAttendanceToFirestore(meetupId) {
   const user = appAuth.currentUser;
   if (user) {
-    return getMeetupsCollection()
+    return appFirestore
+      .collection('meetups')
       .doc(meetupId)
       .update({
         attendeeIds: firebase.firestore.FieldValue.arrayUnion(user.uid),
@@ -61,8 +75,12 @@ export async function removeUserAttendanceFromFirestore(meetupId) {
   const user = appAuth.currentUser;
   if (user) {
     try {
-      const meetupDoc = await getMeetupsCollection().doc(meetupId).get();
-      return getMeetupsCollection()
+      const meetupDoc = await appFirestore
+        .collection('meetups')
+        .doc(meetupId)
+        .get();
+      return appFirestore
+        .collection('meetups')
         .doc(meetupId)
         .update({
           attendeeIds: firebase.firestore.FieldValue.arrayRemove(user.uid),

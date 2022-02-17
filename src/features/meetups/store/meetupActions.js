@@ -26,7 +26,7 @@ export function fetchMeetups() {
   };
 }
 
-export function listenToMeetups(meetups) {
+export function listMeetups(meetups) {
   return {
     type: MEETUP_LIST,
     payload: meetups,

@@ -5,7 +5,7 @@ import { Loading } from '../../../components/loading/Loading';
 import { useFirestoreDocument } from '../../../hooks/useFirestoreDocument';
 import { MeetupForm } from '../components/MeetupForm';
 import { getMeetupDocument } from '../services/meetupService';
-import { listenToMeetups } from '../store/meetupActions';
+import { listMeetups } from '../store/meetupActions';
 
 export const MeetupUpdatePage = ({ history, match }) => {
   let storedMeetup;
@@ -23,7 +23,7 @@ export const MeetupUpdatePage = ({ history, match }) => {
 
   const listenCallback = useCallback(
     (meetup) => {
-      return dispatch(listenToMeetups([meetup]));
+      return dispatch(listMeetups([meetup]));
     },
     [dispatch]
   );

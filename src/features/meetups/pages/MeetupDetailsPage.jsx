@@ -9,7 +9,7 @@ import { MeetupDetailsHeader } from '../components/MeetupDetailsHeader';
 import { MeetupDetailsInfo } from '../components/MeetupDetailsInfo';
 import { MeetupDetailsSidebar } from '../components/MeetupDetailsSidebar';
 import { getMeetupDocument } from '../services/meetupService';
-import { listenToMeetups } from '../store/meetupActions';
+import { listMeetups } from '../store/meetupActions';
 
 export const MeetupDetailsPage = ({ match }) => {
   const id = match.params.id;
@@ -28,7 +28,7 @@ export const MeetupDetailsPage = ({ match }) => {
 
   const listenCallback = useCallback(
     (meetup) => {
-      return dispatch(listenToMeetups([meetup]));
+      return dispatch(listMeetups([meetup]));
     },
     [dispatch]
   );

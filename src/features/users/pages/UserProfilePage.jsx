@@ -36,7 +36,7 @@ export const UserProfilePage = ({ match }) => {
   }
 
   if (error) {
-    return toast.error(error.message);
+    toast.error(error.message);
   }
 
   return (

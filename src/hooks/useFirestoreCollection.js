@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   asyncActionError,
@@ -10,22 +10,23 @@ import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 export function useFirestoreCollection({ collectionMemo, listenCallback }) {
   const dispatch = useDispatch();
 
+  const [unmounted, setUnmounted] = useState(false);
+
   useEffect(() => {
-    // TODO: fix the loading state. Move to each component or reducer
     dispatch(asyncActionStart());
-    const unsubscribe = collectionMemo.onSnapshot(
-      (snapshot) => {
+    collectionMemo
+      .get()
+      .then((snapshot) => {
         const docs = snapshot.docs.map(dataFromSnapshot);
         listenCallback(docs);
         dispatch(asyncActionFinish());
-      },
-      (error) => {
+      })
+      .catch((error) => {
         dispatch(asyncActionError(error));
-      }
-    );
+      });
 
     return () => {
-      unsubscribe();
+      setUnmounted(true);
     };
   }, [dispatch, collectionMemo, listenCallback]);
 }
