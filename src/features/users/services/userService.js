@@ -92,3 +92,23 @@ export async function deletePhotoFromFirestore(photoId) {
     return getUserPhotosCollection(user.uid).doc(photoId).delete();
   }
 }
+
+export function getUserMeetupsQuery(activeTab, userUid) {
+  let meetupsRef = appFirestore.collection('meetups');
+  const today = new Date();
+  switch (activeTab) {
+    case 'future':
+      return meetupsRef
+        .where('attendeeIds', 'array-contains', userUid)
+        .where('date', '>=', today)
+        .orderBy('date', 'asc');
+    case 'past':
+      return meetupsRef
+        .where('attendeeIds', 'array-contains', userUid)
+        .where('date', '<', today)
+        .orderBy('date', 'desc');
+    default:
+      // hosting
+      return meetupsRef.where('hostUid', '==', userUid).orderBy('date', 'asc');
+  }
+}
