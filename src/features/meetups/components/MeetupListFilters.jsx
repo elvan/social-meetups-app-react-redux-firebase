@@ -1,45 +1,64 @@
-import { useState } from 'react';
+import { ListGroup } from 'react-bootstrap';
 import Calendar from 'react-calendar';
 import { FaCalendarAlt, FaFilter } from 'react-icons/fa';
 
-export const MeetupListFilters = () => {
-  const [value, onChange] = useState(new Date());
-
+export const MeetupListFilters = ({ predicate, changePredicate, loading }) => {
   return (
     <>
       <div className='bg-white shadow rounded mb-3'>
         <div className='card'>
-          <div className='card-header bg-info text-white'>
+          <div className='card-header bg-primary text-white'>
             <div className='d-flex justify-content-center align-items-center'>
               <FaFilter size={15} className='mr-2' />
               Meetup Filters
             </div>
           </div>
-
-          <ul className='list-group list-group-flush'>
-            <li className='list-group-item d-flex align-items-center'>
+          <ListGroup as='ul' variant='flush'>
+            <ListGroup.Item
+              as='li'
+              active={predicate.get('filter') === 'all'}
+              onClick={() => changePredicate('filter', 'all')}
+              disabled={loading}
+              style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+            >
               All Meetups
-            </li>
-            <li className='list-group-item d-flex align-items-center'>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as='li'
+              active={predicate.get('filter') === 'isGoing'}
+              onClick={() => changePredicate('filter', 'isGoing')}
+              disabled={loading}
+              style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+            >
               I am going
-            </li>
-            <li className='list-group-item d-flex align-items-center'>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as='li'
+              active={predicate.get('filter') === 'isHosting'}
+              onClick={() => changePredicate('filter', 'isHosting')}
+              disabled={loading}
+              style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+            >
               I am hosting
-            </li>
-          </ul>
+            </ListGroup.Item>
+          </ListGroup>
         </div>
       </div>
 
       <div className='bg-white shadow rounded mb-3'>
         <div className='card'>
-          <div className='card-header bg-info text-white'>
+          <div className='card-header bg-primary text-white'>
             <div className='d-flex justify-content-center align-items-center'>
               <FaCalendarAlt size={15} className='mr-2' />
               Select Date
             </div>
           </div>
 
-          <Calendar onChange={onChange} value={value} />
+          <Calendar
+            onChange={(date) => changePredicate('startDate', date)}
+            value={predicate.get('startDate') || new Date()}
+            tileDisabled={() => loading}
+          />
         </div>
       </div>
     </>
