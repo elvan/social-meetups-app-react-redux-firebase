@@ -21,10 +21,7 @@ export const MeetupDashboardPage = () => {
 
   const [predicate, setPredicate] = useState(predicates);
 
-  const collectionMemo = useMemo(
-    () => getMeetupsCollection(predicate),
-    [predicate]
-  );
+  const queryMemo = useMemo(() => getMeetupsCollection(predicate), [predicate]);
 
   const listenCallback = useCallback(
     (documents) => {
@@ -34,7 +31,7 @@ export const MeetupDashboardPage = () => {
   );
 
   useFirestoreCollection({
-    collectionMemo: collectionMemo,
+    queryMemo: queryMemo,
     listenCallback: listenCallback,
   });
 

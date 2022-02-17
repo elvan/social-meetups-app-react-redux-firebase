@@ -7,7 +7,7 @@ import {
   setMainPhotoInFirebase,
 } from '../services/userService';
 
-export const ProfilePhotoCard = ({ selectedProfile, photo }) => {
+export const ProfilePhotoCard = ({ currentUser, selectedProfile, photo }) => {
   const [updating, setUpdating] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -37,49 +37,51 @@ export const ProfilePhotoCard = ({ selectedProfile, photo }) => {
   return (
     <Card style={{ width: '200px' }} className='mx-auto'>
       <Card.Img variant='top' src={photo.url} />
-      <Card.Body className='p-1'>
-        <ButtonGroup className='d-flex'>
-          <Button
-            variant={
-              photo.url === selectedProfile.photoURL
-                ? 'success'
-                : 'outline-success'
-            }
-            style={{ width: '100%' }}
-            onClick={() => handleSetMainPhoto(photo)}
-            disabled={updating || photo.url === selectedProfile.photoURL}
-          >
-            {updating ? (
-              <Spinner
-                animation='border'
-                style={{ height: '18px', width: '18px' }}
-              />
-            ) : (
-              <>Main</>
-            )}
-          </Button>
-          <Button
-            size='sm'
-            variant={
-              photo.url === selectedProfile.photoURL
-                ? 'danger'
-                : 'outline-danger'
-            }
-            style={{ width: '100%' }}
-            disabled={updating || photo.url === selectedProfile.photoURL}
-            onClick={() => handleDeletePhoto(photo)}
-          >
-            {deleting ? (
-              <Spinner
-                animation='border'
-                style={{ height: '18px', width: '18px' }}
-              />
-            ) : (
-              <>Delete</>
-            )}
-          </Button>
-        </ButtonGroup>
-      </Card.Body>
+      {currentUser?.uid === selectedProfile.id && (
+        <Card.Body className='p-1'>
+          <ButtonGroup className='d-flex'>
+            <Button
+              variant={
+                photo.url === selectedProfile.photoURL
+                  ? 'success'
+                  : 'outline-success'
+              }
+              style={{ width: '100%' }}
+              onClick={() => handleSetMainPhoto(photo)}
+              disabled={updating || photo.url === selectedProfile.photoURL}
+            >
+              {updating ? (
+                <Spinner
+                  animation='border'
+                  style={{ height: '18px', width: '18px' }}
+                />
+              ) : (
+                <>Main</>
+              )}
+            </Button>
+            <Button
+              size='sm'
+              variant={
+                photo.url === selectedProfile.photoURL
+                  ? 'danger'
+                  : 'outline-danger'
+              }
+              style={{ width: '100%' }}
+              disabled={updating || photo.url === selectedProfile.photoURL}
+              onClick={() => handleDeletePhoto(photo)}
+            >
+              {deleting ? (
+                <Spinner
+                  animation='border'
+                  style={{ height: '18px', width: '18px' }}
+                />
+              ) : (
+                <>Delete</>
+              )}
+            </Button>
+          </ButtonGroup>
+        </Card.Body>
+      )}
     </Card>
   );
 };

@@ -18,7 +18,7 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
 
   const dispatch = useDispatch();
 
-  const collectionMemo = useMemo(
+  const queryMemo = useMemo(
     () => getUserPhotosCollection(profileId),
     [profileId]
   );
@@ -31,7 +31,7 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
   );
 
   useFirestoreCollection({
-    collectionMemo: collectionMemo,
+    queryMemo: queryMemo,
     listenCallback: listenCallback,
   });
 
@@ -74,6 +74,7 @@ export const ProfilePhotosTab = ({ currentUser, profile }) => {
                 >
                   <ProfilePhotoCard
                     photo={photo}
+                    currentUser={currentUser}
                     selectedProfile={selectedProfile}
                   />
                 </div>

@@ -1,6 +1,7 @@
 import {
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
+  LISTEN_TO_USER_MEETUPS,
   LISTEN_TO_USER_PHOTOS,
   USER_ASYNC_ERROR,
   USER_ASYNC_FINISH,
@@ -13,6 +14,7 @@ const initialState = {
   currentProfile: null,
   selectedProfile: null,
   photos: [],
+  meetups: [],
 };
 
 export function userReducer(state = initialState, { type, payload }) {
@@ -48,6 +50,11 @@ export function userReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         photos: payload,
+      };
+    case LISTEN_TO_USER_MEETUPS:
+      return {
+        ...state,
+        meetups: payload,
       };
     default:
       return state;

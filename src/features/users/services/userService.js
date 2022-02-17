@@ -93,22 +93,24 @@ export async function deletePhotoFromFirestore(photoId) {
   }
 }
 
-export function getUserMeetupsQuery(activeTab, userUid) {
+export function getUserMeetupsQuery(activeTab, profileId) {
   let meetupsRef = appFirestore.collection('meetups');
   const today = new Date();
   switch (activeTab) {
     case 'future':
       return meetupsRef
-        .where('attendeeIds', 'array-contains', userUid)
+        .where('attendeeIds', 'array-contains', profileId)
         .where('date', '>=', today)
         .orderBy('date', 'asc');
     case 'past':
       return meetupsRef
-        .where('attendeeIds', 'array-contains', userUid)
+        .where('attendeeIds', 'array-contains', profileId)
         .where('date', '<', today)
         .orderBy('date', 'desc');
     default:
       // hosting
-      return meetupsRef.where('hostUid', '==', userUid).orderBy('date', 'asc');
+      return meetupsRef
+        .where('hostUid', '==', profileId)
+        .orderBy('date', 'asc');
   }
 }

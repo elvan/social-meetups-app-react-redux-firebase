@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   asyncActionError,
@@ -7,14 +7,12 @@ import {
 } from '../async/asyncActions';
 import { dataFromSnapshot } from '../firebase/dataFromSnapshot';
 
-export function useFirestoreCollection({ collectionMemo, listenCallback }) {
+export function useFirestoreCollection({ queryMemo, listenCallback }) {
   const dispatch = useDispatch();
-
-  const [unmounted, setUnmounted] = useState(false);
 
   useEffect(() => {
     dispatch(asyncActionStart());
-    collectionMemo
+    queryMemo
       .get()
       .then((snapshot) => {
         const docs = snapshot.docs.map(dataFromSnapshot);
@@ -25,8 +23,6 @@ export function useFirestoreCollection({ collectionMemo, listenCallback }) {
         dispatch(asyncActionError(error));
       });
 
-    return () => {
-      setUnmounted(true);
-    };
-  }, [dispatch, collectionMemo, listenCallback]);
+    return () => {};
+  }, [dispatch, queryMemo, listenCallback]);
 }

@@ -2,6 +2,7 @@ import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
+  LISTEN_TO_USER_MEETUPS,
   LISTEN_TO_USER_PHOTOS,
   USER_ASYNC_ERROR,
   USER_ASYNC_FINISH,
@@ -26,6 +27,13 @@ export function listenToUserPhotos(photos) {
   return {
     type: LISTEN_TO_USER_PHOTOS,
     payload: photos,
+  };
+}
+
+export function listenToUserMeetups(meetups) {
+  return {
+    type: LISTEN_TO_USER_MEETUPS,
+    payload: meetups,
   };
 }
 

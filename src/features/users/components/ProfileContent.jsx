@@ -35,7 +35,7 @@ export const ProfileContent = ({ currentUser, profile }) => {
               <ProfilePhotosTab currentUser={currentUser} profile={profile} />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-3'>
-              <ProfileMeetupsTab currentUser={currentUser} profile={profile} />
+              <ProfileMeetupsTab profile={profile} />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-4'>
               <h5>Followers</h5>
