@@ -1,5 +1,6 @@
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { ProfileAboutTab } from './ProfileAboutTab';
+import { ProfileMeetupsTab } from './ProfileMeetupsTab';
 import { ProfilePhotosTab } from './ProfilePhotosTab';
 
 export const ProfileContent = ({ currentUser, profile }) => {
@@ -34,13 +35,7 @@ export const ProfileContent = ({ currentUser, profile }) => {
               <ProfilePhotosTab currentUser={currentUser} profile={profile} />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-3'>
-              <h5>Meetups</h5>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio
-                deleniti officia obcaecati commodi libero, delectus eos nihil
-                hic ullam fuga asperiores nisi quaerat eligendi repellat
-                blanditiis unde quia natus. Saepe?
-              </p>
+              <ProfileMeetupsTab currentUser={currentUser} profile={profile} />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-4'>
               <h5>Followers</h5>
