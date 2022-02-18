@@ -13,3 +13,16 @@ export function addMeetupChatComment(meetupId, comment) {
     return appDatabase.ref(`chats/${meetupId}`).push(newComment);
   }
 }
+
+export function getMeetupCommentsRef(meetupId) {
+  return appDatabase.ref(`chats/${meetupId}`).orderByKey();
+}
+
+export function databaseObjectToArray(snapshot) {
+  if (snapshot) {
+    return Object.entries(snapshot).map(([key, value]) => ({
+      ...value,
+      id: key,
+    }));
+  }
+}

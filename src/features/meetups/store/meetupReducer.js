@@ -1,4 +1,8 @@
 import {
+  GET_MEETUP_COMMENTS_ERROR,
+  GET_MEETUP_COMMENTS_REQUEST,
+  GET_MEETUP_COMMENTS_SUCCESS,
+  LISTEN_TO_MEETUP_COMMENTS,
   MEETUP_ASYNC_ERROR,
   MEETUP_ASYNC_FINISH,
   MEETUP_ASYNC_START,
@@ -12,6 +16,9 @@ const initialState = {
   loading: false,
   error: null,
   meetups: [],
+  comments: [],
+  commentsIsLoading: false,
+  commentsError: null,
 };
 
 export function meetupReducer(state = initialState, { type, payload }) {
@@ -57,6 +64,29 @@ export function meetupReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         meetups: state.meetups.filter((meetup) => meetup.id !== payload),
+      };
+    case LISTEN_TO_MEETUP_COMMENTS:
+      return {
+        ...state,
+        comments: payload,
+      };
+    case GET_MEETUP_COMMENTS_REQUEST:
+      return {
+        ...state,
+        commentsIsLoading: true,
+        commentsError: null,
+      };
+    case GET_MEETUP_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: payload,
+        commentsIsLoading: false,
+      };
+    case GET_MEETUP_COMMENTS_ERROR:
+      return {
+        ...state,
+        comments: [],
+        commentsIsLoading: false,
       };
     default:
       return state;

@@ -5,6 +5,7 @@ import {
   updateMeetupInFirestore,
 } from '../services/meetupService';
 import {
+  LISTEN_TO_MEETUP_COMMENTS,
   MEETUP_ASYNC_ERROR,
   MEETUP_ASYNC_FINISH,
   MEETUP_ASYNC_START,
@@ -73,5 +74,12 @@ export function deleteMeetup(id) {
     } finally {
       dispatch({ type: MEETUP_ASYNC_FINISH });
     }
+  };
+}
+
+export function listenToMeetupComments(comments) {
+  return {
+    type: LISTEN_TO_MEETUP_COMMENTS,
+    payload: comments,
   };
 }
