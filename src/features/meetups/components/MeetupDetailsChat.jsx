@@ -35,7 +35,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
       }
       dispatch({
         type: GET_MEETUP_COMMENTS_SUCCESS,
-        payload: databaseObjectToArray(snapshot.val()),
+        payload: databaseObjectToArray(snapshot.val()).reverse(),
       });
     });
 
@@ -81,7 +81,14 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                       {comment.displayName}
                     </Link>
                   </h6>
-                  <p className='mb-2'>{comment.text}</p>
+                  <p className='mb-2'>
+                    {comment.text.split('\n').map((text, index) => (
+                      <span key={`${comment.id}-${index}`}>
+                        {text}
+                        <br />
+                      </span>
+                    ))}
+                  </p>
                   <p className='text-muted mb-2'>
                     {formatDistance(comment.date, new Date())}
                   </p>
