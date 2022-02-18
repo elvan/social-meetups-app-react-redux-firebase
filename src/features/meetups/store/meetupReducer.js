@@ -87,6 +87,7 @@ export function meetupReducer(state = initialState, { type, payload }) {
         ...state,
         comments: [],
         commentsIsLoading: false,
+        commentsError: payload,
       };
     default:
       return state;

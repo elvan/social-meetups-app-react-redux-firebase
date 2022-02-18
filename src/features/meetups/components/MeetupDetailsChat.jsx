@@ -1,3 +1,4 @@
+import { formatDistance } from 'date-fns';
 import { useEffect } from 'react';
 import { FaComments } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +18,7 @@ import { MeetupChatForm } from './MeetupChatForm';
 export const MeetupDetailsChat = ({ meetupId }) => {
   const dispatch = useDispatch();
 
+  const { authenticated } = useSelector((state) => state.authState);
   const { comments, commentsIsLoading, commentsError } = useSelector(
     (state) => state.meetupState
   );
@@ -56,7 +58,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
           </div>
         </div>
 
-        <div className='card-body'>
+        <div className='card-body pt-3 pb-2'>
           {comments.length === 0 && (
             <div className='text-center'>
               <h5>{commentsError}</h5>
@@ -64,8 +66,8 @@ export const MeetupDetailsChat = ({ meetupId }) => {
           )}
           {comments.length > 0 &&
             comments.map((comment) => (
-              <div key={comment.id} className='media mb-3'>
-                <Link to={`/profiles/${comment.uid}`}>
+              <div key={comment.id} className='media mb-2'>
+                <Link to={`/profiles/${comment.uid}` || '/assets/user.png'}>
                   <img
                     src={comment.photoURL}
                     className='align-self-start mr-3 rounded-circle'
@@ -79,14 +81,30 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                       {comment.displayName}
                     </Link>
                   </h6>
-                  {comment.text}
+                  <p className='mb-2'>{comment.text}</p>
+                  <p className='text-muted mb-2'>
+                    {formatDistance(comment.date, new Date())}
+                  </p>
                 </div>
               </div>
             ))}
         </div>
 
-        <div className='card-body'>
-          <MeetupChatForm meetupId={meetupId} />
+        <div className='card-body pt-2 pb-3'>
+          {authenticated ? (
+            <MeetupChatForm meetupId={meetupId} />
+          ) : (
+            <>
+              <h5 className='text-center'>
+                You need to be logged in to comment
+              </h5>
+              <div className='d-flex justify-content-center'>
+                <Link to={`/login`} className='btn btn-info'>
+                  Login
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
