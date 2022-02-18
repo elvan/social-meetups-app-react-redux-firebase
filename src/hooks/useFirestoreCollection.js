@@ -12,16 +12,16 @@ export function useFirestoreCollection({ queryMemo, listenCallback }) {
 
   useEffect(() => {
     dispatch(asyncActionStart());
-    queryMemo
-      .get()
-      .then((snapshot) => {
+    queryMemo.onSnapshot(
+      (snapshot) => {
         const docs = snapshot.docs.map(dataFromSnapshot);
         listenCallback(docs);
         dispatch(asyncActionFinish());
-      })
-      .catch((error) => {
+      },
+      (error) => {
         dispatch(asyncActionError(error));
-      });
+      }
+    );
 
     return () => {};
   }, [dispatch, queryMemo, listenCallback]);
