@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 import { ProfileAboutTab } from './ProfileAboutTab';
 import { ProfileFriendshipTab } from './ProfileFriendshipTab';
 import { ProfileMeetupsTab } from './ProfileMeetupsTab';
 import { ProfilePhotosTab } from './ProfilePhotosTab';
 
 export const ProfileContent = ({ currentUser, profile }) => {
+  const location = useLocation();
+
   const [key, setKey] = useState('tab-1');
 
   useEffect(() => {
     setKey('tab-1');
-  }, [profile]);
+  }, [location]);
 
   return (
     <Tab.Container

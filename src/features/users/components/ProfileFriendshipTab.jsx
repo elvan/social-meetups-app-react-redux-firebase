@@ -1,7 +1,5 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Loading } from '../../../components/loading/Loading';
 import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
 import {
   getFollowersCollection,
@@ -64,14 +62,6 @@ export const ProfileFriendshipTab = ({ activeTab, currentUser, profile }) => {
         <p className='text-center'>{profile.displayName} has no following.</p>
       </div>
     );
-
-  if (friendshipsLoading) {
-    return <Loading />;
-  }
-
-  if (friendshipsError) {
-    toast.error(friendshipsError.message);
-  }
 
   return (
     <>
