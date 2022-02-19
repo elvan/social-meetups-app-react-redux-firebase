@@ -1,9 +1,8 @@
 import { formatDistance } from 'date-fns';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaComments } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Loading } from '../../../components/loading/Loading';
 import {
   databaseObjectToArray,
   getMeetupCommentsRef,
@@ -17,6 +16,10 @@ import { MeetupChatForm } from './MeetupChatForm';
 
 export const MeetupDetailsChat = ({ meetupId }) => {
   const dispatch = useDispatch();
+  const [showReplyForm, setShowReplyForm] = useState({
+    open: false,
+    commentId: null,
+  });
 
   const { authenticated } = useSelector((state) => state.authState);
   const { comments, commentsIsLoading, commentsError } = useSelector(
@@ -44,8 +47,11 @@ export const MeetupDetailsChat = ({ meetupId }) => {
     };
   }, [dispatch, meetupId]);
 
-  if (commentsIsLoading) {
-    return <Loading />;
+  function handleCloseForm() {
+    setShowReplyForm({
+      open: false,
+      commentId: null,
+    });
   }
 
   return (
@@ -58,7 +64,30 @@ export const MeetupDetailsChat = ({ meetupId }) => {
           </div>
         </div>
 
-        <div className='card-body pt-3 pb-2'>
+        <div className='card-body py-3'>
+          {authenticated ? (
+            <MeetupChatForm
+              meetupId={meetupId}
+              parentId={0}
+              closeForm={handleCloseForm}
+            />
+          ) : (
+            <>
+              <h5 className='text-center'>
+                You need to be logged in to comment
+              </h5>
+              <div className='d-flex justify-content-center'>
+                <Link to={`/login`} className='btn btn-info'>
+                  Login
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+
+        <hr className='my-2' />
+
+        <div className='card-body py-3'>
           {comments.length === 0 && (
             <div className='text-center'>
               <h5>{commentsError}</h5>
@@ -90,28 +119,54 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                     ))}
                   </p>
                   <p className='text-muted mb-2'>
-                    {formatDistance(comment.date, new Date())}
+                    <span className='mr-2'>
+                      {formatDistance(comment.date, new Date())}
+                    </span>
+                    {authenticated && comment.parentId === '0' && (
+                      <>
+                        <span className='mr-2'>
+                          <a
+                            onClick={() =>
+                              setShowReplyForm({
+                                open: true,
+                                commentId: comment.id,
+                              })
+                            }
+                            className='mr-2'
+                            style={{ cursor: 'pointer' }}
+                          >
+                            Reply
+                          </a>
+                        </span>
+                        <span className='mr-2'>
+                          {showReplyForm.open &&
+                            showReplyForm.commentId === comment.id && (
+                              <a
+                                onClick={handleCloseForm}
+                                style={{ cursor: 'pointer' }}
+                              >
+                                Cancel
+                              </a>
+                            )}
+                        </span>
+                      </>
+                    )}
                   </p>
+                  {authenticated && comment.parentId === '0' && (
+                    <div className='mb-2'>
+                      {showReplyForm.open &&
+                        showReplyForm.commentId === comment.id && (
+                          <MeetupChatForm
+                            meetupId={meetupId}
+                            parentId={comment.id}
+                            closeForm={handleCloseForm}
+                          />
+                        )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
-        </div>
-
-        <div className='card-body pt-2 pb-3'>
-          {authenticated ? (
-            <MeetupChatForm meetupId={meetupId} />
-          ) : (
-            <>
-              <h5 className='text-center'>
-                You need to be logged in to comment
-              </h5>
-              <div className='d-flex justify-content-center'>
-                <Link to={`/login`} className='btn btn-info'>
-                  Login
-                </Link>
-              </div>
-            </>
-          )}
         </div>
       </div>
     </div>

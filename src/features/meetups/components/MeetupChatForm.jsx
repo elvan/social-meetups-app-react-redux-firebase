@@ -4,15 +4,16 @@ import { toast } from 'react-toastify';
 import { MyTextArea } from '../../../components/form/MyTextArea';
 import { addMeetupChatComment } from '../services/chatServices';
 
-export const MeetupChatForm = ({ meetupId }) => {
+export const MeetupChatForm = ({ meetupId, parentId, closeForm }) => {
   return (
     <Formik
       initialValues={{ comment: '' }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         try {
-          await addMeetupChatComment(meetupId, values.comment);
+          await addMeetupChatComment(meetupId, { ...values, parentId });
           resetForm();
+          closeForm();
         } catch (error) {
           toast.error(error.message);
         } finally {
@@ -24,7 +25,6 @@ export const MeetupChatForm = ({ meetupId }) => {
         <Form onSubmit={handleSubmit}>
           <MyTextArea
             name='comment'
-            label='Comment'
             placeholder='Please enter your comment here'
             rows={3}
             disabled={isSubmitting}

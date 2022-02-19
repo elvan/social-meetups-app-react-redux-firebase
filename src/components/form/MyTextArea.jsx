@@ -1,14 +1,16 @@
 import { useField } from 'formik';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 
-export const MyTextArea = ({ label, ...props }) => {
+export const MyTextArea = ({ label = '', ...props }) => {
   const [field, meta] = useField(props);
 
   return (
     <FormGroup controlId={props.name}>
-      <FormLabel className={meta.touched && meta.error ? 'text-danger' : ''}>
-        {label}
-      </FormLabel>
+      {label && (
+        <FormLabel className={meta.touched && meta.error ? 'text-danger' : ''}>
+          {label}
+        </FormLabel>
+      )}
       <FormControl
         as='textarea'
         isInvalid={!!(meta.touched && meta.error)}
