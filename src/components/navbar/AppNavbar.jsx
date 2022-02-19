@@ -17,7 +17,7 @@ export const AppNavbar = () => {
       variant='dark'
     >
       <Container fluid='lg'>
-        <Navbar.Brand as={Link} to='/'>
+        <Navbar.Brand as={Link} to={authenticated ? '/meetups' : '/'}>
           <div className='d-flex align-items-center'>
             <FaUsers size={18.75} className='mr-2' />
             SocialMeetups

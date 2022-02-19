@@ -4,14 +4,25 @@ import { toast } from 'react-toastify';
 import { MyTextArea } from '../../../components/form/MyTextArea';
 import { addMeetupChatComment } from '../services/chatServices';
 
-export const MeetupChatForm = ({ meetupId, parentId, closeForm }) => {
+export const MeetupChatForm = ({
+  meetupId,
+  parentId,
+  closeForm,
+  replyToCommentId = '',
+  replyToDisplayName = '',
+}) => {
   return (
     <Formik
       initialValues={{ comment: '' }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         try {
-          await addMeetupChatComment(meetupId, { ...values, parentId });
+          await addMeetupChatComment(meetupId, {
+            ...values,
+            parentId,
+            replyToCommentId,
+            replyToDisplayName,
+          });
           resetForm();
           closeForm();
         } catch (error) {

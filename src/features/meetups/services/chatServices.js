@@ -9,6 +9,8 @@ export function addMeetupChatComment(meetupId, values) {
       photoURL: user.photoURL,
       text: values.comment,
       parentId: values.parentId || '0',
+      replyToCommentId: values.replyToCommentId || '',
+      replyToDisplayName: values.replyToDisplayName || '',
       date: Date.now(),
     };
     return appDatabase.ref(`chats/${meetupId}`).push(newComment);

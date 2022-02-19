@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FaComments } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createDataTree } from '../../../utils/createDataTree';
 import {
   databaseObjectToArray,
   getMeetupCommentsRef,
@@ -94,8 +95,8 @@ export const MeetupDetailsChat = ({ meetupId }) => {
             </div>
           )}
           {comments.length > 0 &&
-            comments.map((comment) => (
-              <div key={comment.id} className='media mb-2'>
+            createDataTree(comments).map((comment) => (
+              <div key={comment.id} className='media mb-2' id={comment.id}>
                 <Link to={`/profiles/${comment.uid}` || '/assets/user.png'}>
                   <img
                     src={comment.photoURL}
@@ -104,12 +105,14 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                     width={50}
                   />
                 </Link>
+
                 <div className='media-body'>
                   <h6>
                     <Link to={`/profiles/${comment.uid}`}>
                       {comment.displayName}
                     </Link>
                   </h6>
+
                   <p className='mb-2'>
                     {comment.text.split('\n').map((text, index) => (
                       <span key={`${comment.id}-${index}`}>
@@ -118,11 +121,15 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                       </span>
                     ))}
                   </p>
+
                   <p className='text-muted mb-2'>
                     <span className='mr-2'>
-                      {formatDistance(comment.date, new Date())}
+                      <a href={`#${comment.id}`} className='text-secondary'>
+                        {formatDistance(comment.date, new Date())}
+                      </a>
                     </span>
-                    {authenticated && comment.parentId === '0' && (
+
+                    {authenticated && (
                       <>
                         <span className='mr-2'>
                           <a
@@ -152,7 +159,8 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                       </>
                     )}
                   </p>
-                  {authenticated && comment.parentId === '0' && (
+
+                  {authenticated && (
                     <div className='mb-2'>
                       {showReplyForm.open &&
                         showReplyForm.commentId === comment.id && (
@@ -163,6 +171,108 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                           />
                         )}
                     </div>
+                  )}
+
+                  {comment.childNodes?.length > 0 && (
+                    <>
+                      {comment.childNodes.reverse().map((child) => (
+                        <div
+                          key={child.id}
+                          className='media mb-2'
+                          id={child.id}
+                        >
+                          <Link
+                            to={`/profiles/${child.uid}` || '/assets/user.png'}
+                          >
+                            <img
+                              src={child.photoURL}
+                              className='align-self-start mr-3 rounded-circle'
+                              alt={child.displayName}
+                              width={50}
+                            />
+                          </Link>
+                          <div className='media-body'>
+                            <h6>
+                              <Link to={`/profiles/${child.uid}`}>
+                                {child.displayName}
+                              </Link>
+                            </h6>
+
+                            <p className='mb-2'>
+                              {child.replyToCommentId !== '' && (
+                                <>
+                                  <a href={`#${child.replyToCommentId}`}>
+                                    <strong>@{child.replyToDisplayName}</strong>
+                                  </a>{' '}
+                                </>
+                              )}
+                              {child.text.split('\n').map((text, index) => (
+                                <span key={`${child.id}-${index}`}>
+                                  {text}
+                                  <br />
+                                </span>
+                              ))}
+                            </p>
+
+                            <p className='text-muted mb-2'>
+                              <span className='mr-2'>
+                                <a
+                                  href={`#${child.id}`}
+                                  className='text-secondary'
+                                >
+                                  {formatDistance(child.date, new Date())}
+                                </a>
+                              </span>
+
+                              {authenticated && (
+                                <>
+                                  <span className='mr-2'>
+                                    <a
+                                      onClick={() =>
+                                        setShowReplyForm({
+                                          open: true,
+                                          commentId: child.id,
+                                        })
+                                      }
+                                      className='mr-2'
+                                      style={{ cursor: 'pointer' }}
+                                    >
+                                      Reply
+                                    </a>
+                                  </span>
+                                  <span className='mr-2'>
+                                    {showReplyForm.open &&
+                                      showReplyForm.commentId === child.id && (
+                                        <a
+                                          onClick={handleCloseForm}
+                                          style={{ cursor: 'pointer' }}
+                                        >
+                                          Cancel
+                                        </a>
+                                      )}
+                                  </span>
+                                </>
+                              )}
+                            </p>
+
+                            {authenticated && (
+                              <div className='mb-2'>
+                                {showReplyForm.open &&
+                                  showReplyForm.commentId === child.id && (
+                                    <MeetupChatForm
+                                      meetupId={meetupId}
+                                      parentId={comment.id}
+                                      replyToCommentId={child.id}
+                                      replyToDisplayName={child.displayName}
+                                      closeForm={handleCloseForm}
+                                    />
+                                  )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </>
                   )}
                 </div>
               </div>
