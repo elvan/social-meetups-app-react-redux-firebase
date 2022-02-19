@@ -81,6 +81,7 @@ export function followUser(profile) {
     try {
       dispatch({ type: USER_FRIENDS_ASYNC_START });
       await followUserInFirebase(profile);
+      dispatch({ type: SET_FOLLOW_USER, payload: profile });
     } catch (error) {
       dispatch({ type: USER_FRIENDS_ASYNC_ERROR, payload: error });
       throw error;
@@ -95,6 +96,7 @@ export function unfollowUser(profile) {
     try {
       dispatch({ type: USER_FRIENDS_ASYNC_START });
       await unfollowUserInFirebase(profile);
+      dispatch({ type: SET_UNFOLLOW_USER, payload: profile });
     } catch (error) {
       dispatch({ type: USER_FRIENDS_ASYNC_ERROR, payload: error });
       throw error;

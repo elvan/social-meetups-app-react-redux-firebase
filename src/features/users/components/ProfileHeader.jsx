@@ -1,13 +1,40 @@
+import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { getFollowingDocument } from '../services/friendService';
 import { followUser, unfollowUser } from '../store/userActions';
 
 export const ProfileHeader = ({ currentUser, profile }) => {
-  const following = true;
+  const userId = currentUser.uid;
+  const profileId = profile.id;
+
   const dispatch = useDispatch();
 
-  const { friendsLoading } = useSelector((state) => state.userState);
+  const [loading, setLoading] = useState(false);
+
+  const { friendsLoading, followingUser } = useSelector(
+    (state) => state.userState
+  );
+
+  useEffect(() => {
+    if (userId === profileId) {
+      return;
+    }
+    setLoading(true);
+
+    async function fetchFollowingDocument() {
+      try {
+        const followingDoc = await getFollowingDocument(profileId);
+        if (followingDoc?.exists) {
+          dispatch(followUser(profileId));
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+    fetchFollowingDocument().then(() => setLoading(false));
+  }, [dispatch, userId, profileId]);
 
   async function handleFollowUser() {
     try {
@@ -65,11 +92,13 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                   <button
                     disabled={friendsLoading}
                     className={
-                      following
+                      followingUser
                         ? 'btn btn-block btn-info'
                         : 'btn btn-block btn-outline-info'
                     }
-                    onClick={handleFollowUser}
+                    onClick={
+                      followingUser ? handleUnfollowUser : handleFollowUser
+                    }
                   >
                     <div className='d-flex justify-content-center align-items-center'>
                       {friendsLoading && (
@@ -78,26 +107,8 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                           style={{ height: '22.5px', width: '22.5px' }}
                         />
                       )}
-                      {!friendsLoading && 'Follow'}
-                    </div>
-                  </button>
-                  <button
-                    disabled={friendsLoading}
-                    className={
-                      following
-                        ? 'btn btn-block btn-info'
-                        : 'btn btn-block btn-outline-info'
-                    }
-                    onClick={handleUnfollowUser}
-                  >
-                    <div className='d-flex justify-content-center align-items-center'>
-                      {friendsLoading && (
-                        <Spinner
-                          animation='border'
-                          style={{ height: '22.5px', width: '22.5px' }}
-                        />
-                      )}
-                      {!friendsLoading && 'Unfollow'}
+                      {!friendsLoading &&
+                        (followingUser ? 'Unfollow' : 'Follow')}
                     </div>
                   </button>
                 </div>
