@@ -5,12 +5,14 @@ import {
   LISTEN_TO_USER_FOLLOWING,
   LISTEN_TO_USER_MEETUPS,
   LISTEN_TO_USER_PHOTOS,
+  SET_FOLLOW_USER,
+  SET_UNFOLLOW_USER,
   USER_ASYNC_ERROR,
   USER_ASYNC_FINISH,
   USER_ASYNC_START,
-  USER_FRIENDSHIPS_ASYNC_ERROR,
-  USER_FRIENDSHIPS_ASYNC_FINISH,
-  USER_FRIENDSHIPS_ASYNC_START,
+  USER_FRIENDS_ASYNC_ERROR,
+  USER_FRIENDS_ASYNC_FINISH,
+  USER_FRIENDS_ASYNC_START,
 } from './userConstants';
 
 const initialState = {
@@ -20,10 +22,11 @@ const initialState = {
   selectedProfile: null,
   photos: [],
   meetups: [],
-  friendshipsLoading: false,
-  friendshipsError: null,
+  friendsLoading: false,
+  friendsError: null,
   following: [],
   followers: [],
+  followingUser: false,
 };
 
 export function userReducer(state = initialState, { type, payload }) {
@@ -65,24 +68,24 @@ export function userReducer(state = initialState, { type, payload }) {
         ...state,
         meetups: payload,
       };
-    case USER_FRIENDSHIPS_ASYNC_START:
+    case USER_FRIENDS_ASYNC_START:
       return {
         ...state,
-        friendshipsLoading: true,
-        friendshipsError: null,
+        friendsLoading: true,
+        friendsError: null,
         following: [],
         followers: [],
       };
-    case USER_FRIENDSHIPS_ASYNC_FINISH:
+    case USER_FRIENDS_ASYNC_FINISH:
       return {
         ...state,
-        friendshipsLoading: false,
+        friendsLoading: false,
       };
-    case USER_FRIENDSHIPS_ASYNC_ERROR:
+    case USER_FRIENDS_ASYNC_ERROR:
       return {
         ...state,
-        friendshipsLoading: false,
-        friendshipsError: payload,
+        friendsLoading: false,
+        friendsError: payload,
       };
     case LISTEN_TO_USER_FOLLOWING:
       return {
@@ -93,6 +96,16 @@ export function userReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         followers: payload,
+      };
+    case SET_FOLLOW_USER:
+      return {
+        ...state,
+        followingUser: true,
+      };
+    case SET_UNFOLLOW_USER:
+      return {
+        ...state,
+        followingUser: false,
       };
     default:
       return state;

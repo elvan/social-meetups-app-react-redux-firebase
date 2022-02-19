@@ -1,7 +1,7 @@
 import {
   followUserInFirebase,
   unfollowUserInFirebase,
-} from '../services/friendshipService';
+} from '../services/friendService';
 import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
@@ -10,12 +10,14 @@ import {
   LISTEN_TO_USER_FOLLOWING,
   LISTEN_TO_USER_MEETUPS,
   LISTEN_TO_USER_PHOTOS,
+  SET_FOLLOW_USER,
+  SET_UNFOLLOW_USER,
   USER_ASYNC_ERROR,
   USER_ASYNC_FINISH,
   USER_ASYNC_START,
-  USER_FRIENDSHIPS_ASYNC_ERROR,
-  USER_FRIENDSHIPS_ASYNC_FINISH,
-  USER_FRIENDSHIPS_ASYNC_START,
+  USER_FRIENDS_ASYNC_ERROR,
+  USER_FRIENDS_ASYNC_FINISH,
+  USER_FRIENDS_ASYNC_START,
 } from './userConstants';
 
 export function listenToCurrentProfile(profile) {
@@ -77,13 +79,13 @@ export function updateUserProfile(profile) {
 export function followUser(profile) {
   return async function (dispatch) {
     try {
-      dispatch({ type: USER_FRIENDSHIPS_ASYNC_START });
+      dispatch({ type: USER_FRIENDS_ASYNC_START });
       await followUserInFirebase(profile);
     } catch (error) {
-      dispatch({ type: USER_FRIENDSHIPS_ASYNC_ERROR, payload: error });
+      dispatch({ type: USER_FRIENDS_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch({ type: USER_FRIENDSHIPS_ASYNC_FINISH });
+      dispatch({ type: USER_FRIENDS_ASYNC_FINISH });
     }
   };
 }
@@ -91,13 +93,25 @@ export function followUser(profile) {
 export function unfollowUser(profile) {
   return async function (dispatch) {
     try {
-      dispatch({ type: USER_FRIENDSHIPS_ASYNC_START });
+      dispatch({ type: USER_FRIENDS_ASYNC_START });
       await unfollowUserInFirebase(profile);
     } catch (error) {
-      dispatch({ type: USER_FRIENDSHIPS_ASYNC_ERROR, payload: error });
+      dispatch({ type: USER_FRIENDS_ASYNC_ERROR, payload: error });
       throw error;
     } finally {
-      dispatch({ type: USER_FRIENDSHIPS_ASYNC_FINISH });
+      dispatch({ type: USER_FRIENDS_ASYNC_FINISH });
     }
+  };
+}
+
+export function setFollowUser() {
+  return {
+    type: SET_FOLLOW_USER,
+  };
+}
+
+export function setUnfollowUser() {
+  return {
+    type: SET_UNFOLLOW_USER,
   };
 }

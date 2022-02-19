@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { ProfileAboutTab } from './ProfileAboutTab';
-import { ProfileFriendshipTab } from './ProfileFriendshipTab';
+import { ProfileFriendsTab } from './ProfileFriendsTab';
 import { ProfileMeetupsTab } from './ProfileMeetupsTab';
 import { ProfilePhotosTab } from './ProfilePhotosTab';
 
@@ -53,14 +53,14 @@ export const ProfileContent = ({ currentUser, profile }) => {
               <ProfileMeetupsTab profile={profile} />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-4'>
-              <ProfileFriendshipTab
+              <ProfileFriendsTab
                 activeTab='followers'
                 profile={profile}
                 currentUser={currentUser}
               />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-5'>
-              <ProfileFriendshipTab
+              <ProfileFriendsTab
                 activeTab='following'
                 profile={profile}
                 currentUser={currentUser}

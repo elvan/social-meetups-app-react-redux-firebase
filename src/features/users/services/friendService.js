@@ -6,7 +6,7 @@ export async function followUserInFirebase(profile) {
   if (user) {
     try {
       await appFirestore
-        .collection('friendships')
+        .collection('friends')
         .doc(user.uid)
         .collection('following')
         .doc(profile.id)
@@ -17,7 +17,7 @@ export async function followUserInFirebase(profile) {
           createdAt: new Date(),
         });
       await appFirestore
-        .collection('friendships')
+        .collection('friends')
         .doc(profile.id)
         .collection('followers')
         .doc(user.uid)
@@ -50,13 +50,13 @@ export async function unfollowUserInFirebase(profile) {
   if (user) {
     try {
       await appFirestore
-        .collection('friendships')
+        .collection('friends')
         .doc(user.uid)
         .collection('following')
         .doc(profile.id)
         .delete();
       await appFirestore
-        .collection('friendships')
+        .collection('friends')
         .doc(profile.id)
         .collection('followers')
         .doc(user.uid)
@@ -81,14 +81,24 @@ export async function unfollowUserInFirebase(profile) {
 
 export function getFollowersCollection(profileId) {
   return appFirestore
-    .collection('friendships')
+    .collection('friends')
     .doc(profileId)
     .collection('followers');
 }
 
 export function getFollowingCollection(profileId) {
   return appFirestore
-    .collection('friendships')
+    .collection('friends')
     .doc(profileId)
     .collection('following');
+}
+
+export function getFollowingDocument(profileId) {
+  const userId = appAuth.currentUser?.uid;
+  return appFirestore
+    .collection('friends')
+    .doc(userId)
+    .collection('following')
+    .doc(profileId)
+    .get();
 }

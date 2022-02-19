@@ -7,7 +7,7 @@ export const ProfileHeader = ({ currentUser, profile }) => {
   const following = true;
   const dispatch = useDispatch();
 
-  const { friendshipsLoading } = useSelector((state) => state.userState);
+  const { friendsLoading } = useSelector((state) => state.userState);
 
   async function handleFollowUser() {
     try {
@@ -48,12 +48,12 @@ export const ProfileHeader = ({ currentUser, profile }) => {
           <div className='col-md-4'>
             <div className='row'>
               <div className='col-6 text-center'>
-                <div className='display-4'>123</div>
+                <div className='display-4'>{profile.followersCount || 0}</div>
                 <div className=''>Followers</div>
               </div>
 
               <div className='col-6 text-center'>
-                <div className='display-4'>123</div>
+                <div className='display-4'>{profile.followingCount || 0}</div>
                 <div className=''>Following</div>
               </div>
             </div>
@@ -63,7 +63,7 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                 <hr />
                 <div>
                   <button
-                    disabled={friendshipsLoading}
+                    disabled={friendsLoading}
                     className={
                       following
                         ? 'btn btn-block btn-info'
@@ -72,17 +72,17 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                     onClick={handleFollowUser}
                   >
                     <div className='d-flex justify-content-center align-items-center'>
-                      {friendshipsLoading && (
+                      {friendsLoading && (
                         <Spinner
                           animation='border'
                           style={{ height: '22.5px', width: '22.5px' }}
                         />
                       )}
-                      {!friendshipsLoading && 'Follow'}
+                      {!friendsLoading && 'Follow'}
                     </div>
                   </button>
                   <button
-                    disabled={friendshipsLoading}
+                    disabled={friendsLoading}
                     className={
                       following
                         ? 'btn btn-block btn-info'
@@ -91,13 +91,13 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                     onClick={handleUnfollowUser}
                   >
                     <div className='d-flex justify-content-center align-items-center'>
-                      {friendshipsLoading && (
+                      {friendsLoading && (
                         <Spinner
                           animation='border'
                           style={{ height: '22.5px', width: '22.5px' }}
                         />
                       )}
-                      {!friendshipsLoading && 'Unfollow'}
+                      {!friendsLoading && 'Unfollow'}
                     </div>
                   </button>
                 </div>

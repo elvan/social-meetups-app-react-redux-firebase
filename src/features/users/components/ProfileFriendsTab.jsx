@@ -4,14 +4,14 @@ import { useFirestoreCollection } from '../../../hooks/useFirestoreCollection';
 import {
   getFollowersCollection,
   getFollowingCollection,
-} from '../services/friendshipService';
+} from '../services/friendService';
 import {
   listenToUserFollowers,
   listenToUserFollowing,
 } from '../store/userActions';
 import { ProfileCard } from './ProfileCard';
 
-export const ProfileFriendshipTab = ({ activeTab, profile }) => {
+export const ProfileFriendsTab = ({ activeTab, profile }) => {
   const profileId = profile.id;
   const { following, followers } = useSelector((state) => state.userState);
 
