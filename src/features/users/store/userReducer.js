@@ -6,6 +6,9 @@ import {
   USER_ASYNC_ERROR,
   USER_ASYNC_FINISH,
   USER_ASYNC_START,
+  USER_FRIENDSHIPS_ASYNC_ERROR,
+  USER_FRIENDSHIPS_ASYNC_FINISH,
+  USER_FRIENDSHIPS_ASYNC_START,
 } from './userConstants';
 
 const initialState = {
@@ -15,6 +18,8 @@ const initialState = {
   selectedProfile: null,
   photos: [],
   meetups: [],
+  friendshipsLoading: false,
+  friendshipsError: null,
 };
 
 export function userReducer(state = initialState, { type, payload }) {
@@ -55,6 +60,23 @@ export function userReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         meetups: payload,
+      };
+    case USER_FRIENDSHIPS_ASYNC_START:
+      return {
+        ...state,
+        friendshipsLoading: true,
+        friendshipsError: null,
+      };
+    case USER_FRIENDSHIPS_ASYNC_FINISH:
+      return {
+        ...state,
+        friendshipsLoading: false,
+      };
+    case USER_FRIENDSHIPS_ASYNC_ERROR:
+      return {
+        ...state,
+        friendshipsLoading: false,
+        friendshipsError: payload,
       };
     default:
       return state;

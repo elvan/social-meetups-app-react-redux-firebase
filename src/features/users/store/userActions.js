@@ -1,3 +1,4 @@
+import { followUserInFirebase } from '../services/friendshipService';
 import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
@@ -7,6 +8,9 @@ import {
   USER_ASYNC_ERROR,
   USER_ASYNC_FINISH,
   USER_ASYNC_START,
+  USER_FRIENDSHIPS_ASYNC_ERROR,
+  USER_FRIENDSHIPS_ASYNC_FINISH,
+  USER_FRIENDSHIPS_ASYNC_START,
 } from './userConstants';
 
 export function listenToCurrentProfile(profile) {
@@ -47,6 +51,20 @@ export function updateUserProfile(profile) {
       throw error;
     } finally {
       dispatch({ type: USER_ASYNC_FINISH });
+    }
+  };
+}
+
+export function followUser(profile) {
+  return async function (dispatch) {
+    try {
+      dispatch({ type: USER_FRIENDSHIPS_ASYNC_START });
+      return followUserInFirebase(profile);
+    } catch (error) {
+      dispatch({ type: USER_FRIENDSHIPS_ASYNC_ERROR, payload: error });
+      throw error;
+    } finally {
+      dispatch({ type: USER_FRIENDSHIPS_ASYNC_FINISH });
     }
   };
 }

@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { followUser } from '../store/userActions';
 
 export const ProfileHeader = ({ currentUser, profile }) => {
   const [following, setFollowing] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const { friendshipsLoading } = useSelector((state) => state.userState);
+
+  async function handleFollowUser() {
+    try {
+      await dispatch(followUser(profile));
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
 
   return (
     <>
@@ -17,18 +30,21 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                 className='rounded-circle align-self-start mr-3'
                 style={{ width: '100px' }}
               />
+
               <div className='media-body'>
                 <h4 className='mt-0'>{profile.displayName}</h4>
                 <h6>Blogger</h6>
               </div>
             </div>
           </div>
+
           <div className='col-md-4'>
             <div className='row'>
               <div className='col-6 text-center'>
                 <div className='display-4'>123</div>
                 <div className=''>Followers</div>
               </div>
+
               <div className='col-6 text-center'>
                 <div className='display-4'>123</div>
                 <div className=''>Following</div>
@@ -40,28 +56,23 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                 <hr />
                 <div>
                   <button
-                    disabled={loading}
+                    disabled={friendshipsLoading}
                     className={
                       following
                         ? 'btn btn-block btn-info'
                         : 'btn btn-block btn-outline-info'
                     }
-                    onClick={() => {
-                      setLoading(true);
-                      setTimeout(() => {
-                        setFollowing(!following);
-                        setLoading(false);
-                      }, 1000);
-                    }}
+                    onClick={handleFollowUser}
                   >
                     <div className='d-flex justify-content-center align-items-center'>
-                      {loading && (
+                      {friendshipsLoading && (
                         <Spinner
                           animation='border'
                           style={{ height: '22.5px', width: '22.5px' }}
                         />
                       )}
-                      {!loading && (following ? 'Following' : 'Follow')}
+                      {!friendshipsLoading &&
+                        (following ? 'Following' : 'Follow')}
                     </div>
                   </button>
                 </div>
