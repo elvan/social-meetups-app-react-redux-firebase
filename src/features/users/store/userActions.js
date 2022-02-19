@@ -6,6 +6,8 @@ import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
+  LISTEN_TO_USER_FOLLOWERS,
+  LISTEN_TO_USER_FOLLOWING,
   LISTEN_TO_USER_MEETUPS,
   LISTEN_TO_USER_PHOTOS,
   USER_ASYNC_ERROR,
@@ -41,6 +43,20 @@ export function listenToUserMeetups(meetups) {
   return {
     type: LISTEN_TO_USER_MEETUPS,
     payload: meetups,
+  };
+}
+
+export function listenToUserFollowing(following) {
+  return {
+    type: LISTEN_TO_USER_FOLLOWING,
+    payload: following,
+  };
+}
+
+export function listenToUserFollowers(followers) {
+  return {
+    type: LISTEN_TO_USER_FOLLOWERS,
+    payload: followers,
   };
 }
 

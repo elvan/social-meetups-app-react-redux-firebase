@@ -78,3 +78,17 @@ export async function unfollowUserInFirebase(profile) {
     }
   }
 }
+
+export function getFollowersCollection(profileId) {
+  return appFirestore
+    .collection('friendships')
+    .doc(profileId)
+    .collection('followers');
+}
+
+export function getFollowingCollection(profileId) {
+  return appFirestore
+    .collection('friendships')
+    .doc(profileId)
+    .collection('following');
+}
