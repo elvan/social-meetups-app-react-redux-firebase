@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { followUser, unfollowUser } from '../store/userActions';
 
 export const ProfileHeader = ({ currentUser, profile }) => {
-  const [following, setFollowing] = useState(true);
+  const following = true;
   const dispatch = useDispatch();
 
   const { friendshipsLoading } = useSelector((state) => state.userState);

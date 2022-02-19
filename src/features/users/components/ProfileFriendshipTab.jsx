@@ -11,30 +11,42 @@ import {
 } from '../store/userActions';
 import { ProfileCard } from './ProfileCard';
 
-export const ProfileFriendshipTab = ({ activeTab, currentUser, profile }) => {
-  const { friendshipsLoading, friendshipsError, following, followers } =
-    useSelector((state) => state.userState);
+export const ProfileFriendshipTab = ({ activeTab, profile }) => {
+  const profileId = profile.id;
+  const { following, followers } = useSelector((state) => state.userState);
 
   const dispatch = useDispatch();
 
-  const queryMemo = useMemo(() => {
-    return activeTab === 'followers'
-      ? getFollowersCollection(profile.id)
-      : getFollowingCollection(profile.id);
-  }, [activeTab, profile.id]);
+  const followersQueryMemo = useMemo(() => {
+    return getFollowersCollection(profileId);
+  }, [profileId]);
 
-  const listenCallback = useCallback(
+  const followingQueryMemo = useMemo(() => {
+    return getFollowingCollection(profileId);
+  }, [profileId]);
+
+  const followersListenCallback = useCallback(
     (data) => {
-      return activeTab === 'followers'
-        ? dispatch(listenToUserFollowers(data))
-        : dispatch(listenToUserFollowing(data));
+      return dispatch(listenToUserFollowers(data));
+    },
+    [dispatch]
+  );
+
+  const followingListenCallback = useCallback(
+    (data) => {
+      return dispatch(listenToUserFollowing(data));
     },
     [dispatch]
   );
 
   useFirestoreCollection({
-    queryMemo: queryMemo,
-    listenCallback: listenCallback,
+    queryMemo: followersQueryMemo,
+    listenCallback: followersListenCallback,
+  });
+
+  useFirestoreCollection({
+    queryMemo: followingQueryMemo,
+    listenCallback: followingListenCallback,
   });
 
   let followersContent =

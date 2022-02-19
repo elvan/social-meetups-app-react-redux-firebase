@@ -70,6 +70,8 @@ export function userReducer(state = initialState, { type, payload }) {
         ...state,
         friendshipsLoading: true,
         friendshipsError: null,
+        following: [],
+        followers: [],
       };
     case USER_FRIENDSHIPS_ASYNC_FINISH:
       return {
