@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { ProfileAboutTab } from './ProfileAboutTab';
 import { ProfileFriendshipTab } from './ProfileFriendshipTab';
@@ -5,8 +6,18 @@ import { ProfileMeetupsTab } from './ProfileMeetupsTab';
 import { ProfilePhotosTab } from './ProfilePhotosTab';
 
 export const ProfileContent = ({ currentUser, profile }) => {
+  const [key, setKey] = useState('tab-1');
+
+  useEffect(() => {
+    setKey('tab-1');
+  }, [profile]);
+
   return (
-    <Tab.Container id='left-tabs-example' defaultActiveKey='tab-1'>
+    <Tab.Container
+      id='left-tabs-example'
+      activeKey={key}
+      onSelect={(key) => setKey(key)}
+    >
       <Row>
         <Col sm={3}>
           <Nav variant='pills' className='flex-column'>
