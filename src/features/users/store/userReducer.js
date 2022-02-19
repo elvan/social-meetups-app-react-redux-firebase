@@ -1,4 +1,5 @@
 import {
+  CLEAR_FOLLOWING_USER,
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
   LISTEN_TO_USER_FOLLOWERS,
@@ -73,8 +74,6 @@ export function userReducer(state = initialState, { type, payload }) {
         ...state,
         friendsLoading: true,
         friendsError: null,
-        following: [],
-        followers: [],
       };
     case USER_FRIENDS_ASYNC_FINISH:
       return {
@@ -106,6 +105,13 @@ export function userReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         followingUser: false,
+      };
+    case CLEAR_FOLLOWING_USER:
+      return {
+        ...state,
+        followingUser: false,
+        following: [],
+        followers: [],
       };
     default:
       return state;

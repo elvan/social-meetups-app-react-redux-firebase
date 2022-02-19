@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getFollowingDocument } from '../services/friendService';
 import { followUser, unfollowUser } from '../store/userActions';
+import { CLEAR_FOLLOWING_USER, SET_FOLLOW_USER } from '../store/userConstants';
 
 export const ProfileHeader = ({ currentUser, profile }) => {
-  const userId = currentUser.uid;
+  const userId = currentUser?.uid;
   const profileId = profile.id;
 
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
+  const { authenticated } = useSelector((state) => state.authState);
   const { friendsLoading, followingUser } = useSelector(
     (state) => state.userState
   );
@@ -27,13 +29,17 @@ export const ProfileHeader = ({ currentUser, profile }) => {
       try {
         const followingDoc = await getFollowingDocument(profileId);
         if (followingDoc?.exists) {
-          dispatch(followUser(profileId));
+          dispatch({ type: SET_FOLLOW_USER });
         }
       } catch (error) {
         toast.error(error.message);
       }
     }
     fetchFollowingDocument().then(() => setLoading(false));
+
+    return () => {
+      dispatch({ type: CLEAR_FOLLOWING_USER });
+    };
   }, [dispatch, userId, profileId]);
 
   async function handleFollowUser() {
@@ -85,7 +91,7 @@ export const ProfileHeader = ({ currentUser, profile }) => {
               </div>
             </div>
 
-            {currentUser?.uid !== profile.id && (
+            {authenticated && currentUser?.uid !== profile.id && (
               <>
                 <hr />
                 <div>

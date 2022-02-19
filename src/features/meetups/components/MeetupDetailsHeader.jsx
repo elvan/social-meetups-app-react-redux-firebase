@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaUserCheck, FaUsersCog, FaUserTimes } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -12,6 +13,8 @@ import {
 export const MeetupDetailsHeader = ({ meetup, isHost, isGoing }) => {
   const [joining, setJoining] = useState(false);
   const [leaving, setLeaving] = useState(false);
+
+  const { authenticated } = useSelector((state) => state.authState);
 
   const handleUserJoinMeetup = async () => {
     setJoining(true);
@@ -59,7 +62,7 @@ export const MeetupDetailsHeader = ({ meetup, isHost, isGoing }) => {
         </div>
 
         <div className='card-body d-flex bg-white p-3'>
-          {!isHost && (
+          {authenticated && !isHost && (
             <>
               {isGoing ? (
                 <Button
@@ -107,7 +110,7 @@ export const MeetupDetailsHeader = ({ meetup, isHost, isGoing }) => {
             </>
           )}
 
-          {isHost && (
+          {authenticated && isHost && (
             <Link
               to={`/manage-meetup/${meetup.id}`}
               className='btn btn-info ml-auto'

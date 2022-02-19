@@ -54,16 +54,16 @@ export const ProfileContent = ({ currentUser, profile }) => {
             </Tab.Pane>
             <Tab.Pane eventKey='tab-4'>
               <ProfileFriendsTab
+                key={profile.id}
                 activeTab='followers'
                 profile={profile}
-                currentUser={currentUser}
               />
             </Tab.Pane>
             <Tab.Pane eventKey='tab-5'>
               <ProfileFriendsTab
+                key={profile.id}
                 activeTab='following'
                 profile={profile}
-                currentUser={currentUser}
               />
             </Tab.Pane>
           </Tab.Content>

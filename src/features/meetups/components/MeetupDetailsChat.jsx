@@ -56,7 +56,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
     });
   }
 
-  if (commentsIsLoading) {
+  if (authenticated && commentsIsLoading) {
     return <Loading />;
   }
 
