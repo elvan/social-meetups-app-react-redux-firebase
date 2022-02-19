@@ -18,7 +18,7 @@ import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 import { UserProfilePage } from './features/users/pages/UserProfilePage';
 
 export const App = () => {
-  const { ready, authenticated } = useSelector((state) => state.authState);
+  const { ready } = useSelector((state) => state.authState);
   const { key } = useLocation();
 
   if (!ready) {

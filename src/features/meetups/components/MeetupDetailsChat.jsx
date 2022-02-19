@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FaComments } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Loading } from '../../../components/loading/Loading';
 import { createDataTree } from '../../../utils/createDataTree';
 import {
   databaseObjectToArray,
@@ -53,6 +54,10 @@ export const MeetupDetailsChat = ({ meetupId }) => {
       open: false,
       commentId: null,
     });
+  }
+
+  if (commentsIsLoading) {
+    return <Loading />;
   }
 
   return (
@@ -132,28 +137,29 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                     {authenticated && (
                       <>
                         <span className='mr-2'>
-                          <a
+                          <button
                             onClick={() =>
                               setShowReplyForm({
                                 open: true,
                                 commentId: comment.id,
                               })
                             }
-                            className='mr-2'
+                            className='btn btn-sm mr-2'
                             style={{ cursor: 'pointer' }}
                           >
                             Reply
-                          </a>
+                          </button>
                         </span>
                         <span className='mr-2'>
                           {showReplyForm.open &&
                             showReplyForm.commentId === comment.id && (
-                              <a
+                              <button
                                 onClick={handleCloseForm}
+                                className='btn btn-sm'
                                 style={{ cursor: 'pointer' }}
                               >
                                 Cancel
-                              </a>
+                              </button>
                             )}
                         </span>
                       </>
@@ -227,28 +233,29 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                               {authenticated && (
                                 <>
                                   <span className='mr-2'>
-                                    <a
+                                    <button
                                       onClick={() =>
                                         setShowReplyForm({
                                           open: true,
                                           commentId: child.id,
                                         })
                                       }
-                                      className='mr-2'
+                                      className='btn btn-sm mr-2'
                                       style={{ cursor: 'pointer' }}
                                     >
                                       Reply
-                                    </a>
+                                    </button>
                                   </span>
                                   <span className='mr-2'>
                                     {showReplyForm.open &&
                                       showReplyForm.commentId === child.id && (
-                                        <a
+                                        <button
                                           onClick={handleCloseForm}
+                                          className='btn btn-sm'
                                           style={{ cursor: 'pointer' }}
                                         >
                                           Cancel
-                                        </a>
+                                        </button>
                                       )}
                                   </span>
                                 </>
