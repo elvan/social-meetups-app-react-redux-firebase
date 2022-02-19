@@ -1,6 +1,8 @@
 import {
   LISTEN_TO_CURRENT_PROFILE,
   LISTEN_TO_SELECTED_PROFILE,
+  LISTEN_TO_USER_FOLLOWERS,
+  LISTEN_TO_USER_FOLLOWING,
   LISTEN_TO_USER_MEETUPS,
   LISTEN_TO_USER_PHOTOS,
   USER_ASYNC_ERROR,
@@ -20,6 +22,8 @@ const initialState = {
   meetups: [],
   friendshipsLoading: false,
   friendshipsError: null,
+  following: [],
+  followers: [],
 };
 
 export function userReducer(state = initialState, { type, payload }) {
@@ -77,6 +81,16 @@ export function userReducer(state = initialState, { type, payload }) {
         ...state,
         friendshipsLoading: false,
         friendshipsError: payload,
+      };
+    case LISTEN_TO_USER_FOLLOWING:
+      return {
+        ...state,
+        following: payload,
+      };
+    case LISTEN_TO_USER_FOLLOWERS:
+      return {
+        ...state,
+        followers: payload,
       };
     default:
       return state;
