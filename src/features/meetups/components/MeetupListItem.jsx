@@ -90,12 +90,14 @@ export const MeetupListItem = ({ meetup }) => {
                 View Meetup
               </div>
             </Link>
-            <Button className='btn btn-danger mr-2' onClick={handleDelete}>
-              <div className='d-flex align-items-center'>
-                <FaTrashAlt size={15} className='mr-2' />
-                Delete
-              </div>
-            </Button>
+            {false && (
+              <Button className='btn btn-danger mr-2' onClick={handleDelete}>
+                <div className='d-flex align-items-center'>
+                  <FaTrashAlt size={15} className='mr-2' />
+                  Delete
+                </div>
+              </Button>
+            )}
             {meetup.isCancelled && (
               <span
                 className='badge badge-danger ml-auto'
