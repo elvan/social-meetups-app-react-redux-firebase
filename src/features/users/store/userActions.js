@@ -1,4 +1,7 @@
-import { followUserInFirebase } from '../services/friendshipService';
+import {
+  followUserInFirebase,
+  unfollowUserInFirebase,
+} from '../services/friendshipService';
 import { updateUserProfileInFirebase } from '../services/userService';
 import {
   LISTEN_TO_CURRENT_PROFILE,
@@ -59,7 +62,21 @@ export function followUser(profile) {
   return async function (dispatch) {
     try {
       dispatch({ type: USER_FRIENDSHIPS_ASYNC_START });
-      return followUserInFirebase(profile);
+      await followUserInFirebase(profile);
+    } catch (error) {
+      dispatch({ type: USER_FRIENDSHIPS_ASYNC_ERROR, payload: error });
+      throw error;
+    } finally {
+      dispatch({ type: USER_FRIENDSHIPS_ASYNC_FINISH });
+    }
+  };
+}
+
+export function unfollowUser(profile) {
+  return async function (dispatch) {
+    try {
+      dispatch({ type: USER_FRIENDSHIPS_ASYNC_START });
+      await unfollowUserInFirebase(profile);
     } catch (error) {
       dispatch({ type: USER_FRIENDSHIPS_ASYNC_ERROR, payload: error });
       throw error;

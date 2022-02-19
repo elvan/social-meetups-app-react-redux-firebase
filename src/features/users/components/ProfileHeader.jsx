@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { followUser } from '../store/userActions';
+import { followUser, unfollowUser } from '../store/userActions';
 
 export const ProfileHeader = ({ currentUser, profile }) => {
   const [following, setFollowing] = useState(true);
@@ -12,7 +12,15 @@ export const ProfileHeader = ({ currentUser, profile }) => {
 
   async function handleFollowUser() {
     try {
-      await dispatch(followUser(profile));
+      dispatch(followUser(profile));
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+  async function handleUnfollowUser() {
+    try {
+      await dispatch(unfollowUser(profile));
     } catch (error) {
       toast.error(error.message);
     }
@@ -71,8 +79,26 @@ export const ProfileHeader = ({ currentUser, profile }) => {
                           style={{ height: '22.5px', width: '22.5px' }}
                         />
                       )}
-                      {!friendshipsLoading &&
-                        (following ? 'Following' : 'Follow')}
+                      {!friendshipsLoading && 'Follow'}
+                    </div>
+                  </button>
+                  <button
+                    disabled={friendshipsLoading}
+                    className={
+                      following
+                        ? 'btn btn-block btn-info'
+                        : 'btn btn-block btn-outline-info'
+                    }
+                    onClick={handleUnfollowUser}
+                  >
+                    <div className='d-flex justify-content-center align-items-center'>
+                      {friendshipsLoading && (
+                        <Spinner
+                          animation='border'
+                          style={{ height: '22.5px', width: '22.5px' }}
+                        />
+                      )}
+                      {!friendshipsLoading && 'Unfollow'}
                     </div>
                   </button>
                 </div>
