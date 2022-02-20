@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getFollowingDocument } from '../services/friendService';
 import { followUser, unfollowUser } from '../store/userActions';
-import { CLEAR_FOLLOWING_USER, SET_FOLLOW_USER } from '../store/userConstants';
+import {
+  CLEAR_FOLLOWING_USER,
+  SET_FOLLOW_USER,
+  SET_UNFOLLOW_USER,
+} from '../store/userConstants';
 
 export const ProfileHeader = ({ currentUser, profile }) => {
   const userId = currentUser?.uid;
   const profileId = profile.id;
 
   const dispatch = useDispatch();
-
-  const [loading, setLoading] = useState(false);
 
   const { authenticated } = useSelector((state) => state.authState);
   const { friendsLoading, followingUser } = useSelector(
@@ -23,19 +25,20 @@ export const ProfileHeader = ({ currentUser, profile }) => {
     if (userId === profileId) {
       return;
     }
-    setLoading(true);
 
     async function fetchFollowingDocument() {
       try {
         const followingDoc = await getFollowingDocument(profileId);
         if (followingDoc?.exists) {
           dispatch({ type: SET_FOLLOW_USER });
+        } else {
+          dispatch({ type: SET_UNFOLLOW_USER });
         }
       } catch (error) {
         toast.error(error.message);
       }
     }
-    fetchFollowingDocument().then(() => setLoading(false));
+    fetchFollowingDocument();
 
     return () => {
       dispatch({ type: CLEAR_FOLLOWING_USER });
