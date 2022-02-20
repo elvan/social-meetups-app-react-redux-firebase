@@ -3,42 +3,42 @@ import { appAuth, appFirestore } from '../../../firebase/appFirebase';
 
 export async function followUserInFirebase(profile) {
   const user = appAuth.currentUser;
+  const batch = appFirestore.batch();
   if (user) {
     try {
-      await appFirestore
-        .collection('friends')
-        .doc(user.uid)
-        .collection('following')
-        .doc(profile.id)
-        .set({
+      batch.set(
+        appFirestore
+          .collection('friends')
+          .doc(user.uid)
+          .collection('following')
+          .doc(profile.id),
+        {
           uid: profile.id,
           displayName: profile.displayName,
           photoURL: profile.photoURL,
           createdAt: new Date(),
-        });
-      await appFirestore
-        .collection('friends')
-        .doc(profile.id)
-        .collection('followers')
-        .doc(user.uid)
-        .set({
+        }
+      );
+      batch.set(
+        appFirestore
+          .collection('friends')
+          .doc(profile.id)
+          .collection('followers')
+          .doc(user.uid),
+        {
           uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
           createdAt: new Date(),
-        });
-      await appFirestore
-        .collection('users')
-        .doc(user.uid)
-        .update({
-          followingCount: firebase.firestore.FieldValue.increment(1),
-        });
-      return appFirestore
-        .collection('users')
-        .doc(profile.id)
-        .update({
-          followersCount: firebase.firestore.FieldValue.increment(1),
-        });
+        }
+      );
+      batch.update(appFirestore.collection('users').doc(user.uid), {
+        followingCount: firebase.firestore.FieldValue.increment(1),
+      });
+      batch.update(appFirestore.collection('users').doc(profile.id), {
+        followersCount: firebase.firestore.FieldValue.increment(1),
+      });
+      return batch.commit();
     } catch (error) {
       throw error;
     }
@@ -47,32 +47,30 @@ export async function followUserInFirebase(profile) {
 
 export async function unfollowUserInFirebase(profile) {
   const user = appAuth.currentUser;
+  const batch = appFirestore.batch();
   if (user) {
     try {
-      await appFirestore
-        .collection('friends')
-        .doc(user.uid)
-        .collection('following')
-        .doc(profile.id)
-        .delete();
-      await appFirestore
-        .collection('friends')
-        .doc(profile.id)
-        .collection('followers')
-        .doc(user.uid)
-        .delete();
-      await appFirestore
-        .collection('users')
-        .doc(user.uid)
-        .update({
-          followingCount: firebase.firestore.FieldValue.increment(-1),
-        });
-      return appFirestore
-        .collection('users')
-        .doc(profile.id)
-        .update({
-          followersCount: firebase.firestore.FieldValue.increment(-1),
-        });
+      batch.delete(
+        appFirestore
+          .collection('friends')
+          .doc(user.uid)
+          .collection('following')
+          .doc(profile.id)
+      );
+      batch.delete(
+        appFirestore
+          .collection('friends')
+          .doc(profile.id)
+          .collection('followers')
+          .doc(user.uid)
+      );
+      batch.update(appFirestore.collection('users').doc(user.uid), {
+        followingCount: firebase.firestore.FieldValue.increment(-1),
+      });
+      batch.update(appFirestore.collection('users').doc(profile.id), {
+        followersCount: firebase.firestore.FieldValue.increment(-1),
+      });
+      return batch.commit();
     } catch (error) {
       throw error;
     }
