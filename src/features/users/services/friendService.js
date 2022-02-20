@@ -19,25 +19,11 @@ export async function followUserInFirebase(profile) {
           createdAt: new Date(),
         }
       );
-      batch.set(
-        appFirestore
-          .collection('friends')
-          .doc(profile.id)
-          .collection('followers')
-          .doc(user.uid),
-        {
-          uid: user.uid,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          createdAt: new Date(),
-        }
-      );
+
       batch.update(appFirestore.collection('users').doc(user.uid), {
         followingCount: firebase.firestore.FieldValue.increment(1),
       });
-      batch.update(appFirestore.collection('users').doc(profile.id), {
-        followersCount: firebase.firestore.FieldValue.increment(1),
-      });
+
       return batch.commit();
     } catch (error) {
       throw error;
@@ -57,19 +43,11 @@ export async function unfollowUserInFirebase(profile) {
           .collection('following')
           .doc(profile.id)
       );
-      batch.delete(
-        appFirestore
-          .collection('friends')
-          .doc(profile.id)
-          .collection('followers')
-          .doc(user.uid)
-      );
+
       batch.update(appFirestore.collection('users').doc(user.uid), {
         followingCount: firebase.firestore.FieldValue.increment(-1),
       });
-      batch.update(appFirestore.collection('users').doc(profile.id), {
-        followersCount: firebase.firestore.FieldValue.increment(-1),
-      });
+
       return batch.commit();
     } catch (error) {
       throw error;
