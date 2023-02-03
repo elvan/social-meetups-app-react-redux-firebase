@@ -19,65 +19,79 @@ import { SandboxPage } from './features/sandbox/pages/SandboxPage';
 import { UserProfilePage } from './features/users/pages/UserProfilePage';
 
 export const App = () => {
+  // @ts-ignore
   const { ready } = useSelector((state) => state.authState);
+
   const { key } = useLocation();
 
-  if (!ready) {
-    return <span className='bg-warning py-1 px-2'>Loading...</span>;
-  }
-
   return (
-    <div className='d-flex flex-column vh-100'>
-      <ModalManager />
-      <ToastContainer
-        position='bottom-right'
-        theme='colored'
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        rtl={false}
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <Route path='/' component={HomePage} exact />
-      <Route
-        path={'/(.+)'}
-        render={() => (
-          <Fragment>
-            <AppNavbar />
-            <Container fluid='lg'>
-              <Switch>
-                <Route path='/meetups' component={MeetupDashboardPage} exact />
-                <Route
-                  path='/meetups/:id'
-                  component={MeetupDetailsPage}
-                  exact
-                />
-                <Route
-                  key={key}
-                  path='/create-meetup'
-                  component={MeetupCreatePage}
-                  exact
-                />
-                <Route
-                  key={key}
-                  path='/manage-meetup/:id'
-                  component={MeetupUpdatePage}
-                  exact
-                />
-                <Route path='/profiles/:id' component={UserProfilePage} exact />
-                <Route path='/register' component={RegisterPage} exact />
-                <Route path='/login' component={LoginPage} />
-                <Route path='/account' component={AccountPage} exact />
-                <Route path='/sandbox' component={SandboxPage} exact />
-                <Route path='/error' component={ErrorComponent} exact />
-              </Switch>
-            </Container>
-          </Fragment>
-        )}
-      />
-    </div>
+    <Fragment>
+      {!ready ? (
+        <span className="bg-warning py-1 px-2">Loading...</span>
+      ) : (
+        <div className="d-flex flex-column vh-100">
+          <ModalManager />
+
+          <ToastContainer
+            position="bottom-right"
+            theme="colored"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            rtl={false}
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+
+          <Route path="/" component={HomePage} exact />
+          <Route
+            path={'/(.+)'}
+            render={() => (
+              <Fragment>
+                <AppNavbar />
+                <Container fluid="lg">
+                  <Switch>
+                    <Route
+                      path="/meetups"
+                      component={MeetupDashboardPage}
+                      exact
+                    />
+                    <Route
+                      path="/meetups/:id"
+                      component={MeetupDetailsPage}
+                      exact
+                    />
+                    <Route
+                      key={key}
+                      path="/create-meetup"
+                      component={MeetupCreatePage}
+                      exact
+                    />
+                    <Route
+                      key={key}
+                      path="/manage-meetup/:id"
+                      component={MeetupUpdatePage}
+                      exact
+                    />
+                    <Route
+                      path="/profiles/:id"
+                      component={UserProfilePage}
+                      exact
+                    />
+                    <Route path="/register" component={RegisterPage} exact />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/account" component={AccountPage} exact />
+                    <Route path="/sandbox" component={SandboxPage} exact />
+                    <Route path="/error" component={ErrorComponent} exact />
+                  </Switch>
+                </Container>
+              </Fragment>
+            )}
+          />
+        </div>
+      )}
+    </Fragment>
   );
 };
