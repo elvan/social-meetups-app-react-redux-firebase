@@ -1,7 +1,9 @@
 import { useField } from 'formik';
+import React from 'react';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 
 export const MyTextArea = ({ label = '', ...props }) => {
+  // @ts-ignore
   const [field, meta] = useField(props);
 
   return (
@@ -12,7 +14,7 @@ export const MyTextArea = ({ label = '', ...props }) => {
         </FormLabel>
       )}
       <FormControl
-        as='textarea'
+        as="textarea"
         isInvalid={!!(meta.touched && meta.error)}
         {...field}
         {...props}
@@ -20,7 +22,7 @@ export const MyTextArea = ({ label = '', ...props }) => {
       />
       {meta.touched && meta.error && (
         <>
-          <FormControl.Feedback type='invalid' className='d-block'>
+          <FormControl.Feedback type="invalid" className="d-block">
             {meta.error}
           </FormControl.Feedback>
         </>

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
@@ -25,7 +25,7 @@ export const App = () => {
   const { key } = useLocation();
 
   return (
-    <Fragment>
+    <>
       {!ready ? (
         <span className="bg-warning py-1 px-2">Loading...</span>
       ) : (
@@ -49,7 +49,7 @@ export const App = () => {
           <Route
             path={'/(.+)'}
             render={() => (
-              <Fragment>
+              <>
                 <AppNavbar />
                 <Container fluid="lg">
                   <Switch>
@@ -87,11 +87,11 @@ export const App = () => {
                     <Route path="/error" component={ErrorComponent} exact />
                   </Switch>
                 </Container>
-              </Fragment>
+              </>
             )}
           />
         </div>
       )}
-    </Fragment>
+    </>
   );
 };

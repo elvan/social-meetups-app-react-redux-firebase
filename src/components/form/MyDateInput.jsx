@@ -1,11 +1,15 @@
 import { useField, useFormikContext } from 'formik';
+import React from 'react';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 import ReactDatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import './MyDateInput.css';
 
 export const MyDateInput = ({ label, ...props }) => {
+  // @ts-ignore
   const [field, meta, helpers] = useField(props);
+
   const { setFieldValue } = useFormikContext();
 
   return (
@@ -17,11 +21,11 @@ export const MyDateInput = ({ label, ...props }) => {
         as={ReactDatePicker}
         isInvalid={!!(meta.touched && meta.error)}
         selected={(field.value && new Date(field.value)) || null}
-        timeFormat='HH:mm'
+        timeFormat="HH:mm"
         showTimeSelect
-        timeCaption='Time'
-        dateFormat='MMMM d, yyyy h:mm aa'
-        autoComplete='off'
+        timeCaption="Time"
+        dateFormat="MMMM d, yyyy h:mm aa"
+        autoComplete="off"
         {...field}
         {...props}
         onChange={(value) => setFieldValue(field.name, value)}
@@ -29,7 +33,7 @@ export const MyDateInput = ({ label, ...props }) => {
       />
       {meta.touched && meta.error && (
         <>
-          <FormControl.Feedback type='invalid' className='d-block'>
+          <FormControl.Feedback type="invalid" className="d-block">
             {meta.error}
           </FormControl.Feedback>
         </>

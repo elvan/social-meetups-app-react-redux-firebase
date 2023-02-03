@@ -1,5 +1,7 @@
+import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+
 import { closeModal } from './store/modalActions';
 
 export const ModalWrapper = ({ children, size, header }) => {
@@ -15,10 +17,10 @@ export const ModalWrapper = ({ children, size, header }) => {
 
       <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={() => dispatch(closeModal())}>
+        <Button variant="secondary" onClick={() => dispatch(closeModal())}>
           Close
         </Button>
-        <Button variant='primary' onClick={() => dispatch(closeModal())}>
+        <Button variant="primary" onClick={() => dispatch(closeModal())}>
           Save Changes
         </Button>
       </Modal.Footer>

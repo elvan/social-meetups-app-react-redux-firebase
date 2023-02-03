@@ -1,7 +1,8 @@
 import cuid from 'cuid';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ProgressBar, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+
 import { uploadFileToStorage } from '../../features/users/services/storageService';
 import { updateUserProfilePhotoInFirebase } from '../../features/users/services/userService';
 import { getFileExtension } from '../../utils/getFileExtension';
@@ -16,7 +17,10 @@ export const PhotoUploadWidget = ({ setEditMode }) => {
 
   const handleUploadImage = () => {
     setLoading(true);
+
+    // @ts-ignore
     const filename = cuid() + '.' + getFileExtension(files[0].name);
+
     const uploadTask = uploadFileToStorage(image, filename);
     uploadTask?.on(
       'state_changed',
@@ -54,51 +58,52 @@ export const PhotoUploadWidget = ({ setEditMode }) => {
 
   return (
     <>
-      <div className='row'>
-        <div className='col-md-4'>
+      <div className="row">
+        <div className="col-md-4">
           <h6>Step 1</h6>
           <h5>Add Photo</h5>
           <PhotoWidgetDropzone setFiles={setFiles} />
         </div>
-        <div className='col-md-4'>
+        <div className="col-md-4">
           <h6>Step 2</h6>
           <h5>Resize Photo</h5>
           {files.length > 0 && (
             <PhotoWidgetCropper
-              setImage={setImage}
+              // @ts-ignore
               imagePreview={files[0].preview}
+              setImage={setImage}
             />
           )}
         </div>
-        <div className='col-md-4'>
+        <div className="col-md-4">
           <h6>Step 3</h6>
           <h5>Preview & Upload</h5>
           {files.length > 0 && (
             <>
               <div
-                className='img-preview'
+                className="img-preview"
                 style={{
                   minHeight: '200px',
                   minWidth: '200px',
                   overflow: 'hidden',
                 }}
               ></div>
-              <div className='btn-group d-flex justify-content-center p-3'>
+              <div className="btn-group d-flex justify-content-center p-3">
                 <button
-                  className='btn btn-success w-100'
+                  className="btn btn-success w-100"
                   onClick={handleUploadImage}
                   disabled={loading}
                 >
                   {loading && (
                     <Spinner
-                      animation='border'
+                      animation="border"
                       style={{ height: '18px', width: '18px' }}
                     />
                   )}
                   {!loading && <>Upload</>}
                 </button>
                 <button
-                  className='btn btn-danger  w-100'
+                  className="btn btn-danger  w-100"
                   onClick={handleCancelCrop}
                   disabled={loading}
                 >
@@ -110,7 +115,7 @@ export const PhotoUploadWidget = ({ setEditMode }) => {
         </div>
       </div>
       {loading && (
-        <div className='mb-3'>
+        <div className="mb-3">
           <h6>Uploading...</h6>
           <ProgressBar animated now={progress} />
         </div>

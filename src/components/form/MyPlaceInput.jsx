@@ -1,9 +1,11 @@
 import { useField } from 'formik';
+import React from 'react';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import PlacesAutocomplete from 'react-places-autocomplete/dist/PlacesAutocomplete';
 
 export const MyPlaceInput = ({ label, options = {}, ...props }) => {
+  // @ts-ignore
   const [field, meta, helpers] = useField(props);
 
   const handleSelect = (address) => {
@@ -50,18 +52,18 @@ export const MyPlaceInput = ({ label, options = {}, ...props }) => {
                 marginTop: 0,
               }}
             >
-              <div className='list-group'>
+              <div className="list-group">
                 {suggestions.map((suggestion) => (
                   <div
                     key={suggestion.placeId}
-                    className='list-group-item list-group-item-action'
+                    className="list-group-item list-group-item-action"
                     style={{ cursor: 'pointer' }}
                     {...getSuggestionItemProps(suggestion)}
                   >
-                    <p className='mb-1'>
+                    <p className="mb-1">
                       {suggestion.formattedSuggestion.mainText}
                     </p>
-                    <small className='text-muted'>
+                    <small className="text-muted">
                       {suggestion.formattedSuggestion.secondaryText}
                     </small>
                   </div>
@@ -71,7 +73,7 @@ export const MyPlaceInput = ({ label, options = {}, ...props }) => {
           )}
           {meta.touched && meta.error && (
             <>
-              <FormControl.Feedback type='invalid' className='d-block'>
+              <FormControl.Feedback type="invalid" className="d-block">
                 {meta.error['address']}
               </FormControl.Feedback>
             </>

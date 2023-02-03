@@ -1,7 +1,9 @@
 import { useField } from 'formik';
+import React from 'react';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 
 export const MySelectInput = ({ label, options, ...props }) => {
+  // @ts-ignore
   const [field, meta, helpers] = useField(props);
 
   return (
@@ -10,7 +12,7 @@ export const MySelectInput = ({ label, options, ...props }) => {
         {label}
       </FormLabel>
       <FormControl
-        as='select'
+        as="select"
         isInvalid={!!(meta.touched && meta.error)}
         {...field}
         {...props}
@@ -25,7 +27,7 @@ export const MySelectInput = ({ label, options, ...props }) => {
       </FormControl>
       {meta.touched && meta.error && (
         <>
-          <FormControl.Feedback type='invalid' className='d-block'>
+          <FormControl.Feedback type="invalid" className="d-block">
             {meta.error}
           </FormControl.Feedback>
         </>

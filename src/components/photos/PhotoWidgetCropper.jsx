@@ -7,6 +7,8 @@ export const PhotoWidgetCropper = ({ setImage, imagePreview }) => {
 
   const onCrop = () => {
     const imageElement = cropperRef?.current;
+
+    // @ts-ignore
     const cropper = imageElement?.cropper;
 
     if (!imageElement || !cropper) {
@@ -28,13 +30,13 @@ export const PhotoWidgetCropper = ({ setImage, imagePreview }) => {
       aspectRatio={1}
       guides={true}
       viewMode={1}
-      dragMode='move'
+      dragMode="move"
       scalable={true}
       cropBoxMovable={true}
       cropBoxResizable={true}
       minCropBoxHeight={200}
       minCropBoxWidth={200}
-      preview='.img-preview'
+      preview=".img-preview"
     />
   );
 };

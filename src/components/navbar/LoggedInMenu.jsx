@@ -1,12 +1,14 @@
-import { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Image, Modal, NavDropdown } from 'react-bootstrap';
 import { FaCog, FaPlus, FaSignOutAlt, FaUserAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 import { logoutUser } from '../../features/auth/store/authActions';
 
 export const LoggedInMenu = () => {
+  // @ts-ignore
   const { currentProfile } = useSelector((state) => state.userState);
 
   const [showModal, setShowModal] = useState(false);
@@ -34,6 +36,7 @@ export const LoggedInMenu = () => {
 
   useEffect(() => {
     setUnmounted(false);
+
     return () => {
       setUnmounted(true);
     };
@@ -49,10 +52,10 @@ export const LoggedInMenu = () => {
             </Modal.Header>
             <Modal.Body>Are you sure you want to logout?</Modal.Body>
             <Modal.Footer>
-              <Button variant='secondary' onClick={handleClose}>
+              <Button variant="secondary" onClick={handleClose}>
                 Not sure
               </Button>
-              <Button variant='danger' onClick={handleLogout}>
+              <Button variant="danger" onClick={handleLogout}>
                 Yes, logout
               </Button>
             </Modal.Footer>
@@ -61,45 +64,45 @@ export const LoggedInMenu = () => {
           <NavDropdown
             alignRight={true}
             title={
-              <Fragment>
+              <>
                 <Image
                   src={currentProfile.photoURL || '/assets/user.png'}
                   width={38.5}
                   fluid
                   roundedCircle
-                  className='mr-2'
+                  className="mr-2"
                 />
                 <span>{currentProfile.displayName}</span>
-              </Fragment>
+              </>
             }
-            id='collasible-nav-dropdown'
+            id="collasible-nav-dropdown"
           >
-            <NavDropdown.Item as={Link} to='/create-meetup'>
-              <div className='d-flex align-items-center'>
-                <FaPlus className='mr-2' />
+            <NavDropdown.Item as={Link} to="/create-meetup">
+              <div className="d-flex align-items-center">
+                <FaPlus className="mr-2" />
                 Create Meetup
               </div>
             </NavDropdown.Item>
             <NavDropdown.Item as={Link} to={`/profiles/${currentProfile.id}`}>
-              <div className='d-flex align-items-center'>
-                <FaUserAlt className='mr-2' />
+              <div className="d-flex align-items-center">
+                <FaUserAlt className="mr-2" />
                 My Profile
               </div>
             </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to='/account'>
-              <div className='d-flex align-items-center'>
-                <FaCog className='mr-2' />
+            <NavDropdown.Item as={Link} to="/account">
+              <div className="d-flex align-items-center">
+                <FaCog className="mr-2" />
                 My Account
               </div>
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item
-              as='a'
+              as="a"
               onClick={handleShow}
               style={{ cursor: 'pointer' }}
             >
-              <div className='d-flex align-items-center'>
-                <FaSignOutAlt className='mr-2' />
+              <div className="d-flex align-items-center">
+                <FaSignOutAlt className="mr-2" />
                 Logout
               </div>
             </NavDropdown.Item>
