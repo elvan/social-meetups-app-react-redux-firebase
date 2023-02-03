@@ -1,8 +1,9 @@
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
 import { ErrorComponent } from './components/errors/ErrorComponent';
 import { ModalManager } from './components/modals/ModalManager';
 import { AppNavbar } from './components/navbar/AppNavbar';
