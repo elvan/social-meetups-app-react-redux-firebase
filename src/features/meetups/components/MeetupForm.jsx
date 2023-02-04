@@ -1,7 +1,7 @@
 /* global google */
 
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Modal, Row, Spinner } from 'react-bootstrap';
 import {
   FaCalendarCheck,
@@ -60,6 +60,7 @@ export const MeetupForm = ({ meetup, history }) => {
 
   const [showModal, setShowModal] = useState(false);
 
+  // @ts-ignore
   const { loading } = useSelector((state) => state.asyncState);
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -102,7 +103,7 @@ export const MeetupForm = ({ meetup, history }) => {
             this meetup?
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={handleClose}>
+            <Button variant="secondary" onClick={handleClose}>
               Not sure
             </Button>
             <Button
@@ -115,8 +116,8 @@ export const MeetupForm = ({ meetup, history }) => {
         </Modal>
       )}
       <Row>
-        <Col xs={12} md={8} className='mb-3'>
-          <div className='rounded bg-white p-3 shadow'>
+        <Col xs={12} md={8} className="mb-3">
+          <div className="rounded bg-white p-3 shadow">
             <Formik
               initialValues={meetupData}
               validationSchema={validationSchema}
@@ -125,27 +126,27 @@ export const MeetupForm = ({ meetup, history }) => {
               {({ dirty, values, isSubmitting, isValid }) => (
                 <Form>
                   <fieldset>
-                    <legend className='text-info'>Meetup Details</legend>
+                    <legend className="text-info">Meetup Details</legend>
                     <MyTextInput
-                      name='title'
-                      label='Title'
+                      name="title"
+                      label="Title"
                       disabled={loading}
                     />
-                    <MyDateInput name='date' label='Date' />
+                    <MyDateInput name="date" label="Date" />
                     <MySelectInput
-                      name='category'
-                      label='Category'
+                      name="category"
+                      label="Category"
                       options={categoryOptions}
                     />
-                    <MyTextArea name='description' label='Description' />
+                    <MyTextArea name="description" label="Description" />
                   </fieldset>
 
                   <fieldset>
-                    <legend className='text-info'>Location Details</legend>
-                    <MyPlaceInput name='city' label='City' />
+                    <legend className="text-info">Location Details</legend>
+                    <MyPlaceInput name="city" label="City" />
                     <MyPlaceInput
-                      name='venue'
-                      label='Venue'
+                      name="venue"
+                      label="Venue"
                       disabled={!values.city.latLng}
                       options={{
                         location: new google.maps.LatLng(values.city.latLng),
@@ -155,18 +156,18 @@ export const MeetupForm = ({ meetup, history }) => {
                     />
                   </fieldset>
 
-                  <div className='d-flex'>
+                  <div className="d-flex">
                     <Button
                       disabled={!dirty || !isValid || isSubmitting}
-                      variant='primary'
-                      type='submit'
-                      className='mr-2'
+                      variant="primary"
+                      type="submit"
+                      className="mr-2"
                     >
-                      <div className='d-flex align-items-center'>
+                      <div className="d-flex align-items-center">
                         {isSubmitting ? (
-                          <Spinner animation='border' className='mr-2' />
+                          <Spinner animation="border" className="mr-2" />
                         ) : (
-                          <FaSave className='mr-2' />
+                          <FaSave className="mr-2" />
                         )}
                         Save Meetup
                       </div>
@@ -175,12 +176,12 @@ export const MeetupForm = ({ meetup, history }) => {
                     <Button
                       disabled={isSubmitting}
                       as={Link}
-                      to='/meetups'
-                      variant='light'
-                      type='button'
+                      to="/meetups"
+                      variant="light"
+                      type="button"
                     >
-                      <div className='d-flex align-items-center'>
-                        <FaChevronCircleLeft className='mr-2' />
+                      <div className="d-flex align-items-center">
+                        <FaChevronCircleLeft className="mr-2" />
                         Back to Meetups
                       </div>
                     </Button>
@@ -189,19 +190,19 @@ export const MeetupForm = ({ meetup, history }) => {
                       <Button
                         variant={meetup.isCancelled ? 'success' : 'danger'}
                         disabled={isSubmitting}
-                        type='button'
-                        className='ml-auto'
+                        type="button"
+                        className="ml-auto"
                         onClick={handleShow}
                       >
-                        <div className='d-flex align-items-center'>
+                        <div className="d-flex align-items-center">
                           {isSubmitting ? (
-                            <Spinner animation='border' className='mr-2' />
+                            <Spinner animation="border" className="mr-2" />
                           ) : (
                             <>
                               {meetup.isCancelled ? (
-                                <FaCalendarCheck className='mr-2' />
+                                <FaCalendarCheck className="mr-2" />
                               ) : (
-                                <FaCalendarTimes className='mr-2' />
+                                <FaCalendarTimes className="mr-2" />
                               )}
                             </>
                           )}
@@ -217,7 +218,7 @@ export const MeetupForm = ({ meetup, history }) => {
             </Formik>
           </div>
         </Col>
-        <Col xs={12} md={4} className='mb-3'>
+        <Col xs={12} md={4} className="mb-3">
           <h4>Sidebar</h4>
         </Col>
       </Row>

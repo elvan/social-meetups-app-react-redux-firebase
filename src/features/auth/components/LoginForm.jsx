@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import React from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
@@ -41,31 +42,31 @@ export const LoginForm = () => {
       }}
     >
       {({ errors, isSubmitting }) => (
-        <Form className='mb-4'>
+        <Form className="mb-4">
           {errors.auth && (
-            <div className='alert alert-danger' role='alert'>
+            <div className="alert alert-danger" role="alert">
               {errors.auth}
             </div>
           )}
 
-          <MyTextInput name='email' label='Email' />
-          <MyTextInput name='password' label='Password' type='password' />
+          <MyTextInput name="email" label="Email" />
+          <MyTextInput name="password" label="Password" type="password" />
 
           <Button
             disabled={isSubmitting}
-            type='submit'
+            type="submit"
             block
-            className='shadow'
+            className="shadow"
           >
-            <div className='d-flex align-items-center justify-content-center'>
+            <div className="d-flex align-items-center justify-content-center">
               {isSubmitting ? (
                 <>
-                  <Spinner animation='border' size='sm' className='mr-2' />
+                  <Spinner animation="border" size="sm" className="mr-2" />
                   Logging in...
                 </>
               ) : (
                 <>
-                  <FaSignInAlt size={15} className='mr-2' />
+                  <FaSignInAlt size={15} className="mr-2" />
                   Login
                 </>
               )}

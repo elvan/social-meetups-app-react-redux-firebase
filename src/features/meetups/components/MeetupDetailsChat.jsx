@@ -1,5 +1,5 @@
 import { formatDistance } from 'date-fns';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaComments } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,8 +23,11 @@ export const MeetupDetailsChat = ({ meetupId }) => {
     commentId: null,
   });
 
+  // @ts-ignore
   const { authenticated } = useSelector((state) => state.authState);
+
   const { comments, commentsIsLoading, commentsError } = useSelector(
+    // @ts-ignore
     (state) => state.meetupState
   );
 
@@ -40,7 +43,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
       }
       dispatch({
         type: GET_MEETUP_COMMENTS_SUCCESS,
-        payload: databaseObjectToArray(snapshot.val()).reverse(),
+        payload: databaseObjectToArray(snapshot.val())?.reverse(),
       });
     });
 
@@ -61,16 +64,16 @@ export const MeetupDetailsChat = ({ meetupId }) => {
   }
 
   return (
-    <div className='bg-white shadow rounded'>
-      <div className='card mb-5'>
-        <div className='card-header bg-info text-white'>
-          <div className='d-flex justify-content-center align-items-center'>
-            <FaComments size={15} className='mr-2' />
+    <div className="bg-white shadow rounded">
+      <div className="card mb-5">
+        <div className="card-header bg-info text-white">
+          <div className="d-flex justify-content-center align-items-center">
+            <FaComments size={15} className="mr-2" />
             Chat About This Meetup
           </div>
         </div>
 
-        <div className='card-body py-3'>
+        <div className="card-body py-3">
           {authenticated ? (
             <MeetupChatForm
               meetupId={meetupId}
@@ -79,11 +82,11 @@ export const MeetupDetailsChat = ({ meetupId }) => {
             />
           ) : (
             <>
-              <h5 className='text-center'>
+              <h5 className="text-center">
                 You need to be logged in to comment
               </h5>
-              <div className='d-flex justify-content-center'>
-                <Link to={`/login`} className='btn btn-info'>
+              <div className="d-flex justify-content-center">
+                <Link to={`/login`} className="btn btn-info">
                   Login
                 </Link>
               </div>
@@ -91,34 +94,34 @@ export const MeetupDetailsChat = ({ meetupId }) => {
           )}
         </div>
 
-        <hr className='my-2' />
+        <hr className="my-2" />
 
-        <div className='card-body py-3'>
+        <div className="card-body py-3">
           {comments.length === 0 && (
-            <div className='text-center'>
+            <div className="text-center">
               <h5>{commentsError}</h5>
             </div>
           )}
           {comments.length > 0 &&
             createDataTree(comments).map((comment) => (
-              <div key={comment.id} className='media mb-2' id={comment.id}>
+              <div key={comment.id} className="media mb-2" id={comment.id}>
                 <Link to={`/profiles/${comment.uid}` || '/assets/user.png'}>
                   <img
                     src={comment.photoURL}
-                    className='align-self-start mr-3 rounded-circle'
-                    alt='a man'
+                    className="align-self-start mr-3 rounded-circle"
+                    alt="a man"
                     width={50}
                   />
                 </Link>
 
-                <div className='media-body'>
+                <div className="media-body">
                   <h6>
                     <Link to={`/profiles/${comment.uid}`}>
                       {comment.displayName}
                     </Link>
                   </h6>
 
-                  <p className='mb-2'>
+                  <p className="mb-2">
                     {comment.text.split('\n').map((text, index) => (
                       <span key={`${comment.id}-${index}`}>
                         {text}
@@ -127,16 +130,16 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                     ))}
                   </p>
 
-                  <p className='text-muted mb-2'>
-                    <span className='mr-2'>
-                      <a href={`#${comment.id}`} className='text-secondary'>
+                  <p className="text-muted mb-2">
+                    <span className="mr-2">
+                      <a href={`#${comment.id}`} className="text-secondary">
                         {formatDistance(comment.date, new Date())}
                       </a>
                     </span>
 
                     {authenticated && (
                       <>
-                        <span className='mr-2'>
+                        <span className="mr-2">
                           <button
                             onClick={() =>
                               setShowReplyForm({
@@ -144,18 +147,18 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                                 commentId: comment.id,
                               })
                             }
-                            className='btn btn-sm mr-2'
+                            className="btn btn-sm mr-2"
                             style={{ cursor: 'pointer' }}
                           >
                             Reply
                           </button>
                         </span>
-                        <span className='mr-2'>
+                        <span className="mr-2">
                           {showReplyForm.open &&
                             showReplyForm.commentId === comment.id && (
                               <button
                                 onClick={handleCloseForm}
-                                className='btn btn-sm'
+                                className="btn btn-sm"
                                 style={{ cursor: 'pointer' }}
                               >
                                 Cancel
@@ -167,7 +170,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                   </p>
 
                   {authenticated && (
-                    <div className='mb-2'>
+                    <div className="mb-2">
                       {showReplyForm.open &&
                         showReplyForm.commentId === comment.id && (
                           <MeetupChatForm
@@ -184,7 +187,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                       {comment.childNodes.reverse().map((child) => (
                         <div
                           key={child.id}
-                          className='media mb-2'
+                          className="media mb-2"
                           id={child.id}
                         >
                           <Link
@@ -192,19 +195,19 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                           >
                             <img
                               src={child.photoURL}
-                              className='align-self-start mr-3 rounded-circle'
+                              className="align-self-start mr-3 rounded-circle"
                               alt={child.displayName}
                               width={50}
                             />
                           </Link>
-                          <div className='media-body'>
+                          <div className="media-body">
                             <h6>
                               <Link to={`/profiles/${child.uid}`}>
                                 {child.displayName}
                               </Link>
                             </h6>
 
-                            <p className='mb-2'>
+                            <p className="mb-2">
                               {child.replyToCommentId !== '' && (
                                 <>
                                   <a href={`#${child.replyToCommentId}`}>
@@ -220,11 +223,11 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                               ))}
                             </p>
 
-                            <p className='text-muted mb-2'>
-                              <span className='mr-2'>
+                            <p className="text-muted mb-2">
+                              <span className="mr-2">
                                 <a
                                   href={`#${child.id}`}
-                                  className='text-secondary'
+                                  className="text-secondary"
                                 >
                                   {formatDistance(child.date, new Date())}
                                 </a>
@@ -232,7 +235,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
 
                               {authenticated && (
                                 <>
-                                  <span className='mr-2'>
+                                  <span className="mr-2">
                                     <button
                                       onClick={() =>
                                         setShowReplyForm({
@@ -240,18 +243,18 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                                           commentId: child.id,
                                         })
                                       }
-                                      className='btn btn-sm mr-2'
+                                      className="btn btn-sm mr-2"
                                       style={{ cursor: 'pointer' }}
                                     >
                                       Reply
                                     </button>
                                   </span>
-                                  <span className='mr-2'>
+                                  <span className="mr-2">
                                     {showReplyForm.open &&
                                       showReplyForm.commentId === child.id && (
                                         <button
                                           onClick={handleCloseForm}
-                                          className='btn btn-sm'
+                                          className="btn btn-sm"
                                           style={{ cursor: 'pointer' }}
                                         >
                                           Cancel
@@ -263,7 +266,7 @@ export const MeetupDetailsChat = ({ meetupId }) => {
                             </p>
 
                             {authenticated && (
-                              <div className='mb-2'>
+                              <div className="mb-2">
                                 {showReplyForm.open &&
                                   showReplyForm.commentId === child.id && (
                                     <MeetupChatForm

@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import React from 'react';
 import { FaComment } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { MyTextArea } from '../../../components/form/MyTextArea';
@@ -35,19 +36,19 @@ export const MeetupChatForm = ({
       {({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           <MyTextArea
-            name='comment'
-            placeholder='Please enter your comment here'
+            name="comment"
+            placeholder="Please enter your comment here"
             rows={3}
             disabled={isSubmitting}
           />
 
           <button
-            className='btn btn-info btn-block'
-            type='submit'
+            className="btn btn-info btn-block"
+            type="submit"
             disabled={isSubmitting}
           >
-            <div className='d-flex justify-content-center align-items-center'>
-              <FaComment size={15} className='mr-2' />
+            <div className="d-flex justify-content-center align-items-center">
+              <FaComment size={15} className="mr-2" />
               Send Message
             </div>
           </button>

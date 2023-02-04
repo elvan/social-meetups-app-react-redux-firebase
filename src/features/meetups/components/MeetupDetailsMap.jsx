@@ -1,4 +1,5 @@
 import GoogleMapReact from 'google-map-react';
+import React from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY || '';
