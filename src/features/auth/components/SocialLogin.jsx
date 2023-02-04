@@ -15,7 +15,7 @@ export const SocialLogin = () => {
   };
 
   return (
-    <div className="col-6 mx-auto">
+    <div className="col-md-6 mx-auto">
       <button className="btn btn-outline-primary" onClick={handleLogin}>
         <div className="d-flex align-items-center justify-content-center">
           <FaGoogle className="mr-2" />
