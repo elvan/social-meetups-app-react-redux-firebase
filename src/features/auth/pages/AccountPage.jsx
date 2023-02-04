@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal, Spinner } from 'react-bootstrap';
 import { FaSave, FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import { loginUser, updatePassword } from '../store/authActions';
 
 export const AccountPage = () => {
   const { loading, error, currentUser } = useSelector(
+    // @ts-ignore
     (state) => state.authState
   );
 
@@ -70,35 +71,35 @@ export const AccountPage = () => {
             }}
           >
             {({ errors, isSubmitting }) => (
-              <Form className='mb-4'>
+              <Form className="mb-4">
                 {errors.auth && (
-                  <div className='alert alert-danger' role='alert'>
+                  <div className="alert alert-danger" role="alert">
                     {errors.auth}
                   </div>
                 )}
 
-                <MyTextInput name='email' label='Email' />
-                <MyTextInput name='password' label='Password' type='password' />
+                <MyTextInput name="email" label="Email" />
+                <MyTextInput name="password" label="Password" type="password" />
 
                 <Button
                   disabled={isSubmitting}
-                  type='submit'
+                  type="submit"
                   block
-                  className='shadow'
+                  className="shadow"
                 >
-                  <div className='d-flex align-items-center justify-content-center'>
+                  <div className="d-flex align-items-center justify-content-center">
                     {isSubmitting ? (
                       <>
                         <Spinner
-                          animation='border'
-                          size='sm'
-                          className='mr-2'
+                          animation="border"
+                          size="sm"
+                          className="mr-2"
                         />
                         Logging in...
                       </>
                     ) : (
                       <>
-                        <FaSignInAlt size={15} className='mr-2' />
+                        <FaSignInAlt size={15} className="mr-2" />
                         Login
                       </>
                     )}
@@ -110,8 +111,8 @@ export const AccountPage = () => {
         </Modal.Body>
       </Modal>
 
-      <div className='col-6 mx-auto'>
-        <div className='shadow rounded bg-white p-3 mb-3'>
+      <div className="col-6 mx-auto">
+        <div className="shadow rounded bg-white p-3 mb-3">
           <h3>Account</h3>
           <hr />
           {currentUser?.providerId === 'password' && (
@@ -157,39 +158,39 @@ export const AccountPage = () => {
                 {({ dirty, errors, isSubmitting, isValid }) => (
                   <Form>
                     {errors.auth && (
-                      <div className='alert alert-danger' role='alert'>
+                      <div className="alert alert-danger" role="alert">
                         {errors.auth}
                       </div>
                     )}
 
                     <MyTextInput
-                      name='newPassword1'
-                      type='password'
-                      label='New Password'
+                      name="newPassword1"
+                      type="password"
+                      label="New Password"
                       disabled={isSubmitting}
                     />
                     <MyTextInput
-                      name='newPassword2'
-                      type='password'
-                      label='Confirm Password'
+                      name="newPassword2"
+                      type="password"
+                      label="Confirm Password"
                       disabled={isSubmitting}
                     />
                     <Button
-                      type='submit'
+                      type="submit"
                       disabled={isSubmitting || !isValid || !dirty}
                     >
                       {isSubmitting ? (
                         <>
                           <Spinner
-                            animation='border'
-                            size='sm'
-                            className='mr-2'
+                            animation="border"
+                            size="sm"
+                            className="mr-2"
                           />
                           Updating...
                         </>
                       ) : (
                         <>
-                          <FaSave size={15} className='mr-2' />
+                          <FaSave size={15} className="mr-2" />
                           Update Password
                         </>
                       )}
@@ -205,10 +206,10 @@ export const AccountPage = () => {
               <h4>Google Account</h4>
               <p>Please visit Google to update your account</p>
               <a
-                href='https://google.com'
-                target='_blank'
-                rel='noreferrer'
-                className='btn btn-outline-primary'
+                href="https://google.com"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-outline-primary"
               >
                 Go to Google
               </a>

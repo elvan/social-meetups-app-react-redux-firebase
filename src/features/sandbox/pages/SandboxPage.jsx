@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,10 @@ const defaultProps = {
 };
 
 export const SandboxPage = () => {
+  // @ts-ignore
   const { loading } = useSelector((state) => state.asyncState);
+
+  // @ts-ignore
   const { data } = useSelector((state) => state.testState);
 
   const [target, setTarget] = useState('');
@@ -37,28 +40,28 @@ export const SandboxPage = () => {
 
   return (
     <div>
-      <div className='mb-3'>
+      <div className="mb-3">
         <p>
           The data from the redux store is: <strong>{data}</strong>
         </p>
 
         <button
-          className='btn btn-success mr-2'
+          className="btn btn-success mr-2"
           disabled={loading && target === 'increment'}
           onClick={() => {
             dispatch(increment(5));
             setTarget('increment');
           }}
         >
-          <div className='d-flex align-items-center justify-content-center'>
+          <div className="d-flex align-items-center justify-content-center">
             {loading && target === 'increment' ? (
               <>
-                <Spinner animation='border' size='sm' className='mr-2' />
+                <Spinner animation="border" size="sm" className="mr-2" />
                 Incrementing...
               </>
             ) : (
               <>
-                <FaPlusCircle size={15} className='mr-2' />
+                <FaPlusCircle size={15} className="mr-2" />
                 Increment
               </>
             )}
@@ -66,22 +69,22 @@ export const SandboxPage = () => {
         </button>
 
         <button
-          className='btn btn-danger mr-2'
+          className="btn btn-danger mr-2"
           disabled={loading && target === 'decrement'}
           onClick={() => {
             dispatch(decrement(5));
             setTarget('decrement');
           }}
         >
-          <div className='d-flex align-items-center justify-content-center'>
+          <div className="d-flex align-items-center justify-content-center">
             {loading && target === 'decrement' ? (
               <>
-                <Spinner animation='border' size='sm' className='mr-2' />
+                <Spinner animation="border" size="sm" className="mr-2" />
                 Decrementing...
               </>
             ) : (
               <>
-                <FaMinusCircle size={15} className='mr-2' />
+                <FaMinusCircle size={15} className="mr-2" />
                 Decrement
               </>
             )}
@@ -89,9 +92,9 @@ export const SandboxPage = () => {
         </button>
       </div>
 
-      <div className='mb-3'>
+      <div className="mb-3">
         <button
-          className='btn btn-primary mr-2'
+          className="btn btn-primary mr-2"
           onClick={() => {
             dispatch(
               openModal({
@@ -105,7 +108,7 @@ export const SandboxPage = () => {
         </button>
 
         <button
-          className='btn btn-info mr-2'
+          className="btn btn-info mr-2"
           onClick={() => {
             toast.info('Info Toast');
           }}
@@ -114,11 +117,11 @@ export const SandboxPage = () => {
         </button>
       </div>
 
-      <div className='mb-3'>
+      <div className="mb-3">
         <TestPlaceInput handleSetLocation={handleSetLocation} />
       </div>
 
-      <div className='mb-3'>
+      <div className="mb-3">
         <TestMap location={location} />
       </div>
     </div>

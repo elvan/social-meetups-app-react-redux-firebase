@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorComponent } from '../../../components/errors/ErrorComponent';
 import { Loading } from '../../../components/loading/Loading';
@@ -13,6 +13,7 @@ export const MeetupUpdatePage = ({ history, match }) => {
   const id = match.params.id;
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const { loading, error, meetups } = useSelector((state) => state.meetupState);
 
   if (id) {

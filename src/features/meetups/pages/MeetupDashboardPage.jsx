@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -12,7 +12,10 @@ import { listMeetups } from '../store/meetupActions';
 export const MeetupDashboardPage = () => {
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const { loading, error } = useSelector((state) => state.asyncState);
+
+  // @ts-ignore
   const { meetups } = useSelector((state) => state.meetupState);
 
   const predicates = new Map();
@@ -50,7 +53,7 @@ export const MeetupDashboardPage = () => {
   return (
     <>
       {error?.message && (
-        <div className='alert alert-danger'>
+        <div className="alert alert-danger">
           <div>{error.message}</div>
         </div>
       )}

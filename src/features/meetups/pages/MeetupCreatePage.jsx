@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { MeetupForm } from '../components/MeetupForm';
 
 export const MeetupCreatePage = ({ history }) => {

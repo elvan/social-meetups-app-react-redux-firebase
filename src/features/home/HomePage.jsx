@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FaUserPlus, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { SocialLogin } from '../auth/components/SocialLogin';
 
 export const HomePage = () => {
   return (
-    <Fragment>
+    <>
       <div className="container-lg pt-5">
         <Row className="mt-5">
           <Col xs={12} md={6} className="mb-3 py-5 px-3">
@@ -78,6 +78,6 @@ export const HomePage = () => {
           </span>
         </div>
       </footer>
-    </Fragment>
+    </>
   );
 };

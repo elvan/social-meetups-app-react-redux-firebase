@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorComponent } from '../../../components/errors/ErrorComponent';
@@ -15,7 +15,10 @@ export const MeetupDetailsPage = ({ match }) => {
   const id = match.params.id;
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const { loading, error, meetups } = useSelector((state) => state.meetupState);
+
+  // @ts-ignore
   const { currentUser } = useSelector((state) => state.authState);
 
   const meetup = meetups.find((meetup) => meetup.id === id);
